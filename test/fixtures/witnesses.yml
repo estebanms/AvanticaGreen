@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  player_id: 1
+  infraction_id: 1
+  status_id: 1
+
+two:
+  player_id: 1
+  infraction_id: 1
+  status_id: 1

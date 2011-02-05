@@ -1,0 +1,2 @@
+class CommentType < PostType
+end

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @infraction_type.name %>
+</p>
+
+<p>
+  <b>Points:</b>
+  <%= @infraction_type.points %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @infraction_type.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_infraction_type_path(@infraction_type) %> |
+<%= link_to 'Back', infraction_types_path %>

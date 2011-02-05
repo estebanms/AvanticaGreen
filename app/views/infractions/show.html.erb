@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Game:</b>
+  <%= @infraction.game_id %>
+</p>
+
+<p>
+  <b>Player:</b>
+  <%= @infraction.player_id %>
+</p>
+
+<p>
+  <b>Team:</b>
+  <%= @infraction.team_id %>
+</p>
+
+<p>
+  <b>Offender:</b>
+  <%= @infraction.offender_id %>
+</p>
+
+<p>
+  <b>Infraction type:</b>
+  <%= @infraction.infraction_type_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @infraction.status_id %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @infraction.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_infraction_path(@infraction) %> |
+<%= link_to 'Back', infractions_path %>

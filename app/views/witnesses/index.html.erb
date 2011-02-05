@@ -1,0 +1,27 @@
+<h1>Listing witnesses</h1>
+
+<table>
+  <tr>
+    <th>Player</th>
+    <th>Infraction</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @witnesses.each do |witness| %>
+  <tr>
+    <td><%= witness.player_id %></td>
+    <td><%= witness.infraction_id %></td>
+    <td><%= witness.status_id %></td>
+    <td><%= link_to 'Show', witness %></td>
+    <td><%= link_to 'Edit', edit_witness_path(witness) %></td>
+    <td><%= link_to 'Destroy', witness, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Witness', new_witness_path %>

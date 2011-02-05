@@ -1,0 +1,21 @@
+<h1>Listing suggestions</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @suggestions.each do |suggestion| %>
+  <tr>
+    <td><%= link_to 'Show', suggestion %></td>
+    <td><%= link_to 'Edit', edit_suggestion_path(suggestion) %></td>
+    <td><%= link_to 'Destroy', suggestion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Suggestion', new_suggestion_path %>

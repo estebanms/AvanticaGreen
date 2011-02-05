@@ -1,0 +1,2 @@
+class Suggestion < Post
+end

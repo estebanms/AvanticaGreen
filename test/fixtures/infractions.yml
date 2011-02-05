@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  game_id: 1
+  player_id: 1
+  team_id: 1
+  offender_id: 1
+  infraction_type_id: 1
+  status_id: 1
+  description: MyText
+
+two:
+  game_id: 1
+  player_id: 1
+  team_id: 1
+  offender_id: 1
+  infraction_type_id: 1
+  status_id: 1
+  description: MyText

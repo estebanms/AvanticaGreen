@@ -1,4 +1,28 @@
 AvanticaGreen::Application.routes.draw do
+  resources :comment_types
+
+  resources :suggestion_types
+
+  resources :comments
+
+  resources :suggestions
+
+  resources :witnesses
+
+  resources :infractions
+
+  resources :statuses
+
+  resources :infraction_types
+
+  resources :players
+
+  devise_for :users
+
+  resources :teams
+
+  resources :games
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

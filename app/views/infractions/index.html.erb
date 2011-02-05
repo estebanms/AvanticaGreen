@@ -1,0 +1,35 @@
+<h1>Listing infractions</h1>
+
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Player</th>
+    <th>Team</th>
+    <th>Offender</th>
+    <th>Infraction type</th>
+    <th>Status</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @infractions.each do |infraction| %>
+  <tr>
+    <td><%= infraction.game_id %></td>
+    <td><%= infraction.player_id %></td>
+    <td><%= infraction.team_id %></td>
+    <td><%= infraction.offender_id %></td>
+    <td><%= infraction.infraction_type_id %></td>
+    <td><%= infraction.status_id %></td>
+    <td><%= infraction.description %></td>
+    <td><%= link_to 'Show', infraction %></td>
+    <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
+    <td><%= link_to 'Destroy', infraction, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Infraction', new_infraction_path %>

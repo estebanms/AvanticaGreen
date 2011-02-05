@@ -1,0 +1,27 @@
+<h1>Listing infraction_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Points</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @infraction_types.each do |infraction_type| %>
+  <tr>
+    <td><%= infraction_type.name %></td>
+    <td><%= infraction_type.points %></td>
+    <td><%= infraction_type.description %></td>
+    <td><%= link_to 'Show', infraction_type %></td>
+    <td><%= link_to 'Edit', edit_infraction_type_path(infraction_type) %></td>
+    <td><%= link_to 'Destroy', infraction_type, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Infraction type', new_infraction_type_path %>

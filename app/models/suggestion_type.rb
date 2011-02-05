@@ -1,0 +1,2 @@
+class SuggestionType < PostType
+end

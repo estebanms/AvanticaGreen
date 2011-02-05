@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  player_id: 1
+  description: MyText
+  post_type_id: 1
+  infraction_id: 1
+  type: MyString
+
+two:
+  player_id: 1
+  description: MyText
+  post_type_id: 1
+  infraction_id: 1
+  type: MyString

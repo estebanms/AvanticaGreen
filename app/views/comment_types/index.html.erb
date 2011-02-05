@@ -1,0 +1,21 @@
+<h1>Listing comment_types</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @comment_types.each do |comment_type| %>
+  <tr>
+    <td><%= link_to 'Show', comment_type %></td>
+    <td><%= link_to 'Edit', edit_comment_type_path(comment_type) %></td>
+    <td><%= link_to 'Destroy', comment_type, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Comment type', new_comment_type_path %>
