@@ -1,0 +1,14 @@
+log
+tmp
+.DS_Store
+.project
+.settings
+.tmp*
+log/*.log
+tmp/**/*
+db/*.sqlite3
+vendor/rails
+**/*.tmp*
+public/photos/*
+config/database.yml
+nbproject
