@@ -12,3 +12,5 @@ vendor/rails
 public/photos/*
 config/database.yml
 nbproject
+*~
+

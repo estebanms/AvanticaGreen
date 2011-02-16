@@ -1,4 +1,4 @@
-<%= form_for(@infraction) do |f| %>
+<%= form_for(@infraction , :html => { :multipart => true }) do |f| %>
   <% if @infraction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@infraction.errors.count, "error") %> prohibited this infraction from being saved:</h2>
@@ -39,7 +39,16 @@
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </div>
+  <div class="field">
+    <%= f.label "Evidence" %><br />
+    <%= f.file_field :photo %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+
+
+
+
+
 <% end %>
