@@ -13,4 +13,11 @@ class Infraction < ActiveRecord::Base
   validates :offender, :presence => true
   validates :infraction_type, :presence => true
   #validates :witnesses, :length => { :minimum => 1 }, :if => Proc.new { |infraction| infraction.photo.nil? }
+  
+  #paperclip image:
+  has_attached_file :photo,
+    :styles => {
+       :thumb => "100x100#",
+       :small  => "400x400>" 
+    }
 end
