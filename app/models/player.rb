@@ -12,4 +12,8 @@ class Player < ActiveRecord::Base
   validates :last_names, :presence => true
   #validates :user, :presence => true
   validates :team, :presence => true
+  
+  def full_name
+    "#{self.name} #{self.last_names}"
+  end
 end

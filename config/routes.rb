@@ -3,13 +3,13 @@ AvanticaGreen::Application.routes.draw do
 
   resources :suggestion_types
 
-  resources :comments
-
   resources :suggestions
 
   resources :witnesses
 
-  resources :infractions
+  resources :infractions do
+    resources :comments
+  end
 
   resources :statuses
 

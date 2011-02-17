@@ -25,6 +25,9 @@ class InfractionsController < ApplicationController
   # GET /infractions/new.xml
   def new
     @infraction = Infraction.new
+    @infraction.game = current_game
+    @infraction.player = current_player
+    @infraction.team = current_player.team rescue nil
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +44,9 @@ class InfractionsController < ApplicationController
   # POST /infractions.xml
   def create
     @infraction = Infraction.new(params[:infraction])
+    @infraction.game = current_game
+    @infraction.player = current_player
+    @infraction.team = current_player.team rescue nil
 
     respond_to do |format|
       if @infraction.save

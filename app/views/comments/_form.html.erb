@@ -11,6 +11,17 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= f.label :description, 'Comment' %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= check_box_tag :anonymous, @anonymous, { :checked => @anonymous } %> Add comment as anonymous user
+  </div>
+  <div class="field">
+    <%= f.label :post_type_id, 'Comment type' %><br />
+    <%= f.text_field :post_type_id %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

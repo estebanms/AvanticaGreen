@@ -35,12 +35,15 @@ class SuggestionsController < ApplicationController
   # GET /suggestions/1/edit
   def edit
     @suggestion = Suggestion.find(params[:id])
+    @anonymous = @suggestion.anonymous?
   end
 
   # POST /suggestions
   # POST /suggestions.xml
   def create
+    @anonymous = params[:anonymous]
     @suggestion = Suggestion.new(params[:suggestion])
+    @suggestion.player = current_player unless @anonymous
 
     respond_to do |format|
       if @suggestion.save

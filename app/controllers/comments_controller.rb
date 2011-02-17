@@ -1,8 +1,11 @@
 class CommentsController < ApplicationController
+  include CommentsHelper
+  before_filter :get_infraction
+
   # GET /comments
   # GET /comments.xml
   def index
-    @comments = Comment.all
+    @comments = @infraction.comments
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +28,7 @@ class CommentsController < ApplicationController
   # GET /comments/new.xml
   def new
     @comment = Comment.new
+    @comment.infraction = @infraction
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,12 +39,16 @@ class CommentsController < ApplicationController
   # GET /comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
+    @anonymous = @comment.anonymous?
   end
 
   # POST /comments
   # POST /comments.xml
   def create
+    @anonymous = params[:anonymous]
     @comment = Comment.new(params[:comment])
+    @comment.infraction = @infraction
+    @comment.player = current_player unless @anonymous
 
     respond_to do |format|
       if @comment.save
@@ -79,5 +87,10 @@ class CommentsController < ApplicationController
       format.html { redirect_to(comments_url) }
       format.xml  { head :ok }
     end
+  end
+
+private
+  def get_infraction
+    @infraction = Infraction.find(params[:infraction_id])
   end
 end

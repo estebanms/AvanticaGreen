@@ -1,4 +1,4 @@
-class Comment < ActiveRecord::Base
+class Comment < Post
   belongs_to :infraction
   belongs_to :comment_type, :foreign_key => 'post_type_id'
   

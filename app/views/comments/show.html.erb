@@ -1,5 +1,24 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <b>Date:</b>
+  <%= @comment.created_at %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @comment.player_name %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @comment.comment_type %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @comment.description %>
+</p>
 
 <%= link_to 'Edit', edit_comment_path(@comment) %> |
 <%= link_to 'Back', comments_path %>

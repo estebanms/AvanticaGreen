@@ -1,5 +1,24 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <b>Date:</b>
+  <%= @suggestion.created_at %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @suggestion.player_name %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @suggestion.suggestion_type %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @suggestion.description %>
+</p>
 
 <%= link_to 'Edit', edit_suggestion_path(@suggestion) %> |
 <%= link_to 'Back', suggestions_path %>

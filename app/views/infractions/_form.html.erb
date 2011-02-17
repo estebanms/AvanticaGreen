@@ -12,16 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :game_id %><br />
-    <%= f.text_field :game_id %>
-  </div>
-  <div class="field">
-    <%= f.label :player_id %><br />
-    <%= f.text_field :player_id %>
-  </div>
-  <div class="field">
-    <%= f.label :team_id %><br />
-    <%= f.text_field :team_id %>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
   </div>
   <div class="field">
     <%= f.label :offender_id %><br />
@@ -34,10 +26,6 @@
   <div class="field">
     <%= f.label :status_id %><br />
     <%= f.text_field :status_id %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
   </div>
   <div class="actions">
     <%= f.submit %>
