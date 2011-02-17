@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :game_id %><br />
-    <%= f.text_field :game_id %>
+    <%= f.collection_select(:game_id, Game.all, :id, :name)%>
   </div>
   <div class="field">
     <%= f.label :player_id %><br />
@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :team_id %><br />
-    <%= f.text_field :team_id %>
+    <%= f.collection_select(:team_id, Team.all, :id, :name)%>
   </div>
   <div class="field">
     <%= f.label :offender_id %><br />
@@ -29,6 +29,7 @@
   </div>
   <div class="field">
     <%= f.label :infraction_type_id %><br />
+    <%= f.collection_select(:infraction_type_id, InfractionType.all, :id, :name)%>
     <%= f.text_field :infraction_type_id %>
   </div>
   <div class="field">
