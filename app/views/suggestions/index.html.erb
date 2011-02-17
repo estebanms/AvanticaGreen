@@ -10,7 +10,7 @@
 
 <% @suggestions.each do |suggestion| %>
   <tr>
-    <td><%= suggestion.created_at %></td>
+    <td><%= format_date(suggestion.created_at) %></td>
     <td><%= suggestion.player_name %></td>
     <td><%= suggestion.suggestion_type %></td>
     <td><%= suggestion.description %></td>

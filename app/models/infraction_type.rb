@@ -4,4 +4,8 @@ class InfractionType < ActiveRecord::Base
   
   validates :name, :presence => true, :uniqueness => true
   validates :points, :numericality => true
+  
+  def to_s
+    self.name
+  end
 end

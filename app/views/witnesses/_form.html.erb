@@ -13,15 +13,11 @@
 
   <div class="field">
     <%= f.label :player_id %><br />
-    <%= f.text_field :player_id %>
-  </div>
-  <div class="field">
-    <%= f.label :infraction_id %><br />
-    <%= f.text_field :infraction_id %>
+    <%= players_select(:witness) %>
   </div>
   <div class="field">
     <%= f.label :status_id %><br />
-    <%= f.text_field :status_id %>
+    <%= statuses_select(:witness) %>
   </div>
   <div class="actions">
     <%= f.submit %>

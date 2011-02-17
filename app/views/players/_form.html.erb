@@ -20,12 +20,8 @@
     <%= f.text_field :last_names %>
   </div>
   <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
     <%= f.label :team_id %><br />
-    <%= f.text_field :team_id %>
+    <%= teams_select(:player) %>
   </div>
   <div class="actions">
     <%= f.submit %>

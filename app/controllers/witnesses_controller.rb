@@ -1,4 +1,5 @@
 class WitnessesController < ApplicationController
+  # TODO: make this part of an infraction in the routes
   # GET /witnesses
   # GET /witnesses.xml
   def index
