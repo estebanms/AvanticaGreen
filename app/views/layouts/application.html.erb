@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>AvanticaGreen</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title>AvanticaGreen</title>
+      <%= stylesheet_link_tag :all %>
+      <%= javascript_include_tag :defaults %>
+      <%= javascript_include_tag 'rails' %>
+      <% if(is_admin?) %>
+	<%= stylesheet_link_tag "admin" , :media => "all" %>
+      <% else %>
+	<%= stylesheet_link_tag "green" , :media => "all" %>
+      <% end %>
+      <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div id="header">
+      Header Section<br/>
+      <% if user_signed_in? %>
+	Signed in as <%= current_user.player.is_admin ? 'ADMINISTRATOR ' : 'NOT ADMINISTRATOR '%>(<%= current_user.email %>)
+      <% else %>
+	not signed in or player hasn't been created for user
+      <% end %>
+    </div>
+    <div id="leftcol">
+      Left Section
+      <div id=menu>
+	<%= link_to 'Scoreboard',score_index_path %><br/>
+	<%= link_to 'Infractions',infractions_path %><br/>
+	<% if(is_admin?) %>
+	  <%= link_to 'Games', games_path %><br/>
+	  <%= link_to 'Teams', teams_path %><br/>
+	  <%= link_to 'Infraction types',infraction_types_path %><br/>
+	  <%= link_to 'Players', players_path %><br/>
+	<% end %>
+      </div>
+    </div>
+    <div id="content">Content Section
+      <%= yield :layout %>
+    </div>
+  </body>
 </html>

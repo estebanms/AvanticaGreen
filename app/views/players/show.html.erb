@@ -12,14 +12,18 @@
 
 <p>
   <b>User:</b>
-  <%= @player.user_id %>
+  <%= @player.user.email %>
 </p>
 
 <p>
   <b>Team:</b>
-  <%= @player.team_id %>
+  <%= @player.team.name %>
 </p>
 
+<p>
+<b>Is administrator:</b>
+  <%= @player.is_admin %>
+</p>
 
 <%= link_to 'Edit', edit_player_path(@player) %> |
 <%= link_to 'Back', players_path %>

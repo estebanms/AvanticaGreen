@@ -1,10 +1,16 @@
 <h1>Listing infractions</h1>
-
+  <% unless current_user.nil? %>
+    <%= form_tag ({:action => 'index', :controller => 'infractions'},{:method => 'get'}) do %>
+      <p> 
+	<%= check_box_tag 'show_open'%><%= label_tag 'show_open_only' %>
+      </p> 
+      <p> <%= button_to "Filter"%> </p>
+    <% end %>  
+  <%end%>
 <table>
   <tr>
     <th>Game</th>
-    <th>Player</th>
-    <th>Team</th>
+    <th>Created by Player (Team)</th>
     <th>Offender</th>
     <th>Infraction type</th>
     <th>Status</th>
@@ -16,16 +22,17 @@
 
 <% @infractions.each do |infraction| %>
   <tr>
-    <td><%= infraction.game_id %></td>
-    <td><%= infraction.player_id %></td>
-    <td><%= infraction.team_id %></td>
-    <td><%= infraction.offender_id %></td>
-    <td><%= infraction.infraction_type_id %></td>
-    <td><%= infraction.status_id %></td>
+    <td><%= infraction.game.name %></td>
+    <td><%= infraction.player.full_name %> (<%= infraction.team.name %>)</td>
+    <td><%= infraction.offender.name %></td>
+    <td><%= infraction.infraction_type.name %></td>
+    <td><%= infraction.status.name %></td>
     <td><%= infraction.description %></td>
     <td><%= link_to 'Show', infraction %></td>
-    <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
-    <td><%= link_to 'Destroy', infraction, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if(is_admin?) %>
+	<td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
+	<td><%= link_to 'Destroy', infraction, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

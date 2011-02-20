@@ -20,8 +20,16 @@
     <%= f.text_field :last_names %>
   </div>
   <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.collection_select(:user_id, User.all, :id, :email) %>
+  </div>
+  <div class="field">
     <%= f.label :team_id %><br />
     <%= teams_select(:player) %>
+  </div>
+   <div class="field">
+    <%= f.label :is_admin %><br />
+    <%= f.check_box :is_admin %>
   </div>
   <div class="actions">
     <%= f.submit %>

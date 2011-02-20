@@ -11,6 +11,9 @@
     </div>
   <% end %>
 
+<div>
+
+
   <div class="field">
     <%= f.label :description %><br />
     <%= f.text_area :description %>
@@ -23,10 +26,12 @@
     <%= f.label :infraction_type_id %><br />
     <%= infraction_types_select %>
   </div>
+  <% if action_name =='edit' %>
   <div class="field">
     <%= f.label :status_id %><br />
     <%= statuses_select(:infraction) %>
   </div>
+  <% end %>
   <div class="field">
     <%= f.label :photo, 'Evidence' %><br />
     <%= f.file_field :photo %>

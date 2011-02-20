@@ -2,32 +2,32 @@
 
 <p>
   <b>Game:</b>
-  <%= @infraction.game_id %>
+  <%= @infraction.game.name %>
 </p>
 
 <p>
   <b>Player:</b>
-  <%= @infraction.player_id %>
+  <%= @infraction.player.full_name%>
 </p>
 
 <p>
   <b>Team:</b>
-  <%= @infraction.team_id %>
+  <%= @infraction.team.name %>
 </p>
 
 <p>
   <b>Offender:</b>
-  <%= @infraction.offender_id %>
+  <%= @infraction.offender.name %>
 </p>
 
 <p>
   <b>Infraction type:</b>
-  <%= @infraction.infraction_type_id %>
+  <%= @infraction.infraction_type.name %>
 </p>
 
 <p>
   <b>Status:</b>
-  <%= @infraction.status_id %>
+  <%= @infraction.status.name %>
 </p>
 
 <p>
@@ -35,6 +35,8 @@
   <%= @infraction.description %>
 </p>
 
+<% if(is_admin?) %>
+  <%= link_to 'Edit', edit_infraction_path(@infraction) %> |
+<% end %>
 
-<%= link_to 'Edit', edit_infraction_path(@infraction) %> |
 <%= link_to 'Back', infractions_path %>

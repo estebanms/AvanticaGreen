@@ -6,6 +6,7 @@
     <th>Last names</th>
     <th>User</th>
     <th>Team</th>
+    <th>Administrator ?</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,8 +16,9 @@
   <tr>
     <td><%= player.name %></td>
     <td><%= player.last_names %></td>
-    <td><%= player.user_id %></td>
-    <td><%= player.team_id %></td>
+    <td><%= player.user.email %></td>
+    <td><%= player.team.name %></td>
+    <td><%= player.is_admin %></td>
     <td><%= link_to 'Show', player %></td>
     <td><%= link_to 'Edit', edit_player_path(player) %></td>
     <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>

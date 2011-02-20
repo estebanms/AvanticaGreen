@@ -6,7 +6,7 @@ gem 'rails', '3.0.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-gem 'devise'
+gem "devise", :git => "git://github.com/plataformatec/devise.git"
 gem 'paperclip'
 gem 'rmagick'
 

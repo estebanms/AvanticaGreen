@@ -9,6 +9,9 @@ AvanticaGreen::Application.routes.draw do
 
   resources :infractions do
     resources :comments
+    collection do
+      get 'filter'
+    end
   end
 
   resources :statuses
@@ -22,7 +25,11 @@ AvanticaGreen::Application.routes.draw do
   resources :teams
 
   resources :games
+  
+  resources :score 
+  
 
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -72,7 +79,7 @@ AvanticaGreen::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+   root :to => "score#index"
 
   # See how all your routes lay out with "rake routes"
 

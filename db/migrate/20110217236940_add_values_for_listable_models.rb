@@ -32,7 +32,7 @@ class AddValuesForListableModels < ActiveRecord::Migration
     { :name => 'barracudas', :description => 'los artistas del 4 piso', :code => 'qwer'},
   ]
   @@players = [
-    { :name => 'amanda', :last_names => 'segovia',:user_id => 1, :team_id => 1},
+    { :name => 'amanda', :last_names => 'segovia',:user_id => 1, :team_id => 1, :is_admin => true},
   ]
   
   
@@ -45,7 +45,7 @@ class AddValuesForListableModels < ActiveRecord::Migration
     @@games.each { |type| Game.new(:name => type[:name], :active => type[:active], :start_date => type[:start_date], :end_date => type[:end_date]).save }
     @@teams.each { |type| Team.new(:name => type[:name], :description => type[:description], :code => type[:code]).save              
     }
-    @@players.each { |type| Player.new(:name => type[:name], :last_names => type[:last_names],:user_id => type[:user_id], :team_id => type[:team_id]).save }
+    @@players.each { |type| Player.new(:name => type[:name], :last_names => type[:last_names],:user_id => type[:user_id], :team_id => type[:team_id], :is_admin => type[:is_admin]).save }
   end
 
   def self.down
