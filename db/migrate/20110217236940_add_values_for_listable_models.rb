@@ -11,10 +11,10 @@ class AddValuesForListableModels < ActiveRecord::Migration
     { :name => 'Question', :description => 'Question' },
   ]
   @@infraction_types = [
-    { :name => 'Monitor on', :description => 'Monitor on' },
-    { :name => 'Lights on', :description => 'Lights on' },
-    { :name => 'Water tap open', :description => 'Water tap open' },
-    { :name => 'Other', :description => 'Other' },
+    { :name => 'Monitor on', :description => 'Monitor on', :points => 5 },
+    { :name => 'Lights on', :description => 'Lights on', :points => 2 },
+    { :name => 'Water tap open', :description => 'Water tap open', :points => 4 },
+    { :name => 'Other', :description => 'Other', :points => 1 },
   ]
   @@statuses = [
     { :name => 'Pending revision', :description => 'Pending revision' },
@@ -40,7 +40,7 @@ class AddValuesForListableModels < ActiveRecord::Migration
   def self.up
     @@comment_types.each { |type| CommentType.new(:name => type[:name], :description => type[:description]).save }
     @@suggestion_types.each { |type| SuggestionType.new(:name => type[:name], :description => type[:description]).save }
-    @@infraction_types.each { |type| InfractionType.new(:name => type[:name], :description => type[:description]).save }
+    @@infraction_types.each { |type| InfractionType.new(:name => type[:name], :description => type[:description], :points => type[:points]).save }
     @@statuses.each { |type| Status.new(:name => type[:name], :description => type[:description]).save }
     @@games.each { |type| Game.new(:name => type[:name], :active => type[:active], :start_date => type[:start_date], :end_date => type[:end_date]).save }
     @@teams.each { |type| Team.new(:name => type[:name], :description => type[:description], :code => type[:code]).save              

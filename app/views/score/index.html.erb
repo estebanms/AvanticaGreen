@@ -1,1 +1,16 @@
-<h1>Scoreboard</h1>
+<h1>Standings</h1>
+
+
+<table>
+  <tr>
+    <th>Team</th>
+    <th>Points</th>
+  </tr>
+
+<% @table.each do |team| %>
+  <tr>
+    <td><%= team.name %></td>
+    <td><%= team.score.to_int %></td>
+  </tr>
+<% end %>
+</table>

@@ -11,6 +11,8 @@ class InfractionsController < ApplicationController
       conditions ='where 1 = 1 '
       conditions = conditions +" and offender_id = #{current_user.player.team_id}" unless is_admin? #non-admins will see infractions commited by team only
       conditions = conditions +' and status_id = 1' if show_open_only
+      
+      #debo investigar si hay una forma de usar active record para concatenar condiciones para no usar find_by_sql
       @infractions = Infraction.find_by_sql('select * from infractions '+conditions)
     else
       @infractions = Infraction.all
