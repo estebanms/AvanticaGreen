@@ -10,7 +10,7 @@
 <table>
   <tr>
     <th>Game</th>
-    <th>Created by Player (Team)</th>
+    <th>Witness (Team)</th>
     <th>Offender</th>
     <th>Infraction type</th>
     <th>Status</th>
@@ -23,7 +23,7 @@
 <% @infractions.each do |infraction| %>
   <tr>
     <td><%= infraction.game.name %></td>
-    <td><%= infraction.player.full_name %> (<%= infraction.team.name %>)</td>
+    <td><%= infraction.player.full_name %> (<%= infraction.player.team.name %>)</td>
     <td><%= infraction.offender.name %></td>
     <td><%= infraction.infraction_type.name %></td>
     <td><%= infraction.status.name %></td>

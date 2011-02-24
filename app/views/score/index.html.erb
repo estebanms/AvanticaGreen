@@ -3,12 +3,15 @@
 
 <table>
   <tr>
+    <th></th>
     <th>Team</th>
     <th>Points</th>
   </tr>
-
+<%row = 0%>
 <% @table.each do |team| %>
+  <%row = row + 1%>
   <tr>
+    <td><%= row.to_s %></td>
     <td><%= team.name %></td>
     <td><%= team.score.to_int %></td>
   </tr>

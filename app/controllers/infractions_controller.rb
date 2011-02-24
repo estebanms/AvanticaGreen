@@ -40,7 +40,6 @@ class InfractionsController < ApplicationController
   def new
     @infraction = Infraction.new
     @infraction.game = current_game
-    @infraction.player = current_player
     @infraction.team = current_player.team rescue nil
    
     
@@ -61,7 +60,6 @@ class InfractionsController < ApplicationController
   def create
     @infraction = Infraction.new(params[:infraction])
     @infraction.game = current_game
-    @infraction.player = current_player
     @infraction.team = current_player.team rescue nil
     @infraction.status = Status.find_by_name("Pending revision")
      

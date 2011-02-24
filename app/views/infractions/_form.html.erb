@@ -19,6 +19,10 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
+    <%= f.label :witness_id %><br />
+    <%= players_select(:infraction, :player_id) %>
+  </div>
+  <div class="field">
     <%= f.label :offender_id %><br />
     <%= teams_select(:infraction, :offender_id) %>
   </div>
