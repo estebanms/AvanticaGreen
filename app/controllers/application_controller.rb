@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  helper_method :current_player, :is_admin?
+  
   def current_game
     Game.active.first
   end
@@ -10,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
   
   def is_admin?
-    current_player.nil? ? false : current_user.player.is_admin
+    current_player && current_player.is_admin
   end
 
 end

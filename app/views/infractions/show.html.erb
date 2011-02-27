@@ -6,8 +6,8 @@
 </p>
 
 <p>
-  <b>Witness:</b>
-  <%= @infraction.player.full_name%>
+  <b>Player:</b>
+  <%= @infraction.player.full_name %>
 </p>
 
 <p>
@@ -22,12 +22,12 @@
 
 <p>
   <b>Infraction type:</b>
-  <%= @infraction.infraction_type.name %>
+  <%= @infraction.infraction_type %>
 </p>
 
 <p>
   <b>Status:</b>
-  <%= @infraction.status.name %>
+  <%= @infraction.status %>
 </p>
 
 <p>
@@ -35,8 +35,5 @@
   <%= @infraction.description %>
 </p>
 
-<% if(is_admin?) %>
-  <%= link_to 'Edit', edit_infraction_path(@infraction) %> |
-<% end %>
-
+<%= link_to 'Edit', edit_infraction_path(@infraction) %> |
 <%= link_to 'Back', infractions_path %>
