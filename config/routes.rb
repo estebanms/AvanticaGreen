@@ -5,10 +5,9 @@ AvanticaGreen::Application.routes.draw do
 
   resources :suggestions
 
-  resources :witnesses
-
   resources :infractions do
     resources :comments
+    resources :witnesses
     collection do
       get 'filter'
     end

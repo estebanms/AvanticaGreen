@@ -1,9 +1,11 @@
 class WitnessesController < ApplicationController
-  # TODO: make this part of an infraction in the routes
+  include WitnessesHelper
+  before_filter :get_infraction
+  
   # GET /witnesses
   # GET /witnesses.xml
   def index
-    @witnesses = Witness.all
+    @witnesses = @infraction.witnesses
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,6 +28,7 @@ class WitnessesController < ApplicationController
   # GET /witnesses/new.xml
   def new
     @witness = Witness.new
+    @witness.infraction = @infraction
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,6 +45,7 @@ class WitnessesController < ApplicationController
   # POST /witnesses.xml
   def create
     @witness = Witness.new(params[:witness])
+    @witness.infraction = @infraction
 
     respond_to do |format|
       if @witness.save
@@ -80,5 +84,10 @@ class WitnessesController < ApplicationController
       format.html { redirect_to(witnesses_url) }
       format.xml  { head :ok }
     end
+  end
+
+private
+  def get_infraction
+    @infraction = Infraction.find(params[:infraction_id])
   end
 end

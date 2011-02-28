@@ -3,7 +3,6 @@
 <table>
   <tr>
     <th>Player</th>
-    <th>Infraction</th>
     <th>Status</th>
     <th></th>
     <th></th>
@@ -12,9 +11,8 @@
 
 <% @witnesses.each do |witness| %>
   <tr>
-    <td><%= witness.player_id %></td>
-    <td><%= witness.infraction_id %></td>
-    <td><%= witness.status_id %></td>
+    <td><%= witness.player.full_name %></td>
+    <td><%= witness.status %></td>
     <td><%= link_to 'Show', witness %></td>
     <td><%= link_to 'Edit', edit_witness_path(witness) %></td>
     <td><%= link_to 'Destroy', witness, :confirm => 'Are you sure?', :method => :delete %></td>
