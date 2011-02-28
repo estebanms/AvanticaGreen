@@ -2,7 +2,9 @@ class InfractionsController < ApplicationController
   # GET /infractions
   # GET /infractions.xml
   def index
-    @infractions = Infraction.all
+    # the list of infractions is within the scope of a game
+    # TODO: add filters to let the user see infractions from other games, dates, types (open only, ...), etc
+    @infractions = current_game.infractions rescue Array.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -39,14 +41,16 @@ class InfractionsController < ApplicationController
   def edit
     @infraction = Infraction.find(params[:id])
     @infraction.status = Status.find_by_name('Pending revision')
+    @anonymous = @infraction.anonymous?
   end
 
   # POST /infractions
   # POST /infractions.xml
   def create
+    @anonymous = params[:anonymous]
     @infraction = Infraction.new(params[:infraction])
     @infraction.game = current_game
-    @infraction.player = current_player
+    @infraction.player = current_player unless @anonymous
     @infraction.team = current_player.team rescue nil
     @infraction.status = Status.find_by_name('Pending revision')
      
@@ -65,6 +69,9 @@ class InfractionsController < ApplicationController
   # PUT /infractions/1.xml
   def update
     @infraction = Infraction.find(params[:id])
+    # update current player if the anonymous flag is not set
+    @anonymous = params[:anonymous]
+    params[:infraction][:player_id] = @anonymous ? nil : current_player.id
 
     respond_to do |format|
       if @infraction.update_attributes(params[:infraction])

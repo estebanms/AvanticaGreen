@@ -2,7 +2,7 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.xml
   def index
-    @teams = Team.all
+    @teams = Team.sorted_by_score
 
     respond_to do |format|
       format.html # index.html.erb

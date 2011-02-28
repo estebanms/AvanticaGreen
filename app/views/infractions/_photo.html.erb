@@ -1,0 +1,4 @@
+<% infraction ||= @infraction %>
+<% style ||= :thumb %>
+<% # TODO: default to something if no photo available %>
+<%= image_tag(infraction.photo.url(style)) %>

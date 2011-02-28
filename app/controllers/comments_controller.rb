@@ -65,6 +65,9 @@ class CommentsController < ApplicationController
   # PUT /comments/1.xml
   def update
     @comment = Comment.find(params[:id])
+    # update current player if the anonymous flag is not set
+    @anonymous = params[:anonymous]
+    params[:comment][:player_id] = @anonymous ? nil : current_player.id
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])

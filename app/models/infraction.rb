@@ -19,7 +19,17 @@ class Infraction < ActiveRecord::Base
   #paperclip image:
   has_attached_file :photo,
     :styles => {
-       :thumb => "100x100#",
-       :small  => "400x400>" 
+       :thumb => "50x50#",
+       :small => "400x400>"
     }
+
+  def reporter
+    reporter_string = self.team.name
+    reporter_string += " (#{self.player.full_name})" unless self.anonymous?
+    reporter_string
+  end
+
+  def anonymous?
+    self.player.nil?
+  end
 end

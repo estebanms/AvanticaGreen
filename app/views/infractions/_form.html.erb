@@ -12,12 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= check_box_tag :anonymous, '1', @anonymous %> Add infraction as anonymous user
   </div>
   <div class="field">
-    <%= f.label :witness_id %><br />
-    <%= players_select(:infraction, :player_id) %>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
   </div>
   <div class="field">
     <%= f.label :offender_id %><br />

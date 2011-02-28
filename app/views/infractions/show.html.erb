@@ -1,18 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Game:</b>
-  <%= @infraction.game.name %>
-</p>
-
-<p>
-  <b>Player:</b>
-  <%= @infraction.player.full_name %>
-</p>
-
-<p>
-  <b>Team:</b>
-  <%= @infraction.team.name %>
+  <b>Reporter:</b>
+  <%= @infraction.reporter %>
 </p>
 
 <p>
@@ -35,5 +25,14 @@
   <%= @infraction.description %>
 </p>
 
+<% if @infraction.photo? %>
+<p>
+  <b>Evidence:</b><br />
+  <%= render :partial => 'photo', :locals => { :style => :small } %>
+</p>
+<% end %>
+
+<%= link_to 'Comments', comments_path %> |
+<%= link_to 'Witnesses', witnesses_path %> |
 <%= link_to 'Edit', edit_infraction_path(@infraction) %> |
 <%= link_to 'Back', infractions_path %>
