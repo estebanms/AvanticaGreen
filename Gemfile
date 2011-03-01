@@ -9,6 +9,8 @@ gem 'mysql2'
 gem "devise", :git => "git://github.com/plataformatec/devise.git"
 gem 'paperclip'
 gem 'rmagick'
+gem 'cancan'
+
 
 # Use unicorn as the web server
 # gem 'unicorn'
