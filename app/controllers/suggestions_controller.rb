@@ -30,14 +30,12 @@ class SuggestionsController < ApplicationController
 
   # GET /suggestions/1/edit
   def edit
-    @anonymous = @suggestion.anonymous?
   end
 
   # POST /suggestions
   # POST /suggestions.xml
   def create
-    @anonymous = params[:anonymous]
-    @suggestion.player = current_player unless @anonymous
+    @suggestion.player = current_player
 
     respond_to do |format|
       if @suggestion.save

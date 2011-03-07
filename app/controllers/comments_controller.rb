@@ -38,16 +38,14 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
-    @anonymous = @comment.anonymous?
   end
 
   # POST /comments
   # POST /comments.xml
   def create
-    @anonymous = params[:anonymous]
     @comment = Comment.new(params[:comment])
     @comment.infraction = @infraction
-    @comment.player = current_player unless @anonymous
+    @comment.player = current_player
 
     respond_to do |format|
       if @comment.save
@@ -63,10 +61,6 @@ class CommentsController < ApplicationController
   # PUT /comments/1
   # PUT /comments/1.xml
   def update
-    # update current player if the anonymous flag is not set
-    @anonymous = params[:anonymous]
-    params[:comment][:player_id] = @anonymous ? nil : current_player.id
-
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
         format.html { redirect_to(@comment, :notice => 'Comment was successfully updated.') }

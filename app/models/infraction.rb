@@ -25,11 +25,7 @@ class Infraction < ActiveRecord::Base
 
   def reporter
     reporter_string = self.team.name
-    reporter_string += " (#{self.player.full_name})" unless self.anonymous?
+    reporter_string += " (#{self.player.full_name})" unless self.anonymous
     reporter_string
-  end
-
-  def anonymous?
-    self.player.nil?
   end
 end

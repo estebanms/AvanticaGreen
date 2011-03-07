@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= check_box_tag :anonymous, '1', @anonymous %> Add comment as anonymous user
+    <%= f.check_box :anonymous %> Add comment as anonymous user
   </div>
   <div class="field">
     <%= f.label :description, 'Comment' %><br />

@@ -40,16 +40,14 @@ class InfractionsController < ApplicationController
 
   # GET /infractions/1/edit
   def edit
-    @anonymous = @infraction.anonymous?
   end
 
   # POST /infractions
   # POST /infractions.xml
   def create
-    @anonymous = params[:anonymous]
     @infraction = Infraction.new(params[:infraction])
     @infraction.game = current_game
-    @infraction.player = current_player unless @anonymous
+    @infraction.player = current_player
     @infraction.team = current_player.team rescue nil
     @infraction.status = Status.find_by_name('Pending revision')
      
@@ -67,10 +65,6 @@ class InfractionsController < ApplicationController
   # PUT /infractions/1
   # PUT /infractions/1.xml
   def update
-    # update current player if the anonymous flag is not set
-    @anonymous = params[:anonymous]
-    params[:infraction][:player_id] = @anonymous ? nil : current_player.id
-
     respond_to do |format|
       if @infraction.update_attributes(params[:infraction])
         format.html { redirect_to(@infraction, :notice => 'Infraction was successfully updated.') }
