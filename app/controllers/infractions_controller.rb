@@ -1,4 +1,7 @@
 class InfractionsController < ApplicationController
+  load_and_authorize_resource
+  skip_load_resource :only => [:index, :new, :create]
+
   # GET /infractions
   # GET /infractions.xml
   def index
@@ -15,8 +18,6 @@ class InfractionsController < ApplicationController
   # GET /infractions/1
   # GET /infractions/1.xml
   def show
-    @infraction = Infraction.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @infraction }
@@ -39,8 +40,6 @@ class InfractionsController < ApplicationController
 
   # GET /infractions/1/edit
   def edit
-    @infraction = Infraction.find(params[:id])
-    @infraction.status = Status.find_by_name('Pending revision')
     @anonymous = @infraction.anonymous?
   end
 
@@ -68,7 +67,6 @@ class InfractionsController < ApplicationController
   # PUT /infractions/1
   # PUT /infractions/1.xml
   def update
-    @infraction = Infraction.find(params[:id])
     # update current player if the anonymous flag is not set
     @anonymous = params[:anonymous]
     params[:infraction][:player_id] = @anonymous ? nil : current_player.id
@@ -87,7 +85,6 @@ class InfractionsController < ApplicationController
   # DELETE /infractions/1
   # DELETE /infractions/1.xml
   def destroy
-    @infraction = Infraction.find(params[:id])
     @infraction.destroy
 
     respond_to do |format|

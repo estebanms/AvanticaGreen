@@ -24,7 +24,7 @@
     <div id="leftcol">
       Left Section
       <div id="menu">
-        <%= link_to 'Standings', score_index_path %><br/>
+        <%= link_to 'Standings', root_path %><br/>
         <%= link_to 'Infractions',infractions_path %><br/>
         <%= link_to 'Games', games_path %><br/>
         <%= link_to 'Teams', teams_path %><br/>
@@ -33,6 +33,7 @@
       </div>
     </div>
     <div id="content">Content Section
+      <%= raw(display_flash_messages) %>
       <%= yield :layout %>
     </div>
   </body>

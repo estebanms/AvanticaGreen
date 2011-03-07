@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
   include CommentsHelper
   before_filter :get_infraction
+  load_and_authorize_resource
+  skip_load_resource :only => [:index, :new, :create]
 
   # GET /comments
   # GET /comments.xml
@@ -16,8 +18,6 @@ class CommentsController < ApplicationController
   # GET /comments/1
   # GET /comments/1.xml
   def show
-    @comment = Comment.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @comment }
@@ -38,7 +38,6 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
-    @comment = Comment.find(params[:id])
     @anonymous = @comment.anonymous?
   end
 
@@ -64,7 +63,6 @@ class CommentsController < ApplicationController
   # PUT /comments/1
   # PUT /comments/1.xml
   def update
-    @comment = Comment.find(params[:id])
     # update current player if the anonymous flag is not set
     @anonymous = params[:anonymous]
     params[:comment][:player_id] = @anonymous ? nil : current_player.id
@@ -83,7 +81,6 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.xml
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy
 
     respond_to do |format|

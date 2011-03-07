@@ -1,6 +1,8 @@
 class WitnessesController < ApplicationController
   include WitnessesHelper
   before_filter :get_infraction
+  load_and_authorize_resource
+  skip_load_resource :only => [:index, :new, :create]
   
   # GET /witnesses
   # GET /witnesses.xml
@@ -16,8 +18,6 @@ class WitnessesController < ApplicationController
   # GET /witnesses/1
   # GET /witnesses/1.xml
   def show
-    @witness = Witness.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @witness }
@@ -38,7 +38,6 @@ class WitnessesController < ApplicationController
 
   # GET /witnesses/1/edit
   def edit
-    @witness = Witness.find(params[:id])
   end
 
   # POST /witnesses
@@ -61,8 +60,6 @@ class WitnessesController < ApplicationController
   # PUT /witnesses/1
   # PUT /witnesses/1.xml
   def update
-    @witness = Witness.find(params[:id])
-
     respond_to do |format|
       if @witness.update_attributes(params[:witness])
         format.html { redirect_to(@witness, :notice => 'Witness was successfully updated.') }
@@ -77,7 +74,6 @@ class WitnessesController < ApplicationController
   # DELETE /witnesses/1
   # DELETE /witnesses/1.xml
   def destroy
-    @witness = Witness.find(params[:id])
     @witness.destroy
 
     respond_to do |format|

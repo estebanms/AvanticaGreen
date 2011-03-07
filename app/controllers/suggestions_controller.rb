@@ -1,9 +1,9 @@
 class SuggestionsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /suggestions
   # GET /suggestions.xml
   def index
-    @suggestions = Suggestion.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @suggestions }
@@ -13,8 +13,6 @@ class SuggestionsController < ApplicationController
   # GET /suggestions/1
   # GET /suggestions/1.xml
   def show
-    @suggestion = Suggestion.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @suggestion }
@@ -24,8 +22,6 @@ class SuggestionsController < ApplicationController
   # GET /suggestions/new
   # GET /suggestions/new.xml
   def new
-    @suggestion = Suggestion.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @suggestion }
@@ -34,7 +30,6 @@ class SuggestionsController < ApplicationController
 
   # GET /suggestions/1/edit
   def edit
-    @suggestion = Suggestion.find(params[:id])
     @anonymous = @suggestion.anonymous?
   end
 
@@ -42,7 +37,6 @@ class SuggestionsController < ApplicationController
   # POST /suggestions.xml
   def create
     @anonymous = params[:anonymous]
-    @suggestion = Suggestion.new(params[:suggestion])
     @suggestion.player = current_player unless @anonymous
 
     respond_to do |format|
@@ -59,8 +53,6 @@ class SuggestionsController < ApplicationController
   # PUT /suggestions/1
   # PUT /suggestions/1.xml
   def update
-    @suggestion = Suggestion.find(params[:id])
-
     respond_to do |format|
       if @suggestion.update_attributes(params[:suggestion])
         format.html { redirect_to(@suggestion, :notice => 'Suggestion was successfully updated.') }
@@ -75,7 +67,6 @@ class SuggestionsController < ApplicationController
   # DELETE /suggestions/1
   # DELETE /suggestions/1.xml
   def destroy
-    @suggestion = Suggestion.find(params[:id])
     @suggestion.destroy
 
     respond_to do |format|

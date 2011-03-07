@@ -11,9 +11,10 @@ class AddValuesForListableModels < ActiveRecord::Migration
     { :name => 'Question', :description => 'Question' },
   ]
   @@infraction_types = [
-    { :name => 'Monitor on', :description => 'Monitor on', :points => 5 },
-    { :name => 'Lights on', :description => 'Lights on', :points => 2 },
-    { :name => 'Water tap open', :description => 'Water tap open', :points => 4 },
+    { :name => 'Unsorted trash', :description => 'Unsorted trash', :points => 20 },
+    { :name => 'Monitor on', :description => 'Monitor on', :points => 15 },
+    { :name => 'Lights on', :description => 'Lights on', :points => 10 },
+    { :name => 'Messy desk', :description => 'Messy desk', :points => 5 },
     { :name => 'Other', :description => 'Other', :points => 1 },
   ]
   @@statuses = [
@@ -34,8 +35,6 @@ class AddValuesForListableModels < ActiveRecord::Migration
   @@players = [
     { :name => 'amanda', :last_names => 'segovia',:user_id => 1, :team_id => 1, :is_admin => true},
   ]
-  
-  
   
   def self.up
     @@comment_types.each { |type| CommentType.new(:name => type[:name], :description => type[:description]).save }

@@ -1,9 +1,9 @@
 class PlayersController < ApplicationController
+  load_and_authorize_resource
+
   # GET /players
   # GET /players.xml
   def index
-    @players = Player.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @players }
@@ -13,8 +13,6 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.xml
   def show
-    @player = Player.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @player }
@@ -24,8 +22,6 @@ class PlayersController < ApplicationController
   # GET /players/new
   # GET /players/new.xml
   def new
-    @player = Player.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @player }
@@ -34,14 +30,11 @@ class PlayersController < ApplicationController
 
   # GET /players/1/edit
   def edit
-    @player = Player.find(params[:id])
   end
 
   # POST /players
   # POST /players.xml
   def create
-    @player = Player.new(params[:player])
-
     respond_to do |format|
       if @player.save
         format.html { redirect_to(@player, :notice => 'Player was successfully created.') }
@@ -56,8 +49,6 @@ class PlayersController < ApplicationController
   # PUT /players/1
   # PUT /players/1.xml
   def update
-    @player = Player.find(params[:id])
-
     respond_to do |format|
       if @player.update_attributes(params[:player])
         format.html { redirect_to(@player, :notice => 'Player was successfully updated.') }
@@ -72,7 +63,6 @@ class PlayersController < ApplicationController
   # DELETE /players/1
   # DELETE /players/1.xml
   def destroy
-    @player = Player.find(params[:id])
     @player.destroy
 
     respond_to do |format|

@@ -8,13 +8,13 @@ class Infraction < ActiveRecord::Base
   belongs_to :infraction_type
   belongs_to :status
   has_many :witnesses, :dependent => :destroy
-  has_many :comments, :class_name => 'Post'
+  has_many :comments, :class_name => 'Post', :dependent => :destroy
   
   validates :game, :presence => true
   validates :team, :presence => true
   validates :offender, :presence => true
   validates :infraction_type, :presence => true
-  #validates :witnesses, :length => { :minimum => 1 }, :if => Proc.new { |infraction| infraction.photo.nil? }
+  #validates :witnesses, :length => { :minimum => 1 }, :unless => Proc.new { |infraction| infraction.photo? }
   
   #paperclip image:
   has_attached_file :photo,

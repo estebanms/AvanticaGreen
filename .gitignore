@@ -14,4 +14,4 @@ public/system/photos/*
 config/database.yml
 nbproject
 *~
-
+Gemfile.lock
