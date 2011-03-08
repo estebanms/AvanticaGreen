@@ -8,6 +8,7 @@
   <%= @witness.status %>
 </p>
 
-
-<%= link_to 'Edit', edit_witness_path(@witness) %> |
+<% if can?(:update, @witness) %>
+  <%= link_to 'Edit', edit_witness_path(@witness) %> |
+<% end %>
 <%= link_to 'Back', witnesses_path %>

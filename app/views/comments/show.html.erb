@@ -18,5 +18,7 @@
   <%= @comment.description %>
 </p>
 
-<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<% if can?(:update, @comment) %>
+  <%= link_to 'Edit', edit_comment_path(@comment) %> |
+<% end %>
 <%= link_to 'Back', comments_path %>

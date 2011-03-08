@@ -45,6 +45,7 @@ class WitnessesController < ApplicationController
   def create
     @witness = Witness.new(params[:witness])
     @witness.infraction = @infraction
+    @infraction.status = Status.find_by_name('Pending revision')
 
     respond_to do |format|
       if @witness.save

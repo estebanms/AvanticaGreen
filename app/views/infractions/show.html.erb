@@ -32,5 +32,7 @@
 
 <%= link_to 'Comments', comments_path %> |
 <%= link_to 'Witnesses', witnesses_path %> |
-<%= link_to 'Edit', edit_infraction_path(@infraction) %> |
+<% if can? :update, @infraction %>
+  <%= link_to 'Edit', edit_infraction_path(@infraction) %> |
+<% end %>
 <%= link_to 'Back', infractions_path %>

@@ -19,20 +19,26 @@
 
 <% @infractions.each do |infraction| %>
   <tr>
-    <td><%= infraction.reporter %></td>
-    <td><%= infraction.offender.name %></td>
+    <td><%= link_to infraction.reporter, infraction.team %></td>
+    <td><%= link_to infraction.offender.name, infraction.offender %></td>
     <td><%= infraction.infraction_type %></td>
     <td><%= infraction.status %></td>
     <td><%= infraction.description %></td>
     <td><%= link_to 'Comments', infraction_comments_path(infraction) %></td>
     <td><%= link_to 'Witnesses', infraction_witnesses_path(infraction) %></td>
     <td><%= link_to 'Show', infraction %></td>
-    <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
-    <td><%= link_to 'Destroy', infraction, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if can? :update, infraction %>
+      <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
+    <% end %>
+    <% if can? :destroy, infraction %>
+      <td><%= link_to 'Destroy', infraction, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Infraction', new_infraction_path %>
+<% if can? :create, Infraction %>
+  <%= link_to 'New Infraction', new_infraction_path %>
+<% end %>

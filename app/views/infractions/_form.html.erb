@@ -14,28 +14,34 @@
   <div class="field">
     <%= f.check_box :anonymous %> Add infraction as anonymous user
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :offender_id %><br />
-    <%= teams_select(:infraction, :offender_id) %>
-  </div>
-  <div class="field">
-    <%= f.label :infraction_type_id %><br />
-    <%= infraction_types_select %>
-  </div>
-  <% if action_name == 'edit' %>
-  <div class="field">
-    <%= f.label :status_id %><br />
-    <%= statuses_select(:infraction) %>
-  </div>
+  <% if can?(:manage, @infraction) || @infraction.status == Status.find_by_name('Pending revision') %>
+    <div class="field">
+      <%= f.label :description %><br />
+      <%= f.text_area :description %>
+    </div>
   <% end %>
-  <div class="field">
-    <%= f.label :photo, 'Evidence' %><br />
-    <%= f.file_field :photo %>
-  </div>
+  <% if action_name == 'new' || can?(:manage, @infraction) %>
+    <div class="field">
+      <%= f.label :offender_id %><br />
+      <%= teams_select(:infraction, :offender_id) %>
+    </div>
+    <div class="field">
+      <%= f.label :infraction_type_id %><br />
+      <%= infraction_types_select %>
+    </div>
+  <% end %>
+  <% if action_name == 'edit' && can?(:manage, @infraction) %>
+    <div class="field">
+      <%= f.label :status_id %><br />
+      <%= statuses_select(:infraction) %>
+    </div>
+  <% end %>
+  <% if can?(:manage, @infraction) || @infraction.status == Status.find_by_name('Pending revision') %>
+    <div class="field">
+      <%= f.label :photo, 'Evidence' %><br />
+      <%= f.file_field :photo %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

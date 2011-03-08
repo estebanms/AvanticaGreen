@@ -15,12 +15,18 @@
     <td><%= comment.comment_type %></td>
     <td><%= comment.description %></td>
     <td><%= link_to 'Show', comment %></td>
-    <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-    <td><%= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if can?(:update, comment) %>
+      <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
+    <% end %>
+    <% if can?(:destroy, comment) %>
+      <td><%= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Comment', new_comment_path %>
+<% if can?(:create, Comment) %>
+  <%= link_to 'New Comment', new_comment_path %>
+<% end %>

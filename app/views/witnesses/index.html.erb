@@ -14,12 +14,18 @@
     <td><%= witness.player.full_name %></td>
     <td><%= witness.status %></td>
     <td><%= link_to 'Show', witness %></td>
-    <td><%= link_to 'Edit', edit_witness_path(witness) %></td>
-    <td><%= link_to 'Destroy', witness, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if can?(:update, witness) %>
+      <td><%= link_to 'Edit', edit_witness_path(witness) %></td>
+    <% end %>
+    <% if can?(:destroy, witness) %>
+      <td><%= link_to 'Destroy', witness, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Witness', new_witness_path %>
+<% if can?(:create, Witness.new(:infraction => @infraction)) %>
+  <%= link_to 'New Witness', new_witness_path %>
+<% end %>

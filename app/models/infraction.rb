@@ -16,6 +16,9 @@ class Infraction < ActiveRecord::Base
   validates :infraction_type, :presence => true
   #validates :witnesses, :length => { :minimum => 1 }, :unless => Proc.new { |infraction| infraction.photo? }
   
+  scope :accepted, where(:status_id => Status.where(:name => 'Accepted'))
+  scope :pending, where(:status_id => Status.where(:name => 'Pending revision'))
+  
   #paperclip image:
   has_attached_file :photo,
     :styles => {

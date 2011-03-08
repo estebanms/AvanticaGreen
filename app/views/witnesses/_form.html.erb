@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :player_id %><br />
-    <%= players_select(:witness) %>
+    <%= action_name == 'edit' ? @witness.player.full_name : players_select(:witness) %>
   </div>
   <div class="field">
     <%= f.label :status_id %><br />
