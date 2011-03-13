@@ -18,10 +18,14 @@
   <%= @player.team.name %>
 </p>
 
-<p>
-<b>Is administrator:</b>
-  <%= @player.is_admin %>
-</p>
+<% if can? :manage, @player %>
+  <p>
+    <b>Is administrator:</b>
+    <%= @player.is_admin %>
+  </p>
+<% end %>
 
-<%= link_to 'Edit', edit_player_path(@player) %> |
+<% if can? :update, @player %>
+  <%= link_to 'Edit', edit_player_path(@player) %> |
+<% end %>
 <%= link_to 'Back', players_path %>

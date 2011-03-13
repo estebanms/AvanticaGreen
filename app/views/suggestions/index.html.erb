@@ -15,8 +15,10 @@
     <td><%= suggestion.suggestion_type %></td>
     <td><%= suggestion.description %></td>
     <td><%= link_to 'Show', suggestion %></td>
-    <td><%= link_to 'Edit', edit_suggestion_path(suggestion) %></td>
-    <td><%= link_to 'Destroy', suggestion, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if can? :manage, suggestion %>
+      <td><%= link_to 'Edit', edit_suggestion_path(suggestion) %></td>
+      <td><%= link_to 'Destroy', suggestion, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

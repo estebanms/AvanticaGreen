@@ -18,5 +18,7 @@
   <%= @suggestion.description %>
 </p>
 
-<%= link_to 'Edit', edit_suggestion_path(@suggestion) %> |
+<% if can? :update, @suggestion %>
+  <%= link_to 'Edit', edit_suggestion_path(@suggestion) %> |
+<% end %>
 <%= link_to 'Back', suggestions_path %>
