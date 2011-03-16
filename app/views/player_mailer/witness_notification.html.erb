@@ -1,0 +1,7 @@
+<p>Hello <%= @witness.player.full_name %>,</p>
+
+<% if @action == 'added' %>
+  <p>Please accept or reject your role as a witness for <%= link_to 'this infraction', @infraction %></p>
+<% else %>
+  <p>You have been removed as a witness from <%= link_to 'this infraction', @infraction %></p>
+<% end %>

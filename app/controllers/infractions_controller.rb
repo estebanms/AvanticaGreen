@@ -67,6 +67,17 @@ class InfractionsController < ApplicationController
   def update
     respond_to do |format|
       if @infraction.update_attributes(params[:infraction])
+        # send notification email if the status of the infraction was changed
+        #if @infraction.status_id_changed?
+          # send notification to player who created the infraction
+          PlayerMailer.infraction_update(@infraction, @infraction.player).deliver
+
+          #send notification to all players who belong to the offending team
+          @infraction.offender.players.each do |offender|
+            PlayerMailer.infraction_update(@infraction, offender).deliver
+          end
+        #end
+
         format.html { redirect_to(@infraction, :notice => 'Infraction was successfully updated.') }
         format.xml  { head :ok }
       else

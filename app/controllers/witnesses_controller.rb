@@ -49,6 +49,9 @@ class WitnessesController < ApplicationController
 
     respond_to do |format|
       if @witness.save
+        # notify player by email he has been added as a witness
+        PlayerMailer.witness_notification(@witness, 'added').deliver
+
         format.html { redirect_to(@witness, :notice => 'Witness was successfully created.') }
         format.xml  { render :xml => @witness, :status => :created, :location => @witness }
       else
@@ -76,6 +79,9 @@ class WitnessesController < ApplicationController
   # DELETE /witnesses/1.xml
   def destroy
     @witness.destroy
+
+    # notify player by email he has been removed as a witness
+    PlayerMailer.witness_notification(@witness, 'removed').deliver
 
     respond_to do |format|
       format.html { redirect_to(witnesses_url) }
