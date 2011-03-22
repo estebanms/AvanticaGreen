@@ -76,6 +76,8 @@ GEM
       thor (~> 0.14.4)
     rake (0.8.7)
     rmagick (2.13.1)
+    simple-navigation (3.2.0)
+      activesupport (>= 2.3.2)
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
@@ -93,3 +95,4 @@ DEPENDENCIES
   paperclip
   rails (= 3.0.3)
   rmagick
+  simple-navigation

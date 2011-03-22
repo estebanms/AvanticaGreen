@@ -10,6 +10,7 @@ gem "devise", :git => "git://github.com/plataformatec/devise.git"
 gem 'paperclip'
 gem 'rmagick'
 gem 'cancan'
+gem 'simple-navigation'
 
 
 # Use unicorn as the web server
