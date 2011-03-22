@@ -23,7 +23,6 @@ class Player < ActiveRecord::Base
 	has_attached_file :avatar, :styles => { :small => "39x39",
 					:medium => "155x155"}
 
-validates_attachment_presence :avatar
 validates_attachment_size :avatar, :less_than => 5.megabytes
 validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png']
 end

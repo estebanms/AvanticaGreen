@@ -1,4 +1,12 @@
 <p>
+  <% if @team.team_logo %>
+
+  	<%= image_tag @team.team_logo.url(:medium) %>
+	
+	<% end %>
+</p>
+
+<p>
   <b>Score:</b>
   <%= @team.score %>
 </p>
