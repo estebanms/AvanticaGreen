@@ -20,9 +20,9 @@ class Player < ActiveRecord::Base
   end
 
 	#paperclip_image:
-	has_attached_file :avatar, :styles => { :small => "39x39",
-					:medium => "155x155"}
+  has_attached_file :avatar, :styles => { :thumb => "39x39", :medium => "155x155" }, 
+    :default_url => '/images/player_:style.gif'
 
-validates_attachment_size :avatar, :less_than => 5.megabytes
-validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png']
+  validates_attachment_size :avatar, :less_than => 5.megabytes
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png']
 end

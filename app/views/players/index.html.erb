@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-		<th/>
+    <th></th>
     <th>Name</th>
     <th>Last names</th>
     <th>User</th>
@@ -17,13 +17,8 @@
 
 <% @players.each do |player| %>
   <tr>
-		<% if player.avatar? %>
-
-			<td><%= image_tag player.avatar.url(:small) %>
-    
-		<% end %>
-		
-		<td><%= player.name %></td>
+    <td><%= image_tag player.avatar.url(:thumb) %>
+    <td><%= player.name %></td>
     <td><%= player.last_names %></td>
     <td><%= player.user.email %></td>
     <td><%= player.team.name %></td>

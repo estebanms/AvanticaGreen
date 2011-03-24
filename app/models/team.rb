@@ -15,11 +15,10 @@ class Team < ActiveRecord::Base
   
   scope :sorted_by_score, all.sort {|a, b| b.score <=> a.score }
 
-	#paperclip_image:
-	has_attached_file :team_logo, :styles => { :small => "39x39",
-																						:medium => "155x155" }
-
-		validates_attachment_size :team_logo, :less_than => 5.megabytes
-		validates_attachment_content_type :team_logo, :content_type => ['image/jpeg', 'image/png']
-
+  #paperclip_image:
+  has_attached_file :team_logo, 
+    :styles => { :thumb => "39x39", :medium => "155x155" }, 
+    :default_url => '/images/team_:style.gif'
+  validates_attachment_size :team_logo, :less_than => 5.megabytes
+  validates_attachment_content_type :team_logo, :content_type => ['image/jpeg', 'image/png']
 end

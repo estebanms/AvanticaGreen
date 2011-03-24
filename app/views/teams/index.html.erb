@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-		<th/>
+    <th></th>
     <th>Score</th>
     <th>Name</th>
     <% if can? :manage, Team %>
@@ -16,12 +16,7 @@
 
 <% @teams.each do |team| %>
   <tr>
-		<% if team.team_logo? %>
-
-			<td><%= image_tag team.team_logo.url(:small)%></td>
-
-		<% end %>
-
+    <td><%= image_tag team.team_logo.url(:thumb) %></td>
     <td><%= team.score %></td>
     <td><%= link_to team.name, team %></td>
     <% if can? :manage, team %>
