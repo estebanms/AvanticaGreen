@@ -3,8 +3,8 @@
 <table>
   <tr>
     <th></th>
-    <th>Score</th>
     <th>Name</th>
+    <th>Score</th>
     <% if can? :manage, Team %>
       <th>Code</th>
       <th></th>
@@ -16,9 +16,9 @@
 
 <% @teams.each do |team| %>
   <tr>
-    <td><%= image_tag team.team_logo.url(:thumb) %></td>
-    <td><%= team.score %></td>
+    <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
     <td><%= link_to team.name, team %></td>
+    <td><%= team.score %></td>
     <% if can? :manage, team %>
       <td><%= team.code %></td>
     <% end %>

@@ -1,40 +1,6 @@
 <h1>Listing players</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th>Name</th>
-    <th>Last names</th>
-    <th>User</th>
-    <th>Team</th>
-    <% if can? :manage, Player %>
-      <th>Administrator?</th>
-    <% end %>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @players.each do |player| %>
-  <tr>
-    <td><%= image_tag player.avatar.url(:thumb) %>
-    <td><%= player.name %></td>
-    <td><%= player.last_names %></td>
-    <td><%= player.user.email %></td>
-    <td><%= player.team.name %></td>
-    <% if can? :manage, player %>
-      <td><%= player.is_admin %></td>
-    <% end %>
-    <td><%= link_to 'Show', player %></td>
-    <% if can? :update, player %>
-      <td><%= link_to 'Edit', edit_player_path(player) %></td>
-    <% end %>
-    <% if can? :destroy, player %>
-      <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
+<%= render 'players' %>
 
 <br />
 

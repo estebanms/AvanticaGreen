@@ -1,0 +1,43 @@
+<% players ||= @players %>
+<% context ||= :system %>
+
+<% if players.empty? %>
+  There are no players in the <%= context.to_s %>.
+<% else %>
+  <table>
+    <tr>
+      <th></th>
+      <th>Full name</th>
+      <th>Email address</th>
+      <% unless context == :team %>
+        <th>Team</th>
+      <% end %>
+      <% if can? :manage, Player %>
+        <th>Administrator?</th>
+      <% end %>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% players.each do |player| %>
+    <tr>
+      <td><%= link_to image_tag(player.avatar.url(:thumb)), player %>
+      <td><%= link_to player.full_name, player %></td>
+      <td><%= mail_to(player.user.email) %></td>
+      <% unless context == :team %>
+        <td><%= link_to player.team.name, player.team %></td>
+      <% end %>
+      <% if can? :manage, player %>
+        <td><%= player.is_admin %></td>
+      <% end %>
+      <% if can? :update, player %>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+      <% end %>
+      <% if can? :destroy, player %>
+        <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </table>
+<% end %>

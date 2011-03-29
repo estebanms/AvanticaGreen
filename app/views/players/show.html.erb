@@ -13,13 +13,13 @@
 </p>
 
 <p>
-  <b>User:</b>
-  <%= @player.user.email %>
+  <b>Email address:</b>
+  <%= mail_to @player.user.email %>
 </p>
 
 <p>
   <b>Team:</b>
-  <%= @player.team.name %>
+  <%= link_to @player.team.name, @player.team %>
 </p>
 
 <% if can? :manage, @player %>

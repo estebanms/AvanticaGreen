@@ -24,7 +24,12 @@
   <%= @team.description %>
 </p>
 
-<% if can? :update, @team %>
-  <%= link_to 'Edit', edit_team_path(@team) %> |
-<% end %>
-<%= link_to 'Back', teams_path %>
+<p><b>Players:</b></p>
+<%= render 'players/players', { :players => @team.players, :context => :team } %>
+
+<p>
+  <% if can? :update, @team %>
+    <%= link_to 'Edit', edit_team_path(@team) %> |
+  <% end %>
+  <%= link_to 'Back', teams_path %>
+</p>
