@@ -27,6 +27,10 @@
     <b>Is administrator:</b>
     <%= @player.is_admin %>
   </p>
+  <p>
+    <b>Is active:</b>
+    <%= @player.active %>
+  </p>
 <% end %>
 
 <% if can? :update, @player %>
