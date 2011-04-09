@@ -43,7 +43,14 @@
         <h3>Quick links</h3>
         <ul>
           <% if user_signed_in? %>
-            <li><%= link_to 'Create infraction', new_infraction_path %></li>
+            <li>
+              <%= image_tag('infraction.gif', { :width => 25, :height => 25 }) %>
+              <%= link_to('Create infraction', new_infraction_path) %>
+            </li>
+            <li>
+              <%= image_tag('light.gif', { :width => 25, :height => 25 }) %>
+              <%= link_to 'Make a suggestion', new_suggestion_path %>
+            </li>
           <% else %>
             <li><%= link_to 'Login', new_user_session_path %></li>
             <li><%= link_to 'Signup', new_user_registration_path %></li>

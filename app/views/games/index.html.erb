@@ -14,8 +14,8 @@
 <% @games.each do |game| %>
   <tr>
     <td><%= game.name %></td>
-    <td><%= game.start_date %></td>
-    <td><%= game.end_date %></td>
+    <td><%= format_date(game.start_date) %></td>
+    <td><%= format_date(game.end_date) %></td>
     <td><%= game.active %></td>
     <td><%= link_to 'Show', game %></td>
     <td><%= link_to 'Edit', edit_game_path(game) %></td>
