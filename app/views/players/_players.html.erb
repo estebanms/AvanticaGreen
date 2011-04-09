@@ -14,6 +14,7 @@
       <% end %>
       <% if can? :manage, Player %>
         <th>Administrator?</th>
+	<th>Active?</th>
       <% end %>
       <th></th>
       <th></th>
@@ -30,6 +31,7 @@
       <% end %>
       <% if can? :manage, player %>
         <td><%= player.is_admin %></td>
+	<td><%= player.active %></td>
       <% end %>
       <% if can? :update, player %>
         <td><%= link_to 'Edit', edit_player_path(player) %></td>

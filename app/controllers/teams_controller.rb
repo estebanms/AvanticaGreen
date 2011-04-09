@@ -5,8 +5,8 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.xml
   def index
-    @teams = Team.sorted_by_score
-
+    @teams = Team.where(:active => true).sorted_by_score
+    @inactive_teams = Team.where(:active => false) if can? :manage, Team
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @teams }

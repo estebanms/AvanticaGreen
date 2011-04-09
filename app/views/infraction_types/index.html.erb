@@ -1,10 +1,11 @@
-<h1>Listing infraction_types</h1>
+<h1>Listing Infraction Types</h1>
 
 <table>
   <tr>
     <th>Name</th>
     <th>Points</th>
     <th>Description</th>
+    <th>Active</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,6 +16,7 @@
     <td><%= infraction_type.name %></td>
     <td><%= infraction_type.points %></td>
     <td><%= infraction_type.description %></td>
+    <td><%= infraction_type.active %></td>
     <td><%= link_to 'Show', infraction_type %></td>
     <td><%= link_to 'Edit', edit_infraction_type_path(infraction_type) %></td>
     <td><%= link_to 'Destroy', infraction_type, :confirm => 'Are you sure?', :method => :delete %></td>

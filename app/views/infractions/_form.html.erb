@@ -29,6 +29,10 @@
       <%= f.label :infraction_type_id %><br />
       <%= infraction_types_select %>
     </div>
+    <div class="field">
+      <%= f.label :photo, 'Evidence' %><br />
+      <%= f.file_field :photo %>
+    </div>
   <% end %>
   <% if action_name == 'edit' && can?(:manage, @infraction) %>
     <div class="field">

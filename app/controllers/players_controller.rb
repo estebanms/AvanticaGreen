@@ -4,6 +4,8 @@ class PlayersController < ApplicationController
   # GET /players
   # GET /players.xml
   def index
+    
+    @players = Player.where(:active => true) unless current_player.is_admin?
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @players }

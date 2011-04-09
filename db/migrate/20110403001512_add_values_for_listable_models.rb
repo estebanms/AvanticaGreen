@@ -11,11 +11,12 @@ class AddValuesForListableModels < ActiveRecord::Migration
     { :name => 'Question', :description => 'Question' },
   ]
   @@infraction_types = [
-    { :name => 'Unsorted trash', :description => 'Unsorted trash', :points => 20 },
-    { :name => 'Monitor on', :description => 'Monitor on', :points => 15 },
-    { :name => 'Lights on', :description => 'Lights on', :points => 10 },
-    { :name => 'Messy desk', :description => 'Messy desk', :points => 5 },
-    { :name => 'Other', :description => 'Other', :points => 1 },
+    { :name => 'Unsorted trash', :description => 'Unsorted trash', :points => 20, :active => true },
+    { :name => 'Monitor on', :description => 'Monitor on', :points => 15, :active => true },
+    { :name => 'Lights on', :description => 'Lights on', :points => 10, :active => true },
+    { :name => 'Messy desk', :description => 'Messy desk', :points => 5, :active => true },
+    { :name => 'Other', :description => 'Other', :points => 1, :active => true },
+    { :name => 'Inactive', :description => 'Intactive', :points => 1, :active => false },
   ]
   @@statuses = [
     { :name => 'Pending revision', :description => 'Pending revision' },
@@ -27,24 +28,26 @@ class AddValuesForListableModels < ActiveRecord::Migration
     { :name => 'current game', :start_date => '2011-01-01', :end_date => '2011-06-31', :active => true },
   ]
   @@teams = [
-    { :name => 'cerditos', :description => 'los cerditos del 5 piso', :code => 'xyzu'},
-    { :name => 'cucarachas', :description => 'los cucas del piso numero 2', :code => 'poiu'},
-    { :name => 'artesanos', :description => 'los camaradas del 6 piso', :code => 'tlkb'},
-    { :name => 'barracudas', :description => 'los artistas del 4 piso', :code => 'qwer'},
+    { :name => 'Administrator Group', :description => 'System administrators', :code => 'aaa', :active => false},
+    { :name => 'cerditos', :description => 'los cerditos del 5 piso', :code => 'xyzu', :active => true},
+    { :name => 'cucarachas', :description => 'los cucas del piso numero 2', :code => 'poiu', :active => true},
+    { :name => 'artesanos', :description => 'los camaradas del 6 piso', :code => 'tlkb', :active => true},
+    { :name => 'barracudas', :description => 'los artistas del 4 piso', :code => 'qwer', :active => true},
   ]
   @@players = [
-    { :name => 'amanda', :last_names => 'segovia',:user_id => 1, :team_id => 1, :is_admin => true},
+    #default administrator
+    { :name => 'Admin', :last_names => 'Admin',:user_id => 1, :team_id => 1, :is_admin => true, :active => false},
   ]
   
   def self.up
     @@comment_types.each { |type| CommentType.new(:name => type[:name], :description => type[:description]).save }
     @@suggestion_types.each { |type| SuggestionType.new(:name => type[:name], :description => type[:description]).save }
-    @@infraction_types.each { |type| InfractionType.new(:name => type[:name], :description => type[:description], :points => type[:points]).save }
+    @@infraction_types.each { |type| InfractionType.new(:name => type[:name], :description => type[:description], :points => type[:points], :active => type[:active]).save }
     @@statuses.each { |type| Status.new(:name => type[:name], :description => type[:description]).save }
     @@games.each { |type| Game.new(:name => type[:name], :active => type[:active], :start_date => type[:start_date], :end_date => type[:end_date]).save }
-    @@teams.each { |type| Team.new(:name => type[:name], :description => type[:description], :code => type[:code]).save              
+    @@teams.each { |type| Team.new(:name => type[:name], :description => type[:description], :code => type[:code], :active => type[:active]).save              
     }
-    @@players.each { |type| Player.new(:name => type[:name], :last_names => type[:last_names],:user_id => type[:user_id], :team_id => type[:team_id], :is_admin => type[:is_admin]).save }
+    @@players.each { |type| Player.new(:name => type[:name], :last_names => type[:last_names],:user_id => type[:user_id], :team_id => type[:team_id], :is_admin => type[:is_admin], :active => type[:active]).save }
   end
 
   def self.down

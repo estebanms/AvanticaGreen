@@ -14,6 +14,10 @@
 
 <% if can? :manage, @team %>
   <p>
+    <b>Active:</b>
+    <%= @team.active %>
+  </p>
+  <p>
     <b>Code:</b>
     <%= @team.code %>
   </p>
@@ -25,7 +29,7 @@
 </p>
 
 <p><b>Players:</b></p>
-<%= render 'players/players', { :players => @team.players, :context => :team } %>
+<%= render 'players/players', { :players => current_player.is_admin? ? @team.players : @team.players.where(:active => true) , :context => :team } %>
 
 <p>
   <% if can? :update, @team %>
