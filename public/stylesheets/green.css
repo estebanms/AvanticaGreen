@@ -12,8 +12,9 @@
 }
 
 #main_menu {
-  margin: 117px 0 0 20%;
+  margin: 0px 0 0 20%;
   float: left;
+    z-index: 2;
 }
 
 #main_menu ul {

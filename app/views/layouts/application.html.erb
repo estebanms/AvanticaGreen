@@ -11,6 +11,7 @@
       <% end %>
       <%= csrf_meta_tag %>
   </head>
+
   <body>
     <div id="header">
       <div id="login_info">
@@ -35,6 +36,7 @@
         <% end %>
       </div>
       <div id="main_menu">
+	<%= image_tag('avantica_green_small.png') %>
         <%= render_navigation %>
       </div>
     </div>
@@ -44,11 +46,11 @@
         <ul>
           <% if user_signed_in? %>
             <li>
-              <%= image_tag('infraction.gif', { :width => 25, :height => 25 }) %>
+              <%= image_tag('infraction_32.png') %>
               <%= link_to('Create infraction', new_infraction_path) %>
             </li>
             <li>
-              <%= image_tag('light.gif', { :width => 25, :height => 25 }) %>
+              <%= image_tag('light_32.png') %>
               <%= link_to 'Make a suggestion', new_suggestion_path %>
             </li>
           <% else %>
