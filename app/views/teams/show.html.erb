@@ -29,7 +29,11 @@
 </p>
 
 <p><b>Players:</b></p>
-<%= render 'players/players', { :players => current_player.is_admin? ? @team.players : @team.players.where(:active => true) , :context => :team } %>
+<%= render 'players/players', {
+  :players => (
+    (user_signed_in? && current_player.is_admin?) ? @team.players : @team.players.where(:active => true)
+  ), :context => :team
+} %>
 
 <p>
   <% if can? :update, @team %>
