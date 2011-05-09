@@ -10,7 +10,7 @@ class Team < ActiveRecord::Base
   validates :code, :presence => true, :uniqueness => true
   
   def score
-    self.infractions_as_offender.map { |infraction| infraction.infraction_type.points }.sum
+    self.infractions_as_offender.accepted.map { |infraction| infraction.infraction_type.points }.sum
   end
   
   scope :sorted_by_score, all.sort {|a, b| b.score <=> a.score }
