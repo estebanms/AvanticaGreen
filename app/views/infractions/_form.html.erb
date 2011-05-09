@@ -20,7 +20,7 @@
       <%= f.text_area :description %>
     </div>
   <% end %>
-  <% if action_name == 'new' || can?(:manage, @infraction) %>
+  <% if action_name == 'new' || can?(:manage, @infraction) || (@infraction.status == Status.find_by_name('Pending revision') && action_name == 'edit')%>
     <div class="field">
       <%= f.label :offender_id %><br />
       <%= teams_select(:infraction, :offender_id) %>
@@ -38,12 +38,6 @@
     <div class="field">
       <%= f.label :status_id %><br />
       <%= statuses_select(:infraction) %>
-    </div>
-  <% end %>
-  <% if can?(:manage, @infraction) || @infraction.status == Status.find_by_name('Pending revision') %>
-    <div class="field">
-      <%= f.label :photo, 'Evidence' %><br />
-      <%= f.file_field :photo %>
     </div>
   <% end %>
   <div class="actions">
