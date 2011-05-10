@@ -23,8 +23,12 @@ class PlayersController < ApplicationController
   # GET /players/new
   # GET /players/new.xml
   def new
+    @player.user_id = params[:user_id]
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {
+        redirect_to(new_user_registration_path, :notice => 'You need to create a user first.') unless @player.user
+        # else new.html.erb
+      }
       format.xml  { render :xml => @player }
     end
   end
@@ -36,11 +40,17 @@ class PlayersController < ApplicationController
   # POST /players
   # POST /players.xml
   def create
+    # automatically create a new team for the user if there isn't one already
+    unless @player.team || @player.name.blank?
+      team = Team.find_or_initialize_by_name_and_code("#{@player.name}'s Team", @player.name.upcase)
+      @player.team = team if team.save
+    end
     respond_to do |format|
       if @player.save
         format.html { redirect_to(@player, :notice => 'Player was successfully created.') }
         format.xml  { render :xml => @player, :status => :created, :location => @player }
       else
+        team.destroy if team
         format.html { render :action => "new" }
         format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
       end

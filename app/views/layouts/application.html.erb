@@ -4,18 +4,14 @@
     <title>Greenathon</title>
       <%= stylesheet_link_tag :all %>
       <%= javascript_include_tag :defaults %>
-      <% if user_signed_in? && current_player.is_admin %>
-        <%= stylesheet_link_tag "admin" , :media => "all" %>
-      <% else %>
-        <%= stylesheet_link_tag "green" , :media => "all" %>
-      <% end %>
+      <%= stylesheet_link_tag "green" , :media => "all" %>
       <%= csrf_meta_tag %>
   </head>
 
   <body>
     <div id="header">
       <div id="login_info">
-        <% if user_signed_in? %>
+        <% if user_signed_in? && current_user.player %>
           <p>Signed in as <%= current_user.player.full_name %><%= current_player.is_admin ? ' (administrator)' : ''%></p>
           <p>
             <%= link_to 'Manage your account', current_player %> |
@@ -44,7 +40,7 @@
       <div id="secondary_menu">
         <h3>Quick links</h3>
         <ul>
-          <% if user_signed_in? %>
+          <% if user_signed_in? && current_user.player %>
             <li>
               <%= image_tag('infraction_32.png') %>
               <%= link_to('Create infraction', new_infraction_path) %>

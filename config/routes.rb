@@ -19,7 +19,8 @@ AvanticaGreen::Application.routes.draw do
 
   resources :players
 
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => 'registrations' }
+
 
   resources :teams
 
