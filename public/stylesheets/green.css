@@ -5,6 +5,11 @@
   float: left;
 }
 
+#header #logo {
+  margin: 0 0 0 20%;
+  float: left;
+}
+
 #header #login_info {
   text-align: right;
   padding: 5px 10px 0 0;
@@ -12,9 +17,10 @@
 }
 
 #main_menu {
-  margin: 0px 0 0 20%;
+  margin: 0 0 0 20%;
+  clear: left;
   float: left;
-    z-index: 2;
+  z-index: 2;
 }
 
 #main_menu ul {

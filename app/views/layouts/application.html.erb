@@ -10,6 +10,9 @@
 
   <body>
     <div id="header">
+      <div id="logo">
+        <%= image_tag('avantica_green_small.png') %>
+      </div>
       <div id="login_info">
         <% if user_signed_in? && current_user.player %>
           <p>Signed in as <%= current_user.player.full_name %><%= current_player.is_admin ? ' (administrator)' : ''%></p>
@@ -32,7 +35,6 @@
         <% end %>
       </div>
       <div id="main_menu">
-	<%= image_tag('avantica_green_small.png') %>
         <%= render_navigation %>
       </div>
     </div>
