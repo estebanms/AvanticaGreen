@@ -10,10 +10,11 @@ class Team < ActiveRecord::Base
   validates :code, :presence => true, :uniqueness => true
   
   def score
-    self.infractions_as_offender.accepted.map { |infraction| infraction.infraction_type.points }.sum
+    self.infractions_as_offender.active.accepted.map { |infraction| infraction.infraction_type.points }.sum
   end
   
-  scope :sorted_by_score, all.sort {|a, b| b.score <=> a.score }
+  scope :active, where(:active => true)
+  scope :inactive, where(:active => false)
 
   #paperclip_image:
   has_attached_file :team_logo, 
@@ -21,4 +22,8 @@ class Team < ActiveRecord::Base
     :default_url => '/images/team_:style.png'
   validates_attachment_size :team_logo, :less_than => 5.megabytes
   validates_attachment_content_type :team_logo, :content_type => ['image/jpeg', 'image/png']
+
+  def self.sorted_by_score
+    self.active.sort {|a, b| b.score <=> a.score }
+  end
 end
