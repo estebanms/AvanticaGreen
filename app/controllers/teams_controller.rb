@@ -66,7 +66,11 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.xml
   def destroy
-    @team.destroy
+    begin
+      @team.destroy
+    rescue ActiveRecord::DeleteRestrictionError => exception
+      flash[:error] = exception.message
+    end
 
     respond_to do |format|
       format.html { redirect_to(teams_url) }

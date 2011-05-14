@@ -63,7 +63,11 @@ class InfractionTypesController < ApplicationController
   # DELETE /infraction_types/1
   # DELETE /infraction_types/1.xml
   def destroy
-    @infraction_type.destroy
+    begin
+      @infraction_type.destroy
+    rescue ActiveRecord::DeleteRestrictionError => exception
+      flash[:error] = exception.message
+    end
 
     respond_to do |format|
       format.html { redirect_to(infraction_types_url) }

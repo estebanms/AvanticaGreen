@@ -63,7 +63,11 @@ class GamesController < ApplicationController
   # DELETE /games/1
   # DELETE /games/1.xml
   def destroy
-    @game.destroy
+    begin
+      @game.destroy
+    rescue ActiveRecord::DeleteRestrictionError => exception
+      flash[:error] = exception.message
+    end
 
     respond_to do |format|
       format.html { redirect_to(games_url) }
