@@ -26,6 +26,7 @@ class Ability
         can :manage, Comment, :player_id => player.id
         # Approve/reject being witness of an infraction
         can :update, Witness, :player_id => player.id
+        can [:read, :create], Suggestion
         can :manage, Suggestion, :player_id => player.id
       else
         # don't allow logged in users to create a new player
