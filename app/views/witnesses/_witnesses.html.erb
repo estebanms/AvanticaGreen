@@ -1,0 +1,20 @@
+<h5 >Witnesses:</h5>
+<% if @infraction.witnesses.size > 0 %>
+  <table>
+    <tr>
+      <th>Player</th>
+      <th>Status</th>
+    </tr>
+  <% @infraction.witnesses.each do |witness| %>
+    <tr>
+      <td><%= witness.player.full_name %></td>
+      <td><%= witness.status %></td>
+    </tr>
+  <% end %>
+  </table>
+  <br />
+<%end%>
+<% if can?(:create, Witness.new(:infraction => @infraction)) %>
+  <%= link_to 'Add Witness', new_witness_path %>
+<% end %>
+

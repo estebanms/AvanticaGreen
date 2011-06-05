@@ -1,0 +1,22 @@
+<% if can?(:create, Comment) %>
+  <%= link_to 'Add Comment', new_comment_path %>
+<% end %>
+
+<% if @infraction.comments.size > 0 %>
+<h5>Comments:</h5>
+  <% @infraction.comments.each do |comment| %>    
+    <div class="sticky_note_container">
+      <div class="sticky_note">
+         <div class="sticky_note_content">
+           <b><%= comment.player_name %></b> (<%= comment.created_at %></td>)
+           <br/><%= comment.description %>
+         </div>
+      </div>
+      <div class="sticky_note_footer">&nbsp;</div>
+        <br clear="all" />
+      </div>
+    </div>
+  <% end %>
+<%end%>
+
+

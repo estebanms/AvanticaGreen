@@ -1,3 +1,4 @@
+<div>
 <p>
   <b>Reporter:</b>
   <%= @infraction.reporter %>
@@ -29,6 +30,14 @@
   <%= render :partial => 'photo', :locals => { :style => :small } %>
 </p>
 <% end %>
+</div>
+<div id="infraction_witnesses">
+  <%= render 'witnesses/witnesses' %>
+</div>
+<br/>
+<div>
+  <%= render 'comments/comments' %>
+</div>
 
 <%= comments_link %> | <%= witnesses_link %> |
 <% if can? :update, @infraction %>
