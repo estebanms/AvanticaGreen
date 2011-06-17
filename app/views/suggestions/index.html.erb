@@ -14,6 +14,7 @@
     <td><%= suggestion.player_name %></td>
     <td><%= suggestion.suggestion_type %></td>
     <td><%= suggestion.description %></td>
+    <td><%= comments_link(suggestion) %></td>
     <td><%= link_to 'Show', suggestion %></td>
     <% if can? :manage, suggestion %>
       <td><%= link_to 'Edit', edit_suggestion_path(suggestion) %></td>

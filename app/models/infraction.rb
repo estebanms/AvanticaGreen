@@ -8,7 +8,7 @@ class Infraction < ActiveRecord::Base
   belongs_to :infraction_type
   belongs_to :status
   has_many :witnesses, :dependent => :destroy
-  has_many :comments, :class_name => 'Post', :dependent => :destroy
+  has_many :comments, :as => :commentable, :class_name => 'Post', :dependent => :destroy
   
   validates :game, :presence => true
   validates :team, :presence => true

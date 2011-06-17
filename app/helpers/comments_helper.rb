@@ -1,7 +1,7 @@
 module CommentsHelper
   # routes for comments
   def comments_path(options = {})
-    infraction_comments_path(@infraction, options)
+    polymorphic_path([@commentable, Comment], options)
   end
 
   def comments_url(options = {})
@@ -9,7 +9,7 @@ module CommentsHelper
   end
 
   def comment_path(comment, options = {})
-    infraction_comment_path(@infraction, comment, options)
+    polymorphic_path([@commentable, comment], options)
   end
 
   def comment_url(comment, options = {})
@@ -17,10 +17,14 @@ module CommentsHelper
   end
 
   def edit_comment_path(comment, options = {})
-    edit_infraction_comment_path(@infraction, comment, options)
+    edit_polymorphic_path([@commentable, comment], options)
   end
 
   def new_comment_path(options = {})
-    new_infraction_comment_path(@infraction, options)
+    new_polymorphic_path([@commentable, Comment], options)
+  end
+
+  def comments_link(commentable)
+    link_to "Comments (#{commentable.comments.size})", polymorphic_path([commentable, Comment])
   end
 end

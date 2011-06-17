@@ -30,7 +30,7 @@
 </p>
 <% end %>
 
-<%= comments_link %> | <%= witnesses_link %> |
+<%= comments_link(@infraction) %> | <%= witnesses_link %> |
 <% if can? :update, @infraction %>
   <%= link_to 'Edit', edit_infraction_path(@infraction) %> |
 <% end %>
