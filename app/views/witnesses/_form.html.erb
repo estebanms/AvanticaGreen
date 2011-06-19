@@ -15,10 +15,12 @@
     <%= f.label :player_id %><br />
     <%= action_name == 'edit' ? @witness.player.full_name : players_select(:witness) %>
   </div>
+  <% if action_name == 'edit' && can?(:update, @witness) %>
   <div class="field">
     <%= f.label :status_id %><br />
     <%= statuses_select(:witness) %>
   </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

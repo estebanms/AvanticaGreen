@@ -13,6 +13,9 @@ AvanticaGreen::Application.routes.draw do
     end
   end
 
+  #match 'update_status', :to => 'witnesses#update_status', :as => "update_status"
+  match 'players/infractions/:infraction_id/witnesses/:witness_id/:status_id', :to => 'witnesses#update_status'
+
   resources :statuses
 
   resources :infraction_types

@@ -3,16 +3,17 @@
 <% end %>
 
 <% if @infraction.comments.size > 0 %>
-<h5>Comments:</h5>
+<h4>Comments:</h4>
   <% @infraction.comments.each do |comment| %>    
-    <div class="sticky_note_container">
-      <div class="sticky_note">
-         <div class="sticky_note_content">
-           <b><%= comment.player_name %></b> (<%= comment.created_at %></td>)
-           <br/><%= comment.description %>
+    <div class="comment_container">
+      <div class="comment">
+         <div class="comment_content">
+		<%=image_tag(comment.player.avatar.url(:thumb),:style => "height:36px;vertical-align:middle")%>
+	   	<b><%= comment.player_name %></b> (<%= comment.created_at %></td>)
+	 <br/><%= comment.description %>
          </div>
       </div>
-      <div class="sticky_note_footer">&nbsp;</div>
+      <div class="comment_footer">&nbsp;</div>
         <br clear="all" />
       </div>
     </div>

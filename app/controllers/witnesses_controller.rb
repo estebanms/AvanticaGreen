@@ -45,6 +45,7 @@ class WitnessesController < ApplicationController
   def create
     @witness = Witness.new(params[:witness])
     @witness.infraction = @infraction
+    @witness.status = Status.find_by_name('Pending revision')
     @infraction.status = Status.find_by_name('Pending revision')
 
     respond_to do |format|
@@ -86,6 +87,20 @@ class WitnessesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(witnesses_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def update_status
+    @witness = Witness.find(params[:witness_id])
+    @witness.status = Status.find(params[:status_id])
+    respond_to do |format|
+      if @witness.update_attributes(params[:witness])
+	format.html { redirect_to(@witness.player) }
+        format.xml  { head :ok } 
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @witness.errors, :status => :unprocessable_entity }
+      end
     end
   end
 

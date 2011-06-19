@@ -1,0 +1,47 @@
+<% if (@team.infractions.accepted.size > 0) || (@team.infractions_as_offender.accepted.size > 0) %>
+<div class = "detail_box">
+<% if (@team.infractions.accepted.size > 0) %>
+<div class="box">
+  <div class="topleft">
+  <div class="topright">
+    <div>
+	<h4>Infractions reported by this team:</h4>
+	<% @team.infractions.accepted.each do |infraction| %>    
+		<b>Offender:</b> <%= infraction.offender.name %> (<%= infraction.infraction_type %>)
+		<br/>
+		<b>Description:</b> <%= infraction.description %>
+		<br/><br/>
+	 <% end %>
+    </div>
+  </div>
+  </div>
+  <div class="bottomleft">
+  <div class="bottomright">
+  </div>
+  </div>
+</div>
+<%end%>
+
+<% if @team.infractions_as_offender.accepted.size > 0 %>
+<div class="box">
+  <div class="topleft">
+  <div class="topright">
+    <div>
+	<h4>Infractions committed by this team:</h4>
+	<% @team.infractions_as_offender.accepted.each do |infraction| %>    
+		<b>Reporter:</b> <%= infraction.reporter %> (<%= infraction.infraction_type %>)
+		<br/>
+		<b>Description:</b> <%= infraction.description %>
+		<br/><br/>
+	 <% end %>
+    </div>
+  </div>
+  </div>
+  <div class="bottomleft">
+  <div class="bottomright">
+  </div>
+  </div>
+</div>
+</div>
+<%end%>
+<%end%>
