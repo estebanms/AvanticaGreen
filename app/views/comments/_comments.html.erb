@@ -1,23 +1,12 @@
 <% if can?(:create, Comment) %>
-  <%= link_to 'Add Comment', new_comment_path %>
+  <%= link_to 'Add Comment', new_comment_path, :remote => true %>
 <% end %>
 
-<% if @infraction.comments.size > 0 %>
-<h4>Comments:</h4>
-  <% @infraction.comments.each do |comment| %>    
-    <div class="comment_container">
-      <div class="comment">
-         <div class="comment_content">
-		<%=image_tag(comment.player.avatar.url(:thumb),:style => "height:36px;vertical-align:middle")%>
-	   	<b><%= comment.player_name %></b> (<%= comment.created_at %></td>)
-	 <br/><%= comment.description %>
-         </div>
-      </div>
-      <div class="comment_footer">&nbsp;</div>
-        <br clear="all" />
-      </div>
-    </div>
+<div id="comments">
+<% if @infraction.comments.any? %>
+  <h4>Comments:</h4>
+  <% @infraction.comments.each do |comment| %>
+      <%= render :partial => 'comments/comment', :locals => { :comment => comment } %>
   <% end %>
-<%end%>
-
-
+<% end %>
+</div>

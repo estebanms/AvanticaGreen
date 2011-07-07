@@ -1,0 +1,2 @@
+$('#error_explanation').remove();
+$('div#new_comment').prepend('<%= escape_javascript render('comments/errors') %>').fadeIn();

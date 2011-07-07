@@ -1,0 +1,2 @@
+$('div#new_comment').closest('.comment_container').remove();
+$('#comments').append('<%= escape_javascript render('comments/comment') %>');

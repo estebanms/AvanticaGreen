@@ -18,7 +18,7 @@ class InfractionsController < ApplicationController
   # GET /infractions/1
   # GET /infractions/1.xml
   def show
-    @witnesses = Witness.find(:all, :conditions =>  infraction_id = @infraction.id)
+    @witnesses = @infraction.witnesses
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @infraction }

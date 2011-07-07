@@ -2,7 +2,6 @@
 
 <% if @action == 'added' %>
   <p>Please accept or reject your role as a witness for <%= link_to 'this infraction', @infraction %></p>
-<% else %>
-
+<% end %>
 
 <%= url_for(:host => "example.com", :controller => "infractions", :action => "show", :id => @infraction.id) %>

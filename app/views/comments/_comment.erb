@@ -1,0 +1,10 @@
+<% comment ||= @comment %>
+<div class="comment_container">
+  <div class="comment">
+    <div id="comment_<%= comment.id %>" class="comment_content">
+      <%= render :partial => 'comments/comment_content', :locals => { :comment => comment } %>
+    </div>
+  </div>
+  <div class="comment_footer">&nbsp;</div>
+  <br clear="all" />
+</div>

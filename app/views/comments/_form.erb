@@ -1,0 +1,33 @@
+<% comment ||= @comment %>
+
+<% if comment.new_record? %>
+<div class="comment_container">
+<div class="comment">
+<div id="new_comment" class="comment_content">
+  <b>New comment</b>
+  <%= link_to 'Cancel', '#', :onclick => "$('div#new_comment').closest('.comment_container').remove(); $('div#error_explanation').remove();" %><br />
+<% else %>
+  <%= render :partial => 'comments/comment_header', :locals => { :comment => comment } %>
+  <%= link_to 'Cancel', comment, :remote => true %>
+<% end %>
+	<%= form_for(comment, :remote => true) do |f| %>
+	  <div class="field">
+	    <%= f.check_box :anonymous %> Add comment as anonymous user
+	  </div>
+	  <div class="field">
+	    <%= f.label :description, 'Comment' %><br />
+	    <%= f.text_area :description, :rows => 5 %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :post_type_id, 'Comment type' %><br />
+	    <%= comment_types_select %>
+	  </div>
+	  <div class="actions">
+	    <%= f.submit %>
+	  </div>
+	<% end %>
+<% if comment.new_record? %>
+</div>
+</div>
+</div>
+<% end %>
