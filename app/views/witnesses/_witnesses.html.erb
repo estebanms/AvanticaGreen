@@ -1,21 +1,18 @@
-<div class = "detail_box">
+<div class="detail_box">
 <div class="box">
   <div class="topleft">
   <div class="topright">
-    <div>
-       <h4>Witnesses:</h4>
-	<% if @infraction.witnesses.size > 0 %>
-	  <% @infraction.witnesses.each do |witness| %>
-	      <%=image_tag(witness.player.avatar.url(:thumb),:style => "height:36px;vertical-align:middle")%>
-	      <%= witness.player.full_name %> (<%= witness.status %>)
-	      <br />
-	  <% end %>
-	<%end%>
-	<% if can?(:create, Witness.new(:infraction => @infraction)) %>
-	  <br />	  
-	  <%= link_to 'Add Witness', new_witness_path %>
-	<% end %>
+    <h4>Witnesses:</h4>
+    <div id="witnesses">
+      <% if @infraction.witnesses.any? %>
+        <%= render @infraction.witnesses %><br />
+      <% else %>
+        No witnesses for this infraction.
+      <% end %>
     </div>
+    <% if can?(:create, Witness.new(:infraction => @infraction)) %>
+      <br /><%= link_to 'Add Witness', new_witness_path, :remote => true %>
+    <% end %>
   </div>
   </div>
   <div class="bottomleft">

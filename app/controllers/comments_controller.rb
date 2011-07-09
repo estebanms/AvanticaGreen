@@ -48,6 +48,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(params[:comment])
     @comment.infraction = @infraction
     @comment.player = current_player
+    @comments_size = Comment.count(:conditions => "infraction_id = #{@infraction.id}")
 
     respond_to do |format|
       if @comment.save
@@ -55,7 +56,7 @@ class CommentsController < ApplicationController
         format.js
         format.xml  { render :xml => @comment, :status => :created, :location => @comment }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => 'new' }
         format.js   { render :action => 'errors' }
         format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
       end
@@ -71,7 +72,8 @@ class CommentsController < ApplicationController
         format.js   { render :action => 'show' }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => 'edit' }
+        format.js   { render :action => 'errors' }
         format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
       end
     end
@@ -80,11 +82,16 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.xml
   def destroy
-    @comment.destroy
+    begin
+      @comment.destroy
+    rescue ActiveRecord::DeleteRestrictionError => exception
+      @comment.errors.add(:infraction, exception.message)
+    end
 
+    @comments_size = Comment.count(:conditions => "infraction_id = #{@infraction.id}")
     respond_to do |format|
       format.html { redirect_to(comments_url) }
-      format.js
+      format.js   { render :action => @comment.errors.any? ? 'errors' : 'destroy' }
       format.xml  { head :ok }
     end
   end

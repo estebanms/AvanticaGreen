@@ -1,2 +1,5 @@
 $('div#new_comment').closest('.comment_container').remove();
-$('#comments').append('<%= escape_javascript render('comments/comment') %>');
+<% if @comments_size == 0 %>
+  $('#comments').append('<%= escape_javascript render('comments/comments_title') %>');
+<% end %>
+$('#comments').append('<%= escape_javascript render(@comment) %>');

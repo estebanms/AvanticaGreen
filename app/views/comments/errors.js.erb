@@ -1,2 +1,4 @@
 $('#error_explanation').remove();
-$('div#new_comment').prepend('<%= escape_javascript render('comments/errors') %>').fadeIn();
+$('div#<%= @comment.new_record? ? 'new_comment' : "comment_#{@comment.id}" %>').prepend(
+    '<%= escape_javascript render(:partial => 'shared/errors', :locals => { :object => @comment }) %>'
+).fadeIn();

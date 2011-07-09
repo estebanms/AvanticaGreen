@@ -24,8 +24,6 @@
     <td><%= infraction.infraction_type %></td>
     <td><%= infraction.status %></td>
     <td><%= infraction.description %></td>
-    <td><%= comments_link(infraction) %></td>
-    <td><%= witnesses_link(infraction) %></td>
     <td><%= link_to 'Show', infraction %></td>
     <% if can? :update, infraction %>
       <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>

@@ -1,0 +1,5 @@
+$('div#new_witness').remove();
+<% if @witnesses_size == 0 %>
+  $('#witnesses').empty();
+<% end %>
+$('#witnesses').append('<%= escape_javascript render(@witness) %>');

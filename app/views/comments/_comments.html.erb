@@ -4,9 +4,7 @@
 
 <div id="comments">
 <% if @infraction.comments.any? %>
-  <h4>Comments:</h4>
-  <% @infraction.comments.each do |comment| %>
-      <%= render :partial => 'comments/comment', :locals => { :comment => comment } %>
-  <% end %>
+  <%= render 'comments/comments_title' %>
+  <%= render @infraction.comments %>
 <% end %>
 </div>

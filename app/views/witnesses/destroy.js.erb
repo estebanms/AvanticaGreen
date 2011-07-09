@@ -1,0 +1,4 @@
+$('#witness_<%= @witness.id %>').fadeOut(500, function() { $(this).remove(); });
+<% if @witnesses_size == 0 %>
+  $('#witnesses').append('No witnesses for this infraction.');
+<% end %>

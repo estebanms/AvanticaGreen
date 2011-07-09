@@ -6,4 +6,5 @@
 <% if can?(:destroy, comment) %>
   <%= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete, :remote => true %>
 <% end %>
-<br/><%= comment.description %>
+<br/><b>(<%= comment.comment_type %>)</b>
+<%= comment.description %>

@@ -1,0 +1,4 @@
+<% witness ||= @witness %>
+<div id="witness_<%= witness.id %>">
+  <%= render :partial => 'witnesses/witness_content', :locals => { :witness => witness } %>
+</div>

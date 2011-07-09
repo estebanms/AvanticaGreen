@@ -1,0 +1,4 @@
+$('#error_explanation').remove();
+$('div#<%= @witness.new_record? ? 'new_witness' : "witness_#{@witness.id}" %>').prepend(
+    '<%= escape_javascript render(:partial => 'shared/errors', :locals => { :object => @witness }) %>'
+).fadeIn();
