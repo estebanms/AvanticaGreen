@@ -1,13 +1,13 @@
 class CommentsController < ApplicationController
   include CommentsHelper
-  before_filter :get_infraction
+  before_filter :get_commentable
   load_and_authorize_resource
   skip_load_resource :only => [:index, :new, :create]
 
   # GET /comments
   # GET /comments.xml
   def index
-    @comments = @infraction.comments
+    @comments = @commentable.comments
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
   # GET /comments/new.xml
   def new
     @comment = Comment.new
-    @comment.infraction = @infraction
+    @comment.commentable = @commentable
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,7 +46,17 @@ class CommentsController < ApplicationController
   # POST /comments.xml
   def create
     @comment = Comment.new(params[:comment])
-    @comment.infraction = @infraction
+    # WARNING: there is a bug in Rails that stores @commentable.class.base_class
+    # instead of @commentable.class in the commentable_type field.
+    # You can see more details here: https://github.com/rails/rails/issues/617
+    # For example, if @commentable is an instance of Suggestion, 
+    # then commentable_type will have 'Post', not 'Suggestion'.
+    # This will work for now because Suggestion is the only commentable class
+    # that inherits from Post. However, if we ever had another commentable class
+    # that inherits from Post, then we would have to manually assign the 
+    # commentable_type and commentable_id columns.
+    # The same applies for the new action of this controller.
+    @comment.commentable = @commentable
     @comment.player = current_player
     @comments_size = Comment.count(:conditions => "infraction_id = #{@infraction.id}")
 
@@ -97,7 +107,13 @@ class CommentsController < ApplicationController
   end
 
 private
-  def get_infraction
-    @infraction = Infraction.find(params[:infraction_id])
+  def get_commentable
+    # include all possible commentable classes here
+    commentable_classes = [Infraction, Suggestion]
+    commentable_classes.each do |commentable_class|
+      id_column = "#{commentable_class.to_s.underscore}_id".to_sym
+      @commentable = commentable_class.find(params[id_column]) if params[id_column]
+      break if @commentable
+    end
   end
 end

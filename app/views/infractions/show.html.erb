@@ -3,40 +3,36 @@
   <div class="main_box_topleft">
   <div class="main_box_topright">
     <div>
-       <p>
-	  <b>Reporter:</b>
-	  <%= @infraction.reporter %>
-	</p>
-
-	<p>
-	  <b>Offender:</b>
-	  <%= @infraction.offender.name %>
-	</p>
-
-	<p>
-	  <b>Infraction type:</b>
-	  <%= @infraction.infraction_type %>
-	</p>
-
-	<p>
-	  <b>Status:</b>
-	  <%= @infraction.status %>
-	</p>
-
-	<p>
-	  <b>Description:</b>
-	  <%= @infraction.description %>
-	</p>
-	<% if @infraction.photo? %>
-	<div>
-	  <b>Evidence:</b><br />
-	  <%= render :partial => 'photo', :locals => { :style => :small } %>
-	</div>
-	<% end %>
-	<% if can? :update, @infraction %>
-	  <%= link_to 'Edit', edit_infraction_path(@infraction) %> |
-	<% end %>
-	<%= link_to 'Back', infractions_path %>  
+      <p>
+        <b>Reporter:</b>
+        <%= @infraction.reporter %>
+      </p>
+      <p>
+        <b>Offender:</b>
+        <%= @infraction.offender.name %>
+      </p>
+      <p>
+        <b>Infraction type:</b>
+        <%= @infraction.infraction_type %>
+      </p>
+      <p>
+        <b>Status:</b>
+        <%= @infraction.status %>
+      </p>
+      <p>
+        <b>Description:</b>
+        <%= @infraction.description %>
+      </p>
+      <% if @infraction.photo? %>
+      <div>
+        <b>Evidence:</b><br />
+        <%= render :partial => 'photo', :locals => { :style => :small } %>
+      </div>
+      <% end %>
+      <% if can? :update, @infraction %>
+        <%= link_to 'Edit', edit_infraction_path(@infraction) %> |
+      <% end %>
+      <%= link_to 'Back', infractions_path %>  
     </div>
   </div>
   </div>
