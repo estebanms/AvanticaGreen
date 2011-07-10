@@ -58,7 +58,7 @@ class CommentsController < ApplicationController
     # The same applies for the new action of this controller.
     @comment.commentable = @commentable
     @comment.player = current_player
-    @comments_size = Comment.count(:conditions => "infraction_id = #{@infraction.id}")
+    @comments_size = Comment.count(:conditions => "commentable_id = #{@commentable.id}")
 
     respond_to do |format|
       if @comment.save
@@ -95,10 +95,10 @@ class CommentsController < ApplicationController
     begin
       @comment.destroy
     rescue ActiveRecord::DeleteRestrictionError => exception
-      @comment.errors.add(:infraction, exception.message)
+      @comment.errors.add(:commentable, exception.message)
     end
 
-    @comments_size = Comment.count(:conditions => "infraction_id = #{@infraction.id}")
+    @comments_size = Comment.count(:conditions => "commentable_id = #{@commentable.id}")
     respond_to do |format|
       format.html { redirect_to(comments_url) }
       format.js   { render :action => @comment.errors.any? ? 'errors' : 'destroy' }

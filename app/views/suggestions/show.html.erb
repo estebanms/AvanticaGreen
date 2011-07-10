@@ -1,24 +1,40 @@
-<p>
-  <b>Date:</b>
-  <%= format_date(@suggestion.created_at) %>
-</p>
+<div>
+<div class="main_box">
+  <div class="main_box_topleft">
+  <div class="main_box_topright">
+    <div>
+      <p>
+        <b>Date:</b>
+        <%= format_date(@suggestion.created_at) %>
+      </p>
 
-<p>
-  <b>Author:</b>
-  <%= @suggestion.player_name %>
-</p>
+      <p>
+        <b>Author:</b>
+        <%= @suggestion.player_name %>
+      </p>
 
-<p>
-  <b>Type:</b>
-  <%= @suggestion.suggestion_type %>
-</p>
+      <p>
+        <b>Type:</b>
+        <%= @suggestion.suggestion_type %>
+      </p>
 
-<p>
-  <b>Description:</b>
-  <%= @suggestion.description %>
-</p>
+      <p>
+        <b>Description:</b>
+        <%= @suggestion.description %>
+      </p>
 
-<% if can? :update, @suggestion %>
-  <%= link_to 'Edit', edit_suggestion_path(@suggestion) %> |
-<% end %>
-<%= link_to 'Back', suggestions_path %>
+      <% if can? :update, @suggestion %>
+        <%= link_to 'Edit', edit_suggestion_path(@suggestion) %> |
+      <% end %>
+      <%= link_to 'Back', suggestions_path %>
+    </div>
+  </div>
+  </div>
+  <div class="main_box_bottomleft">
+  <div class="main_box_bottomright">
+  </div>
+  </div>
+</div>
+<div>
+  <%= render 'comments/comments' %>
+</div>

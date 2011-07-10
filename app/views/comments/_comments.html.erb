@@ -3,8 +3,8 @@
 <% end %>
 
 <div id="comments">
-<% if @infraction.comments.any? %>
+<% if @commentable.comments.any? %>
   <%= render 'comments/comments_title' %>
-  <%= render @infraction.comments %>
+  <%= render @commentable.comments %>
 <% end %>
 </div>
