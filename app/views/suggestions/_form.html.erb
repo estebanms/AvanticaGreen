@@ -22,6 +22,12 @@
     <%= f.label :post_type_id, 'Suggestion type' %><br />
     <%= suggestion_types_select %>
   </div>
+  <% if action_name == 'edit' && can?(:manage, @suggestion) %>
+    <div class="field">
+      <%= f.label :status_id %><br />
+      <%= statuses_select(:suggestion) %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

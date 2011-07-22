@@ -37,6 +37,7 @@ class SuggestionsController < ApplicationController
   # POST /suggestions.xml
   def create
     @suggestion.player = current_player
+    @suggestion.status = Status.find_by_name('Pending revision')
 
     respond_to do |format|
       if @suggestion.save
