@@ -26,4 +26,8 @@ class Team < ActiveRecord::Base
   def self.sorted_by_score
     self.active.sort {|a, b| b.score <=> a.score }
   end
+  
+  def to_s
+    self.name
+  end
 end

@@ -1,100 +1,45 @@
 <%
-@witness_accepted = Array.new
-@witness_pending = Array.new
-@witness_rejected = Array.new
+  player_infractions = @player.infractions.accepted
+  witnesses = @player.witnesses
+  pending_witnesses = witnesses.select { |witness| pending?(witness) }
+  accepted_witnesses = witnesses.select { |witness| accepted?(witness) }
+  rejected_witnesses = witnesses.select { |witness| rejected?(witness) }
+%>
 
-@witnesses = @player.witnesses
-@witnesses.each do |witness| 
-  case 
-    when (witness.infraction.status).to_s == ('Accepted')
-      @witness_accepted.push(witness)
-    when (witness.infraction.status).to_s == ('Pending revision')
-      @witness_pending << witness
-    else
-      @witness_rejected << witness
-    end 
-end %>
-
-<% if (@player.infractions.accepted.size > 0) || (@witnesses.size > 0) %>
+<% if player_infractions.any? || witnesses.any? %>
 <div class = "detail_box">
-<% if (@player.infractions.accepted.size > 0) %>
-<div class="box">
-  <div class="topleft">
-  <div class="topright">
-    <div>
-	<h4>Infractions reported by this player:</h4>
-	<% @player.infractions.accepted.each do |infraction| %>    
-		<b>Offender:</b> <%= infraction.offender.name %> (<%= infraction.infraction_type %>)
-		<br/>
-		<b>Description:</b> <%= infraction.description %>
-		<br/><br/>
-	 <% end %>
-    </div>
-  </div>
-  </div>
-  <div class="bottomleft">
-  <div class="bottomright">
-  </div>
-  </div>
-</div>
-<%end%>
-<div id ="test_div"></div>
-<% if @witnesses.size > 0 %>
-<div class="box">
-  <div class="topleft">
-  <div class="topright">
-    <div>
-	<% if @witness_pending.size > 0 %>
-		<h4>Player is witness of currently active infractions:</h4>
-		<% @witness_pending.each do |witness| %>    
-		  <%= witness.infraction.offender.name %> (<%= witness.infraction.infraction_type %>)
-		    <br/>
-		    <b>Description:</b> <%= witness.infraction.description %>
-		    <br/>
-		    <% if (witness.status.name == 'Accepted') || witness.status.name == 'Rejected'%>
-                      <b>Status:</b> <%= witness.status.name %>
-                    <% else %>
-                    <div>
-		       <% if can? :update, @player %>    
-                       <%= link_to 'ACCEPT',"infractions/#{witness.infraction.id}/witnesses/#{witness.id}/#{Status.find_by_name('Accepted').id}", :confirm => 'You are about to accept your role as a witness for this infraction', :method => :delete, :remote=>true, :class => "witness_button" %>  
-		       | 
-                       <%= link_to 'REJECT',"infractions/#{witness.infraction.id}/witnesses/#{witness.id}/#{Status.find_by_name('Rejected').id}", :confirm => 'You are about to reject your role as a witness for this infraction', :method => :delete, :remote=>true, :class => "witness_button" %>
-                     </div>
-                     <% else %>
-                        <b>Status:</b> <%= witness.status.name %>
-                     <% end %>
-                     <% end %>
-                     <br/><br/> 
-                     
-		 <% end %>
-	<% end %>
-	<% if @witness_accepted.size > 0 %>	
-		<h4>Player was witness of accepted infractions:</h4>
-		<% @witness_accepted.each do |witness| %>    
-			<%= witness.infraction.offender.name %> (<%= witness.infraction.infraction_type %>)
-			<br/>
-			<b>Description:</b> <%= witness.infraction.description %>
-			<br/><br/>
-		 <% end %>
-	<% end %>
-	<% if @witness_rejected.size > 0 %>	
-		<h4>Player was witness of rejected infractions:</h4>
-		<% @witness_rejected.each do |witness| %>    
-			<%= witness.infraction.offender.name %> (<%= witness.infraction.infraction_type %>)
-			<br/>
-			<b>Description:</b> <%= witness.infraction.description %>
-			<br/><br/>
-		 <% end %>
-	<% end %>
+  <% if player_infractions.any? %>
+    <%= render :partial => 'infractions/list', :locals => {
+      :infractions => player_infractions, 
+      :type => 'offender', 
+      :title => 'Infractions reported by this player'
+    } %>
+  <% end %>
+  <div id="test_div"></div>
 
-    </div>
-  </div>
-  </div>
-  <div class="bottomleft">
-  <div class="bottomright">
-  </div>
-  </div>
+  <% if pending_witnesses.any? %>
+    <%= render :partial => 'infractions/list', :locals => {
+      :infractions => pending_witnesses.map { |witness| witness.infraction }, 
+      :witnesses => pending_witnesses, 
+      :type => 'offender', 
+      :title => 'This player has been requested as a witness of the following infractions'
+    } %>
+  <% end %>
+
+  <% if accepted_witnesses.any? %>
+    <%= render :partial => 'infractions/list', :locals => {
+      :infractions => accepted_witnesses.map { |witness| witness.infraction }, 
+      :type => 'offender', 
+      :title => 'This player is a witness of these infractions'
+    } %>
+  <% end %>
+
+  <% if rejected_witnesses.any? %>
+    <%= render :partial => 'infractions/list', :locals => {
+      :infractions => rejected_witnesses.map { |witness| witness.infraction }, 
+      :type => 'offender', 
+      :title => 'Player has rejected being a witness of the following infractions'
+    } %>
+  <% end %>
 </div>
-</div>
-<%end%>
-<%end%>
+<% end %>
