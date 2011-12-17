@@ -1,0 +1,31 @@
+  <div class="box">
+    <div class="topleft">
+    <div class="topright">
+      <div>
+        <h4><%= title %>:</h4>
+        <% infractions.each_index do |index| %>
+          <% infraction = infractions[index] %>
+          <% witness = witnesses[index] unless witnesses.blank? %>
+          <p>
+            <b><%= type.humanize %>:</b> <%= infraction.send(type) %> (<%= infraction.infraction_type %>)
+            <br/>
+            <b>Description:</b> <%= infraction.description %>
+            <% if witness %>
+              <br />
+              <% if pending?(witness) && can?(:update, @player) %>
+                <%= link_to 'Accept', "infractions/#{witness.infraction.id}/witnesses/#{witness.id}/#{Status.find_by_name('Accepted').id}", :confirm => 'You are about to accept your role as a witness for this infraction', :method => :delete, :remote => true, :class => 'witness_button' %> | 
+                <%= link_to 'Reject', "infractions/#{witness.infraction.id}/witnesses/#{witness.id}/#{Status.find_by_name('Rejected').id}", :confirm => 'You are about to reject your role as a witness for this infraction', :method => :delete, :remote=>true, :class => 'witness_button' %>
+              <% else %>
+                <b>Status:</b> <%= witness.status %>
+              <% end %>
+            <% end %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+    </div>
+    <div class="bottomleft">
+    <div class="bottomright">
+    </div>
+    </div>
+  </div>

@@ -1,0 +1,23 @@
+<div class="detail_box">
+<div class="box">
+  <div class="topleft">
+  <div class="topright">
+    <h4>Witnesses:</h4>
+    <div id="witnesses">
+      <% if @infraction.witnesses.any? %>
+        <%= render @infraction.witnesses %><br />
+      <% else %>
+        No witnesses for this infraction.
+      <% end %>
+    </div>
+    <% if can?(:create, Witness.new(:infraction => @infraction)) %>
+      <br /><%= link_to 'Add Witness', new_witness_path, :remote => true %>
+    <% end %>
+  </div>
+  </div>
+  <div class="bottomleft">
+  <div class="bottomright">
+  </div>
+  </div>
+</div>
+</div>

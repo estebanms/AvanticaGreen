@@ -1,5 +1,5 @@
 class PlayerMailer < ActionMailer::Base
-  default :from => "espiaverde@vantica.net"
+  default :from => "avanticagreen@avantica.net"
   
   def infraction_update(infraction, player)
     @infraction = infraction 

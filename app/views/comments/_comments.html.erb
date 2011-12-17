@@ -1,0 +1,10 @@
+<% if can?(:create, Comment) %>
+  <%= link_to 'Add Comment', new_comment_path, :remote => true %>
+<% end %>
+
+<div id="comments">
+<% if @commentable.comments.any? %>
+  <%= render 'comments/comments_title' %>
+  <%= render @commentable.comments %>
+<% end %>
+</div>

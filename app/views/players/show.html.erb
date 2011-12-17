@@ -22,6 +22,8 @@
   <%= link_to @player.team.name, @player.team %>
 </p>
 
+<%= render 'players/player_details' %>
+
 <% if can? :manage, @player %>
   <p>
     <b>Is administrator:</b>

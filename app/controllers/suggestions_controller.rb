@@ -13,6 +13,7 @@ class SuggestionsController < ApplicationController
   # GET /suggestions/1
   # GET /suggestions/1.xml
   def show
+    @commentable = @suggestion
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @suggestion }
@@ -36,6 +37,7 @@ class SuggestionsController < ApplicationController
   # POST /suggestions.xml
   def create
     @suggestion.player = current_player
+    @suggestion.status = Status.find_by_name('Pending revision')
 
     respond_to do |format|
       if @suggestion.save

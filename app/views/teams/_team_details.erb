@@ -1,0 +1,20 @@
+<% infractions = @team.infractions.accepted %>
+<% infractions_as_offender = @team.infractions_as_offender.accepted %>
+<% if infractions.any? || infractions_as_offender.any? %>
+<div class = "detail_box">
+  <% if infractions.any? %>
+    <%= render :partial => 'infractions/list', :locals => {
+      :infractions => infractions, 
+      :type => 'offender', 
+      :title => 'Infractions reported by this team'
+    } %>
+  <% end %>
+
+  <% if infractions_as_offender.any? %>
+    <%= render :partial => 'infractions/list', :locals => {
+      :infractions => infractions_as_offender, 
+      :type => 'reporter', 
+      :title => 'Infractions committed by this team'
+    } %>
+  <% end %>
+<% end %>

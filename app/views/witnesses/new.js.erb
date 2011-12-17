@@ -1,0 +1,3 @@
+$('div#new_witness').remove();
+$('#witnesses').append('<%= escape_javascript render('witnesses/form') %>').fadeIn();
+$('html, body').animate({scrollTop: $(document).height()}, 'slow');

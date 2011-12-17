@@ -20,6 +20,7 @@ class WitnessesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
+      format.js # show.js.erb
       format.xml  { render :xml => @witness }
     end
   end
@@ -32,6 +33,7 @@ class WitnessesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
+      format.js # new.js.erb
       format.xml  { render :xml => @witness }
     end
   end
@@ -45,7 +47,9 @@ class WitnessesController < ApplicationController
   def create
     @witness = Witness.new(params[:witness])
     @witness.infraction = @infraction
+    @witness.status = Status.find_by_name('Pending revision')
     @infraction.status = Status.find_by_name('Pending revision')
+    @witnesses_size = Witness.count(:conditions => "infraction_id = #{@infraction.id}")
 
     respond_to do |format|
       if @witness.save
@@ -53,9 +57,11 @@ class WitnessesController < ApplicationController
         PlayerMailer.witness_notification(@witness, 'added').deliver
 
         format.html { redirect_to(@witness, :notice => 'Witness was successfully created.') }
+        format.js
         format.xml  { render :xml => @witness, :status => :created, :location => @witness }
       else
         format.html { render :action => "new" }
+        format.js   { render :action => 'errors' }
         format.xml  { render :xml => @witness.errors, :status => :unprocessable_entity }
       end
     end
@@ -67,9 +73,11 @@ class WitnessesController < ApplicationController
     respond_to do |format|
       if @witness.update_attributes(params[:witness])
         format.html { redirect_to(@witness, :notice => 'Witness was successfully updated.') }
+        format.js   { render :action => 'show' }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
+        format.js   { render :action => 'errors' }
         format.xml  { render :xml => @witness.errors, :status => :unprocessable_entity }
       end
     end
@@ -78,14 +86,34 @@ class WitnessesController < ApplicationController
   # DELETE /witnesses/1
   # DELETE /witnesses/1.xml
   def destroy
-    @witness.destroy
+    begin
+      @witness.destroy
+    rescue ActiveRecord::DeleteRestrictionError => exception
+      @witness.errors.add(:infraction, exception.message)
+    end
 
     # notify player by email he has been removed as a witness
     PlayerMailer.witness_notification(@witness, 'removed').deliver
 
+    @witnesses_size = Witness.count(:conditions => "infraction_id = #{@infraction.id}")
     respond_to do |format|
       format.html { redirect_to(witnesses_url) }
+      format.js   { render :action => @witness.errors.any? ? 'errors' : 'destroy' }
       format.xml  { head :ok }
+    end
+  end
+
+  def update_status
+    @witness = Witness.find(params[:witness_id])
+    @witness.status = Status.find(params[:status_id])
+    respond_to do |format|
+      if @witness.update_attributes(params[:witness])
+        format.html { redirect_to(@witness.player) }
+        format.xml  { head :ok } 
+      else
+        format.html { render :action => 'edit' }
+        format.xml  { render :xml => @witness.errors, :status => :unprocessable_entity }
+      end
     end
   end
 

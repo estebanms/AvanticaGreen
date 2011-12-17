@@ -1,45 +1,60 @@
 <% players ||= @players %>
 <% context ||= :system %>
 
-<% if players.empty? %>
-  There are no players in the <%= context.to_s %>.
-<% else %>
-  <table>
-    <tr>
-      <th></th>
-      <th>Full name</th>
-      <th>Email address</th>
-      <% unless context == :team %>
-        <th>Team</th>
-      <% end %>
-      <% if can? :manage, Player %>
-        <th>Administrator?</th>
-	<th>Active?</th>
-      <% end %>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+<div>
+<div class="main_box">
+  <div class="main_box_topleft">
+  <div class="main_box_topright">
+    <div>
+      <% if players.empty? %>
+        There are no players in the <%= context.to_s %>.
+      <% else %>
+      <h4>Players:</h4>
+      <table>
+        <tr>
+          <th></th>
+          <th>Full name</th>
+          <th>Email address</th>
+          <% unless context == :team %>
+          <th>Team</th>
+          <% end %>
+          <% if can? :manage, Player %>
+          <th>Administrator?</th>
+          <th>Active?</th>
+          <% end %>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
 
-  <% players.each do |player| %>
-    <tr>
-      <td><%= link_to image_tag(player.avatar.url(:thumb)), player %>
-      <td><%= link_to player.full_name, player %></td>
-      <td><%= mail_to(player.user.email) %></td>
-      <% unless context == :team %>
-        <td><%= link_to player.team.name, player.team %></td>
-      <% end %>
-      <% if can? :manage, player %>
-        <td><%= player.is_admin %></td>
-	<td><%= player.active %></td>
-      <% end %>
-      <% if can? :update, player %>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
-      <% end %>
-      <% if can? :destroy, player %>
-        <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>
-      <% end %>
-    </tr>
-  <% end %>
-  </table>
-<% end %>
+        <% players.each do |player| %>
+        <tr>
+          <td><%= link_to image_tag(player.avatar.url(:thumb)), player %>
+          <td><%= link_to player.full_name, player %></td>
+          <td><%= mail_to(player.user.email) %></td>
+          <% unless context == :team %>
+          <td><%= link_to player.team.name, player.team %></td>
+          <% end %>
+          <% if can? :manage, player %>
+          <td><%= player.is_admin %></td>
+          <td><%= player.active %></td>
+          <% end %>
+          <% if can? :update, player %>
+          <td><%= link_to 'Edit', edit_player_path(player) %></td>
+          <% end %>
+          <% if can? :destroy, player %>
+          <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>
+          <% end %>
+        </tr>
+        <% end %>
+      </table>
+      <% end %>  
+    </div>
+  </div>
+  </div>
+  <div class="main_box_bottomleft">
+  <div class="main_box_bottomright">
+  </div>
+  </div>
+</div>
+</div>

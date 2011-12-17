@@ -1,0 +1,45 @@
+<%
+  player_infractions = @player.infractions.accepted
+  witnesses = @player.witnesses
+  pending_witnesses = witnesses.select { |witness| pending?(witness) }
+  accepted_witnesses = witnesses.select { |witness| accepted?(witness) }
+  rejected_witnesses = witnesses.select { |witness| rejected?(witness) }
+%>
+
+<% if player_infractions.any? || witnesses.any? %>
+<div class = "detail_box">
+  <% if player_infractions.any? %>
+    <%= render :partial => 'infractions/list', :locals => {
+      :infractions => player_infractions, 
+      :type => 'offender', 
+      :title => 'Infractions reported by this player'
+    } %>
+  <% end %>
+  <div id="test_div"></div>
+
+  <% if pending_witnesses.any? %>
+    <%= render :partial => 'infractions/list', :locals => {
+      :infractions => pending_witnesses.map { |witness| witness.infraction }, 
+      :witnesses => pending_witnesses, 
+      :type => 'offender', 
+      :title => 'This player has been requested as a witness of the following infractions'
+    } %>
+  <% end %>
+
+  <% if accepted_witnesses.any? %>
+    <%= render :partial => 'infractions/list', :locals => {
+      :infractions => accepted_witnesses.map { |witness| witness.infraction }, 
+      :type => 'offender', 
+      :title => 'This player is a witness of these infractions'
+    } %>
+  <% end %>
+
+  <% if rejected_witnesses.any? %>
+    <%= render :partial => 'infractions/list', :locals => {
+      :infractions => rejected_witnesses.map { |witness| witness.infraction }, 
+      :type => 'offender', 
+      :title => 'Player has rejected being a witness of the following infractions'
+    } %>
+  <% end %>
+</div>
+<% end %>

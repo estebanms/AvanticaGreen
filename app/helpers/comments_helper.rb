@@ -23,8 +23,4 @@ module CommentsHelper
   def new_comment_path(options = {})
     new_polymorphic_path([@commentable, Comment], options)
   end
-
-  def comments_link(commentable)
-    link_to "Comments (#{commentable.comments.size})", polymorphic_path([commentable, Comment])
-  end
 end

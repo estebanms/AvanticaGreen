@@ -1,0 +1,4 @@
+$('#comment_<%= @comment.id %>').closest('.comment_container').fadeOut(500, function() { $(this).remove(); });
+<% if @comments_size == 0 %>
+    $('#comments_title').fadeOut(500, function() { $(this).remove(); });
+<% end %>

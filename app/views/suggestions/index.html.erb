@@ -5,6 +5,7 @@
     <th>Date</th>
     <th>Author</th>
     <th>Type</th>
+    <th>Status</th>
     <th>Suggestion</th>
   </tr>
 
@@ -13,11 +14,14 @@
     <td><%= format_date(suggestion.created_at) %></td>
     <td><%= suggestion.player_name %></td>
     <td><%= suggestion.suggestion_type %></td>
+    <td><%= suggestion.status %></td>
     <td><%= suggestion.description %></td>
     <td><%= comments_link(suggestion) %></td>
     <td><%= link_to 'Show', suggestion %></td>
-    <% if can? :manage, suggestion %>
+    <% if can? :update, suggestion %>
       <td><%= link_to 'Edit', edit_suggestion_path(suggestion) %></td>
+    <% end %>
+    <% if can? :destroy, suggestion %>
       <td><%= link_to 'Destroy', suggestion, :confirm => 'Are you sure?', :method => :delete %></td>
     <% end %>
   </tr>

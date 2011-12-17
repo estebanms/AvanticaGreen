@@ -19,7 +19,7 @@ a:hover { color: #fff; background-color:#000; }
 a img, a:hover img { border-width: 0; }
 
 div.field, div.actions {
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 #notice {

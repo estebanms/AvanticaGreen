@@ -1,0 +1,31 @@
+<% witness ||= @witness %>
+
+<% if witness.new_record? %>
+  <div id="new_witness">
+    <br />
+    <b>New witness</b>
+    <%= link_to 'Cancel', '#', :onclick => "$('div#new_witness').remove(); $('div#error_explanation').remove();" %><br />
+<% else %>
+  <%= render :partial => 'witnesses/witness_header', :locals => { :witness => witness } %>
+  <%= link_to 'Cancel', witness, :remote => true %><br />
+<% end %>
+<%= form_for(@witness, :remote => true) do |f| %>
+  <% unless action_name == 'edit' %>
+  <div class="field">
+    <%= f.label :player_id %><br />
+    <%= players_select(:witness, :player_id, :exclude_team => @witness.infraction.team) %>
+  </div>
+  <% end %>
+  <% if action_name == 'edit' && can?(:update, @witness) %>
+  <div class="field">
+    <%= f.label :status_id %><br />
+    <%= statuses_select(:witness) %>
+  </div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<% if witness.new_record? %>
+  </div>
+<% end %>

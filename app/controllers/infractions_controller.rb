@@ -18,6 +18,8 @@ class InfractionsController < ApplicationController
   # GET /infractions/1
   # GET /infractions/1.xml
   def show
+    @witnesses = @infraction.witnesses
+    @commentable = @infraction
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @infraction }

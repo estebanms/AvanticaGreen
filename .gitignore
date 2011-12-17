@@ -10,7 +10,7 @@ db/*.sqlite3
 db/schema.rb
 vendor/rails
 **/*.tmp*
-public/system/photos/*
+public/system/*
 config/database.yml
 nbproject
 *~
