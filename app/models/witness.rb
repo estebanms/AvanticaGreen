@@ -12,7 +12,23 @@ class Witness < ActiveRecord::Base
   validates :player, :presence => true, :different_team => true
   validates :infraction, :presence => true
   
-  before_destroy do
-    # TODO: change status of the infraction to "pending approval" if the number of witnesses is less than 1
+  scope :accepted, where(:status_id => Status.accepted)
+  scope :pending, where(:status_id => Status.pending)
+  scope :rejected, where(:status_id => Status.rejected)
+  
+  after_create do
+    # change status of the infraction to "accepted" if the number of witnesses is greater or equal than 1
+    if infraction.witnesses.accepted.any?
+      infraction.status = Status.accepted
+      infraction.save
+    end
+  end
+  
+  after_destroy do
+    # change status of the infraction to "pending approval" if there are no witnesses left
+    if infraction.witnesses.accepted.empty?
+      infraction.status = Status.pending
+      infraction.save
+    end
   end
 end

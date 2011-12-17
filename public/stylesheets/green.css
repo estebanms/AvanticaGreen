@@ -80,31 +80,31 @@
 
 /*comments*/
 .comment_container {
-    float: left;
-    width: 500px;
-    margin-right: 10px;
-    margin-left: 40px;
+  float: left;
+  width: 500px;
+  margin-right: 10px;
+  margin-left: 40px;
 }
 .comment {
-     width: 500px;
-     min-height: 50px;
-     background-image: url(../images/comment/comment_middle.gif);
-     background-repeat: repeat-y;
-     margin: 0px 0px 0px 0px;
-     padding: 10px 0px 0px 0px;
+   width: 500px;
+   min-height: 50px;
+   background-image: url(../images/comment/comment_middle.gif);
+   background-repeat: repeat-y;
+   margin: 0px 0px 0px 0px;
+   padding: 10px 0px 0px 0px;
 }
 .comment_content {
-     padding: 10px 5px 0px 20px;
-     font-size: 12px;
+   padding: 10px 5px 0px 20px;
+   font-size: 12px;
 }
 
 .comment_footer {
-     width: 500px;
-     background-image: url(../images/comment/comment_finish.gif);
-     background-position: 0% 100%;
-     background-repeat: no-repeat;
-     margin: 0px 0px 0px 0px;
-     padding: 0px 0px 0px 0px;
+   width: 500px;
+   background-image: url(../images/comment/comment_finish.gif);
+   background-position: 0% 100%;
+   background-repeat: no-repeat;
+   margin: 0px 0px 0px 0px;
+   padding: 0px 0px 0px 0px;
 }
 
 /*details box*/
@@ -125,30 +125,30 @@
 }
 
 .topleft {
-	display: block;
-	background: url("../images/box/bg3.png") top left no-repeat white;
-	padding: 1.0em 0em 0em 1.0em;
+  display: block;
+  background: url("../images/box/bg3.png") top left no-repeat white;
+  padding: 1.0em 0em 0em 1.0em;
 }
 
 .topright {
-	display: block;
-	background: url("../images/box/bg3.png") top right no-repeat white;
-	padding: 1.0em;
-	margin: -1.0em 0 0 1.0em;
+  display: block;
+  background: url("../images/box/bg3.png") top right no-repeat white;
+  padding: 1.0em;
+  margin: -1.0em 0 0 1.0em;
 }
 
 .bottomleft {
-	display: block;
-	height: 45px;
-	margin-top: -1.0em;
-	background: url("../images/box/bg3.png") bottom left no-repeat white;
+  display: block;
+  height: 45px;
+  margin-top: -1.0em;
+  background: url("../images/box/bg3.png") bottom left no-repeat white;
 }
 
 .bottomright {
-	display: block;
-	background: url("../images/box/bg3.png") bottom right no-repeat white;
-	height: 45px;
-	margin-left: 3.0em;
+  display: block;
+  background: url("../images/box/bg3.png") bottom right no-repeat white;
+  height: 45px;
+  margin-left: 3.0em;
 }
 
 /*main box*/
@@ -159,28 +159,28 @@
 }
 
 .main_box_topleft {
-	display: block;
-	background: url("../images/box/bg3.png") top left no-repeat white;
-	padding: 2.0em 0em 0em 2.0em;
+  display: block;
+  background: url("../images/box/bg3.png") top left no-repeat white;
+  padding: 2.0em 0em 0em 2.0em;
 }
 
 .main_box_topright {
-	display: block;
-	background: url("../images/box/bg3.png") top right no-repeat white;
-	padding: 2.0em;
-	margin: -2.0em 0 0 2.0em;
+  display: block;
+  background: url("../images/box/bg3.png") top right no-repeat white;
+  padding: 2.0em;
+  margin: -2.0em 0 0 2.0em;
 }
 
 .main_box_bottomleft {
-	display: block;
-	height: 45px;
-	margin-top: -2.0em;
-	background: url("../images/box/bg3.png") bottom left no-repeat white;
+  display: block;
+  height: 45px;
+  margin-top: -2.0em;
+  background: url("../images/box/bg3.png") bottom left no-repeat white;
 }
 
 .main_box_bottomright {
-	display: block;
-	background: url("../images/box/bg3.png") bottom right no-repeat white;
-	height: 45px;
-	margin-left: 3.0em;
+  display: block;
+  background: url("../images/box/bg3.png") bottom right no-repeat white;
+  height: 45px;
+  margin-left: 3.0em;
 }

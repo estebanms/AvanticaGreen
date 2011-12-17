@@ -47,8 +47,7 @@ class WitnessesController < ApplicationController
   def create
     @witness = Witness.new(params[:witness])
     @witness.infraction = @infraction
-    @witness.status = Status.find_by_name('Pending revision')
-    @infraction.status = Status.find_by_name('Pending revision')
+    @witness.status = @infraction.status = Status.pending
     @witnesses_size = Witness.count(:conditions => "infraction_id = #{@infraction.id}")
 
     respond_to do |format|
