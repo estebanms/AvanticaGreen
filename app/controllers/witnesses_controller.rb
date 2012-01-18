@@ -47,8 +47,7 @@ class WitnessesController < ApplicationController
   def create
     @witness = Witness.new(params[:witness])
     @witness.infraction = @infraction
-    @witness.status = Status.find_by_name('Pending revision')
-    @infraction.status = Status.find_by_name('Pending revision')
+    @witness.status = @infraction.status = Status.pending
     @witnesses_size = Witness.count(:conditions => "infraction_id = #{@infraction.id}")
 
     respond_to do |format|
@@ -56,7 +55,7 @@ class WitnessesController < ApplicationController
         # notify player by email he has been added as a witness
         PlayerMailer.witness_notification(@witness, 'added').deliver
 
-        format.html { redirect_to(@witness, :notice => 'Witness was successfully created.') }
+        format.html { redirect_to(@infraction, :notice => 'Witness was successfully created.') }
         format.js
         format.xml  { render :xml => @witness, :status => :created, :location => @witness }
       else
@@ -72,7 +71,7 @@ class WitnessesController < ApplicationController
   def update
     respond_to do |format|
       if @witness.update_attributes(params[:witness])
-        format.html { redirect_to(@witness, :notice => 'Witness was successfully updated.') }
+        format.html { redirect_to(@infraction, :notice => 'Witness was successfully updated.') }
         format.js   { render :action => 'show' }
         format.xml  { head :ok }
       else
@@ -97,23 +96,28 @@ class WitnessesController < ApplicationController
 
     @witnesses_size = Witness.count(:conditions => "infraction_id = #{@infraction.id}")
     respond_to do |format|
-      format.html { redirect_to(witnesses_url) }
+      format.html { redirect_to(@infraction) }
       format.js   { render :action => @witness.errors.any? ? 'errors' : 'destroy' }
       format.xml  { head :ok }
     end
   end
 
-  def update_status
-    @witness = Witness.find(params[:witness_id])
-    @witness.status = Status.find(params[:status_id])
+  def accept
+    @witness.status = Status.accepted
+    @witness.save
+
     respond_to do |format|
-      if @witness.update_attributes(params[:witness])
-        format.html { redirect_to(@witness.player) }
-        format.xml  { head :ok } 
-      else
-        format.html { render :action => 'edit' }
-        format.xml  { render :xml => @witness.errors, :status => :unprocessable_entity }
-      end
+      format.html { redirect_to(@infraction, :notice => 'You are now a witness of this infraction.') }
+      format.xml  { head :ok }
+    end
+  end
+  
+  def reject
+    @witness.status = Status.rejected
+    @witness.save
+    respond_to do |format|
+      format.html { redirect_to(@infraction, :notice => 'You have rejected being witness of this infraction.') }
+      format.xml  { head :ok }
     end
   end
 

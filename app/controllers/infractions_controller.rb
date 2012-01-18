@@ -51,7 +51,7 @@ class InfractionsController < ApplicationController
     @infraction.game = current_game
     @infraction.player = current_player
     @infraction.team = current_player.team rescue nil
-    @infraction.status = Status.find_by_name('Pending revision')
+    @infraction.status = Status.pending
      
     respond_to do |format|
       if @infraction.save

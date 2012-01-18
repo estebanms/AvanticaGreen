@@ -17,8 +17,8 @@ class Infraction < ActiveRecord::Base
   #validates :witnesses, :length => { :minimum => 1 }, :unless => Proc.new { |infraction| infraction.photo? }
   
   scope :active, includes(:infraction_type).where(:game_id => Game.active.first, :infraction_types => { :active => true })
-  scope :accepted, where(:status_id => Status.where(:name => 'Accepted'))
-  scope :pending, where(:status_id => Status.where(:name => 'Pending revision'))
+  scope :accepted, where(:status_id => Status.accepted)
+  scope :pending, where(:status_id => Status.pending)
   
   #paperclip image:
   has_attached_file :photo,
@@ -31,5 +31,12 @@ class Infraction < ActiveRecord::Base
     reporter_string = self.team.name
     reporter_string += " (#{self.player.full_name})" unless self.anonymous
     reporter_string
+  end
+  
+  def check_status!
+    # change status of the infraction to "accepted" if the number of witnesses is greater or equal than 1
+    # change status of the infraction to "pending approval" if there are no witnesses at all
+    self.status = self.witnesses.accepted.any? ? Status.accepted : Status.pending
+    self.save if self.changed?
   end
 end

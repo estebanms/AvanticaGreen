@@ -9,14 +9,16 @@ AvanticaGreen::Application.routes.draw do
 
   resources :infractions do
     resources :comments
-    resources :witnesses
+    resources :witnesses do
+      member do
+        get :accept
+        get :reject
+      end
+    end
     collection do
       get 'filter'
     end
   end
-
-  #match 'update_status', :to => 'witnesses#update_status', :as => "update_status"
-  match 'players/infractions/:infraction_id/witnesses/:witness_id/:status_id', :to => 'witnesses#update_status'
 
   resources :statuses
 

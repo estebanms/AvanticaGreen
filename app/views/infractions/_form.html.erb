@@ -14,13 +14,14 @@
   <div class="field">
     <%= f.check_box :anonymous %> Add infraction as anonymous user
   </div>
-  <% if can?(:manage, @infraction) || @infraction.status == Status.find_by_name('Pending revision') %>
+  <% if can?(:manage, @infraction) || @infraction.status == Status.pending %>
     <div class="field">
       <%= f.label :description %><br />
       <%= f.text_area :description %>
     </div>
   <% end %>
-  <% if action_name == 'new' || can?(:manage, @infraction) || (@infraction.status == Status.find_by_name('Pending revision') && action_name == 'edit')%>
+  <% if action_name == 'new' || can?(:manage, @infraction) || 
+      (@infraction.status == Status.pending && action_name == 'edit') %>
     <div class="field">
       <%= f.label :offender_id %><br />
       <%= teams_select(:infraction, :offender_id) %>

@@ -3,6 +3,11 @@
   <div class="main_box_topleft">
   <div class="main_box_topright">
     <div>
+      <% if @infraction.status == Status.pending %>
+      <p id="error">
+        This infraction has not been approved because there is no evidence or no witnesses have confirmed their role.
+      </p>
+      <% end %>
       <p>
         <b>Reporter:</b>
         <%= @infraction.reporter %>

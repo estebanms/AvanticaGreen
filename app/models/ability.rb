@@ -19,13 +19,13 @@ class Ability
         can :update, Infraction, :player_id => player.id
         # Delete my own infractions only if they are 'pending'
         can :destroy, Infraction, :player_id => player.id, 
-          :status_id => Status.find_by_name('Pending revision').id
+          :status_id => Status.pending.id
         # read, create and destroy witnesses of my own infractions
         can [:read, :create, :destroy], Witness, :infraction => { :player_id => player.id }
         # Manage my own comments
         can :manage, Comment, :player_id => player.id
         # Approve/reject being witness of an infraction
-        can :update, Witness, :player_id => player.id
+        can [:update, :accept, :reject], Witness, :player_id => player.id
         can [:read, :create], Suggestion
         can [:update, :destroy], Suggestion, :player_id => player.id
       else
