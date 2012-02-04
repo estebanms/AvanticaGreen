@@ -25,7 +25,7 @@ class Ability
         # Manage my own comments
         can :manage, Comment, :player_id => player.id
         # Approve/reject being witness of an infraction
-        can :update, Witness, :player_id => player.id
+        can [:update, :accept, :reject], Witness, :player_id => player.id
         can [:read, :create], Suggestion
         can [:update, :destroy], Suggestion, :player_id => player.id
       else

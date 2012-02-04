@@ -6,7 +6,7 @@ class Status < ActiveRecord::Base
   end
   
   # overwriting method_missing to dinamically get statuses from the DB as methods
-  def method_missing(method_id, *arguments, &block)
+  def self.method_missing(method_id, *arguments, &block)
     status = Status.all.find {
       |status| status.name.underscore.start_with?(method_id.to_s)
     } rescue nil

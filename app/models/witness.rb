@@ -15,20 +15,14 @@ class Witness < ActiveRecord::Base
   scope :accepted, where(:status_id => Status.accepted)
   scope :pending, where(:status_id => Status.pending)
   scope :rejected, where(:status_id => Status.rejected)
-  
-  after_create do
-    # change status of the infraction to "accepted" if the number of witnesses is greater or equal than 1
-    if infraction.witnesses.accepted.any?
-      infraction.status = Status.accepted
-      infraction.save
-    end
+
+  after_update do
+    # check if we need to change the status of the infraction to either accepted or "pending approval"
+    infraction.check_status!
   end
-  
+
   after_destroy do
-    # change status of the infraction to "pending approval" if there are no witnesses left
-    if infraction.witnesses.accepted.empty?
-      infraction.status = Status.pending
-      infraction.save
-    end
+    # check if we need to change the status of the infraction to "pending approval"
+    infraction.check_status!
   end
 end
