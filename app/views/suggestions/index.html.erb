@@ -16,7 +16,6 @@
     <td><%= suggestion.suggestion_type %></td>
     <td><%= suggestion.status %></td>
     <td><%= suggestion.description %></td>
-    <td><%= comments_link(suggestion) %></td>
     <td><%= link_to 'Show', suggestion %></td>
     <% if can? :update, suggestion %>
       <td><%= link_to 'Edit', edit_suggestion_path(suggestion) %></td>
