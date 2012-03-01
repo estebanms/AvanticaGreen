@@ -12,7 +12,8 @@
     <%= render :partial => 'infractions/list', :locals => {
       :infractions => player_infractions, 
       :type => 'offender', 
-      :title => 'Infractions reported by this player'
+      :title => 'Infractions reported by this player', 
+      :hide_if_anonymous => true
     } %>
   <% end %>
   <div id="test_div"></div>
