@@ -1,10 +1,5 @@
 <h1>Listing infractions</h1>
-  <% unless current_user.nil? %>
-    <%= form_tag({:action => 'index', :controller => 'infractions'}, {:method => 'get'}) do %>
-      <p><%= check_box_tag 'show_open' %><%= label_tag 'show_open_only' %></p>
-      <p><%= button_to 'Filter' %></p>
-    <% end %>
-  <% end %>
+
 <table>
   <tr>
     <th>Reporter</th>
