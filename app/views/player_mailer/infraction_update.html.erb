@@ -1,4 +1,7 @@
-<p>Hello <%= @player.full_name %>,</p>
-<p>Infraction was updated to <%= @infraction.status.name %></p>
+<%= render 'header' %>
 
-<%= url_for(:host => "example.com", :controller => "infractions", :action => "show", :id => @infraction.id) %>
+<p>We wanted to let you know that <%= infraction_details(@infraction) %> has been recently <%= @action %>.</p>
+
+<p>Click <%= link_to 'here', @infraction %> if you want to see more details about the infraction.</p>
+
+<%= render 'footer' %>

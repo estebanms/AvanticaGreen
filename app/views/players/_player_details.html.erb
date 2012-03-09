@@ -1,9 +1,9 @@
 <%
-  player_infractions = @player.infractions.accepted
-  witnesses = @player.witnesses
-  pending_witnesses = witnesses.select { |witness| pending?(witness) }
-  accepted_witnesses = witnesses.select { |witness| accepted?(witness) }
-  rejected_witnesses = witnesses.select { |witness| rejected?(witness) }
+  player_infractions ||= @player_infractions
+  witnesses ||= @witnesses
+  pending_witnesses ||= @pending_witnesses
+  accepted_witnesses ||= @accepted_witnesses
+  rejected_witnesses ||= @rejected_witnesses
 %>
 
 <% if player_infractions.any? || witnesses.any? %>
@@ -12,8 +12,7 @@
     <%= render :partial => 'infractions/list', :locals => {
       :infractions => player_infractions, 
       :type => 'offender', 
-      :title => 'Infractions reported by this player', 
-      :hide_if_anonymous => true
+      :title => 'Infractions reported by this player'
     } %>
   <% end %>
   <div id="test_div"></div>

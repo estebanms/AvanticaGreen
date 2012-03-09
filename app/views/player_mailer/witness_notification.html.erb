@@ -1,7 +1,14 @@
-<p>Hello <%= @witness.player.full_name %>,</p>
+<%= render 'header' %>
 
-<% if @action == 'added' %>
-  <p>Please accept or reject your role as a witness for <%= link_to 'this infraction', @infraction %></p>
+<p>We wanted to let you know that you have been <%= @action %> as a witness of <%= infraction_details(@infraction) %>.</p>
+
+<% if @action == :added %>
+  <p>
+    You can either <%= link_to 'accept', accept_infraction_witness_path(@infraction, @witness) %> or 
+    <%= link_to 'reject', reject_infraction_witness_path(@infraction, @witness) %> your role as a witness of this infraction.
+  </p>
 <% end %>
 
-<%= url_for(:host => "example.com", :controller => "infractions", :action => "show", :id => @infraction.id) %>
+<p>Click <%= link_to 'here', @infraction %> if you want to see more details about the infraction.</p>
+
+<%= render 'footer' %>

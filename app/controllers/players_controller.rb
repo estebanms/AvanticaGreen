@@ -14,6 +14,13 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.xml
   def show
+    # show all the accepted infractions created by this player, except the anonymous ones
+    @player_infractions = @player.infractions.accepted.reject { |infraction| infraction.anonymous? }
+    # also show all the information regarding this player being a witness
+    @witnesses = @player.witnesses
+    @pending_witnesses = @witnesses.select { |witness| pending?(witness) }
+    @accepted_witnesses = @witnesses.select { |witness| accepted?(witness) }
+    @rejected_witnesses = @witnesses.select { |witness| rejected?(witness) }
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @player }

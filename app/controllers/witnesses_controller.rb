@@ -53,7 +53,7 @@ class WitnessesController < ApplicationController
     respond_to do |format|
       if @witness.save
         # notify player by email he has been added as a witness
-        PlayerMailer.witness_notification(@witness, 'added').deliver
+        PlayerMailer.witness_notification(@witness, :added).deliver
 
         format.html { redirect_to(@infraction, :notice => 'Witness was successfully created.') }
         format.js
@@ -87,12 +87,11 @@ class WitnessesController < ApplicationController
   def destroy
     begin
       @witness.destroy
+      # notify player by email he has been removed as a witness
+      PlayerMailer.witness_notification(@witness, :removed).deliver
     rescue ActiveRecord::DeleteRestrictionError => exception
       @witness.errors.add(:infraction, exception.message)
     end
-
-    # notify player by email he has been removed as a witness
-    PlayerMailer.witness_notification(@witness, 'removed').deliver
 
     @witnesses_size = Witness.count(:conditions => "infraction_id = #{@infraction.id}")
     respond_to do |format|
