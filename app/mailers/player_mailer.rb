@@ -1,7 +1,7 @@
 class PlayerMailer < ActionMailer::Base
   default :from => "Avantica_Green@avantica.net"
   
-  def self.infraction_update(infraction, action)
+  def infraction_update(infraction, action)
     @infraction = infraction
     @action = action
     # send notification to all players who belong to the offending team
@@ -11,17 +11,17 @@ class PlayerMailer < ActionMailer::Base
     players.each do |player|
       @recipient = player
       mail(:to => "#{@recipient.full_name} <#{@recipient.user.email}>", 
-        :subject => "Infraction has been #{@action}")
+        :subject => "Infraction has been #{@action}").deliver
     end
   end
   
-  def self.witness_notification(witness, action)
+  def witness_notification(witness, action)
     @witness = witness
     @recipient = @witness.player
     @infraction = @witness.infraction
     @action = action
     mail(:to => "#{@recipient.full_name} <#{@recipient.user.email}>", 
-      :subject => "You have been #{@action} as a witness of an infraction")
+      :subject => "You have been #{@action} as a witness of an infraction").deliver
   end
   
 end

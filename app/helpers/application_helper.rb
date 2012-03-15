@@ -14,25 +14,4 @@ module ApplicationHelper
     end
     return flash_messages.join('\n')
   end
-  
-  def accepted?(object)
-    status?(object, 'Accepted')
-  end
-  
-  def rejected?(object)
-    status?(object, 'Rejected')
-  end
-  
-  def pending?(object)
-    status?(object, 'Pending revision')
-  end
-  
-  def closed?(object)
-    status?(object, 'Closed')
-  end
-
-private
-  def status?(object, status)
-    object.status.name == status rescue false
-  end
 end

@@ -1,4 +1,6 @@
 class PlayersController < ApplicationController
+  include StatusesHelper
+
   load_and_authorize_resource
 
   # GET /players
@@ -14,8 +16,10 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.xml
   def show
-    # show all the accepted infractions created by this player, except the anonymous ones
-    @player_infractions = @player.infractions.accepted.reject { |infraction| infraction.anonymous? }
+    # show all the accepted infractions created by this player
+    @player_infractions = @player.infractions.accepted
+    # but hide the anonymous infractions when seeing by any person other than the creator
+    @player_infractions.reject! { |infraction| infraction.anonymous? } unless @player.user == current_user
     # also show all the information regarding this player being a witness
     @witnesses = @player.witnesses
     @pending_witnesses = @witnesses.select { |witness| pending?(witness) }

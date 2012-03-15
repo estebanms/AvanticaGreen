@@ -56,7 +56,7 @@ class InfractionsController < ApplicationController
     respond_to do |format|
       if @infraction.save
         # send notification to player who created the infraction and to all players who belong to the offending team
-        PlayerMailer.infraction_notification(@infraction, :created).deliver
+        PlayerMailer.infraction_notification(@infraction, :created)
         format.html { redirect_to(@infraction, :notice => 'Infraction was successfully created.') }
         format.xml  { render :xml => @infraction, :status => :created, :location => @infraction }
       else
@@ -72,7 +72,7 @@ class InfractionsController < ApplicationController
     respond_to do |format|
       if @infraction.update_attributes(params[:infraction])
         # send notification to player who created the infraction and to all players who belong to the offending team
-        PlayerMailer.infraction_notification(@infraction, :updated).deliver
+        PlayerMailer.infraction_notification(@infraction, :updated)
 
         format.html { redirect_to(@infraction, :notice => 'Infraction was successfully updated.') }
         format.xml  { head :ok }
