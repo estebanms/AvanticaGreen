@@ -1,6 +1,8 @@
 class PlayerMailer < ActionMailer::Base
   default :from => "Avantica_Green@avantica.net"
-  
+
+  helper :infractions
+
   def infraction_notification(infraction, action)
     @infraction = infraction
     @action = action
