@@ -6,8 +6,16 @@ class InfractionsController < ApplicationController
   # GET /infractions.xml
   def index
     # the list of infractions is within the scope of a game
-    # TODO: add filters to let the user see infractions from other games, dates, types (open only, ...), etc
     @infractions = current_game.infractions rescue Array.new
+    # filter the infractions if the user limited the search to certain conditions
+    if params[:infraction]
+      # do some validations on the filter fields
+      # 1. restrict search fields to only: team_id, offender_id, infraction_type and status_id
+      params[:infraction].keep_if do |field, value|
+        [:team_id, :offender_id, :infraction_type_id, :status_id].include?(field.to_sym) and !value.blank?
+      end
+      @infractions = @infractions.where(params[:infraction]) unless params[:infraction].empty?
+    end
 
     respond_to do |format|
       format.html # index.html.erb

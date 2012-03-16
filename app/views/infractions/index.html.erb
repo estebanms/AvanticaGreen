@@ -2,33 +2,37 @@
 
 <%= render 'filter' %>
 
-<table>
-  <tr>
-    <th>Reporter</th>
-    <th>Offender</th>
-    <th>Infraction type</th>
-    <th>Status</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<% if @infractions.empty? %>
+  <p>There are no infractions to show.</p>
+<% else %>
+  <table>
+    <tr>
+      <th>Reporter</th>
+      <th>Offender</th>
+      <th>Infraction type</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
 
-<% @infractions.each do |infraction| %>
-  <tr>
-    <td><%= link_to infraction.reporter, infraction.team %></td>
-    <td><%= link_to infraction.offender.name, infraction.offender %></td>
-    <td><%= infraction.infraction_type %></td>
-    <td><%= infraction.status %></td>
-    <td><%= link_to 'Show', infraction %></td>
-    <% if can? :update, infraction %>
-      <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
-    <% end %>
-    <% if can? :destroy, infraction %>
-      <td><%= link_to 'Destroy', infraction, :confirm => 'Are you sure?', :method => :delete %></td>
-    <% end %>
-  </tr>
+  <% @infractions.each do |infraction| %>
+    <tr>
+      <td><%= link_to infraction.reporter, infraction.team %></td>
+      <td><%= link_to infraction.offender.name, infraction.offender %></td>
+      <td><%= infraction.infraction_type %></td>
+      <td><%= infraction.status %></td>
+      <td><%= link_to 'Show', infraction %></td>
+      <% if can? :update, infraction %>
+        <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
+      <% end %>
+      <% if can? :destroy, infraction %>
+        <td><%= link_to 'Destroy', infraction, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </table>
 <% end %>
-</table>
 
 <br />
 
