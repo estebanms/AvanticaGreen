@@ -1,12 +1,13 @@
 <h1>Listing infractions</h1>
 
+<%= render 'filter' %>
+
 <table>
   <tr>
     <th>Reporter</th>
     <th>Offender</th>
     <th>Infraction type</th>
     <th>Status</th>
-    <th>Description</th>
     <th></th>
     <th></th>
     <th></th>
@@ -18,7 +19,6 @@
     <td><%= link_to infraction.offender.name, infraction.offender %></td>
     <td><%= infraction.infraction_type %></td>
     <td><%= infraction.status %></td>
-    <td><%= infraction.description %></td>
     <td><%= link_to 'Show', infraction %></td>
     <% if can? :update, infraction %>
       <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
@@ -33,5 +33,5 @@
 <br />
 
 <% if can? :create, Infraction %>
-  <%= link_to 'New Infraction', new_infraction_path %>
+  <p><%= link_to 'New Infraction', new_infraction_path %></p>
 <% end %>

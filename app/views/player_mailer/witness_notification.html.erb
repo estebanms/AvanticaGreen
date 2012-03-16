@@ -4,11 +4,12 @@
 
 <% if @action == :added %>
   <p>
-    You can either <%= link_to 'accept', accept_infraction_witness_path(@infraction, @witness) %> or 
-    <%= link_to 'reject', reject_infraction_witness_path(@infraction, @witness) %> your role as a witness of this infraction.
+    You can either <%= link_to 'accept', accept_infraction_witness_path(@infraction, @witness, { :only_path => false }) %> or 
+    <%= link_to 'reject', reject_infraction_witness_path(@infraction, @witness, { :only_path => false }) %>
+    your role as a witness of this infraction.
   </p>
 <% end %>
 
-<p>Click <%= link_to 'here', @infraction %> if you want to see more details about the infraction.</p>
+<p>Click <%= link_to 'here', infraction_path(@infraction, { :only_path => false }) %> if you want to see more details about the infraction.</p>
 
 <%= render 'footer' %>

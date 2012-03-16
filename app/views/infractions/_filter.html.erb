@@ -1,6 +1,21 @@
-<% unless current_user.nil? %>
-  <%= form_tag({ :action => 'index', :controller => 'infractions' }, { :method => 'get', :remote => true }) do %>
-    <p><%= check_box_tag 'show_open' %><%= label_tag 'show_open_only' %></p>
-    <p><%= button_to 'Filter' %></p>
+<div id="search">
+  <p id="title">Filter infractions by:</p>
+  <%= form_tag(infractions_path, :method => :get) do %>
+    <div id="field">
+      Reporter: <%= teams_select(:infraction) %>
+    </div>
+    <div id="field">
+      Offender: <%= teams_select(:infraction, :offender_id) %>
+    </div>
+    <div id="field">
+      Infraction type: <%= infraction_types_select %>
+    </div>
+    <div id="field">
+      Status: <%= statuses_select(:infraction) %>
+    </div>
+    <div id="submit">
+      <%= submit_tag 'Filter' %> or
+      <%= submit_tag 'Show all', :onclick => 'clearForm(this.form);' %>
+    </div>
   <% end %>
-<% end %>
+</div>

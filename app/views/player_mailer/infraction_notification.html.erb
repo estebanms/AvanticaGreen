@@ -2,6 +2,6 @@
 
 <p>We wanted to let you know that <%= infraction_details(@infraction) %> has been recently <%= @action %>.</p>
 
-<p>Click <%= link_to 'here', @infraction %> if you want to see more details about the infraction.</p>
+<p>Click <%= link_to 'here', infraction_path(@infraction, { :only_path => false }) %> if you want to see more details about the infraction.</p>
 
 <%= render 'footer' %>
