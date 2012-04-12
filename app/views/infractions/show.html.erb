@@ -10,11 +10,11 @@
       <% end %>
       <p>
         <b>Reporter:</b>
-        <%= @infraction.reporter %>
+        <%= infraction_related_team(@infraction, :reporter) %>
       </p>
       <p>
         <b>Offender:</b>
-        <%= @infraction.offender.name %>
+        <%= infraction_related_team(@infraction, :offender) %>
       </p>
       <p>
         <b>Infraction type:</b>

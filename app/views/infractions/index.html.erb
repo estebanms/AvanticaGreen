@@ -18,8 +18,8 @@
 
   <% @infractions.each do |infraction| %>
     <tr>
-      <td><%= link_to infraction.reporter, infraction.team %></td>
-      <td><%= link_to infraction.offender.name, infraction.offender %></td>
+      <td><%= infraction_related_team(infraction, :reporter) %></td>
+      <td><%= infraction_related_team(infraction, :offender) %></td>
       <td><%= infraction.infraction_type %></td>
       <td><%= infraction.status %></td>
       <td><%= link_to 'Show', infraction %></td>
