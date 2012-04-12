@@ -1,3 +1,3 @@
 <% comment ||= @comment %>
-<%= image_tag(comment.player.avatar.url(:thumb),:style => "height:36px;vertical-align:middle") %>
-<b><%= comment.player_name %></b> (<%= format_date(comment.created_at) %>)
+<%= post_player_image(comment) %>
+<b><%= post_player_name(comment) %></b> (<%= format_date(comment.created_at) %>)

@@ -11,7 +11,7 @@
 
 <% @witnesses.each do |witness| %>
   <tr>
-    <td><%= witness.player.full_name %></td>
+    <td><%= link_to witness.player.full_name, witness.player %></td>
     <td><%= witness.status %></td>
     <td><%= link_to 'Show', witness %></td>
     <% if can?(:update, witness) %>

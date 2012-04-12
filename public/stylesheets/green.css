@@ -78,6 +78,25 @@
   cursor: pointer;
 }
 
+#search {
+  border: 1px solid #D8D8D8;
+  background-color: #D8D8D8;
+  padding: 0 10px 5px;
+}
+#search #title {
+  color: #5F9EA0;
+  font-weight: bold;
+  font-size: 14px;
+}
+#search #field {
+  float: left;
+  padding-right: 10px;
+}
+#search #submit {
+  clear: left;
+  padding: 5px 0;
+}
+
 /*comments*/
 .comment_container {
   float: left;

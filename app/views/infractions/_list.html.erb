@@ -8,9 +8,7 @@
           <% infraction = infractions[index] %>
           <% witness = witnesses[index] unless witnesses.blank? %>
           <p>
-            <b><%= type.humanize %>:</b> <%= infraction.send(type) %> (<%= infraction.infraction_type %>)
-            <br/>
-            <b>Description:</b> <%= infraction.description %>
+            <b><%= type.humanize %>:</b> <%= infraction_related_team(infraction, type) %> (<%= infraction.infraction_type %>)
             <% if witness %>
               <br />
               <% if pending?(witness) && can?(:update, @player) %>
@@ -24,6 +22,8 @@
                 <b>Status:</b> <%= witness.status %>
               <% end %>
             <% end %>
+            <br />
+            <%= link_to 'Show', infraction %>
           </p>
         <% end %>
       </div>

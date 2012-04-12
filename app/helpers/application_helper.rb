@@ -15,24 +15,12 @@ module ApplicationHelper
     return flash_messages.join('\n')
   end
   
-  def accepted?(object)
-    status?(object, 'Accepted')
+  def post_player_name(post)
+    post.anonymous? ? 'Anonymous' : link_to(post.player.full_name, post.player)
   end
   
-  def rejected?(object)
-    status?(object, 'Rejected')
-  end
-  
-  def pending?(object)
-    status?(object, 'Pending revision')
-  end
-  
-  def closed?(object)
-    status?(object, 'Closed')
-  end
-
-private
-  def status?(object, status)
-    object.status.name == status rescue false
+  def post_player_image(post, image_style = :thumb)
+    image_url = post.anonymous? ? "player_#{image_style}.png" : post.player.avatar.url(image_style)
+    image_tag(image_url,:style => "height:36px;vertical-align:middle")
   end
 end

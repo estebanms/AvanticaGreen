@@ -6,8 +6,16 @@ class InfractionsController < ApplicationController
   # GET /infractions.xml
   def index
     # the list of infractions is within the scope of a game
-    # TODO: add filters to let the user see infractions from other games, dates, types (open only, ...), etc
     @infractions = current_game.infractions rescue Array.new
+    # filter the infractions if the user limited the search to certain conditions
+    if params[:infraction]
+      # do some validations on the filter fields
+      # 1. restrict search fields to only: team_id, offender_id, infraction_type and status_id
+      params[:infraction].keep_if do |field, value|
+        [:team_id, :offender_id, :infraction_type_id, :status_id].include?(field.to_sym) and !value.blank?
+      end
+      @infractions = @infractions.where(params[:infraction]) unless params[:infraction].empty?
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,6 +63,8 @@ class InfractionsController < ApplicationController
      
     respond_to do |format|
       if @infraction.save
+        # send notification to player who created the infraction and to all players who belong to the offending team
+        PlayerMailer.infraction_notification(@infraction, :created)
         format.html { redirect_to(@infraction, :notice => 'Infraction was successfully created.') }
         format.xml  { render :xml => @infraction, :status => :created, :location => @infraction }
       else
@@ -69,16 +79,8 @@ class InfractionsController < ApplicationController
   def update
     respond_to do |format|
       if @infraction.update_attributes(params[:infraction])
-        # send notification email if the status of the infraction was changed
-        #if @infraction.status_id_changed?
-          # send notification to player who created the infraction
-          PlayerMailer.infraction_update(@infraction, @infraction.player).deliver
-
-          #send notification to all players who belong to the offending team
-          @infraction.offender.players.each do |offender|
-            PlayerMailer.infraction_update(@infraction, offender).deliver
-          end
-        #end
+        # send notification to player who created the infraction and to all players who belong to the offending team
+        PlayerMailer.infraction_notification(@infraction, :updated)
 
         format.html { redirect_to(@infraction, :notice => 'Infraction was successfully updated.') }
         format.xml  { head :ok }
