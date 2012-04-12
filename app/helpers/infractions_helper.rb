@@ -14,7 +14,7 @@ module InfractionsHelper
     if type.to_sym.eql?(:team) and not infraction.anonymous?
       player_text = infraction.player.full_name
       player_text = link_to(player_text, infraction.player, options[:link_options]) if options[:return_as_link]
-      related_team_text += " (#{player_text})"
+      related_team_text += raw(" (#{player_text})")
     end
 
     related_team_text
