@@ -1,5 +1,8 @@
+require 'ldap'
+
 class PlayersController < ApplicationController
   include StatusesHelper
+  include Ldap
 
   load_and_authorize_resource
 
@@ -28,6 +31,13 @@ class PlayersController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @player }
+      format.js {
+        render :partial => 'shared/tooltip', :locals => {
+          :image => @player.avatar.url(:thumb), :simple_data => {
+            'Player name' => @player.full_name, 'Team' => @player.name
+          }, :collection => nil
+        }
+      }
     end
   end
 
@@ -91,5 +101,32 @@ class PlayersController < ApplicationController
       format.html { redirect_to(players_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def import_players(number_of_players = 9999999)
+    @new_players = Array.new
+    all_ldap_users = Ldap.find_all_ldap_users 
+
+    #loop through ldap users. If we find a non existent user in the User table, create it and add him to the Player table
+    all_ldap_users.each do |player|
+      break if @new_players.size >= number_of_players
+      email = player["mail"]
+      last_names = player["last_names"]
+      name = player["name"]
+
+      if User.find_by_email(email).nil?
+        user = User.new(:email => email)
+        user.password = 'dummy1'
+        user.save!
+
+        Player.new(:name => name, :last_names => last_names,:user_id => user.id, :team_id => 2, :is_admin => false, :active => true).save!
+        @new_players.push(player)
+      end
+    end
+  end
+
+  def import_some_players
+    import_players(params[:number_of_players].to_i)
+    render :template => 'players/import_players.html.erb'
   end
 end

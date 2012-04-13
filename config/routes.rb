@@ -24,7 +24,12 @@ AvanticaGreen::Application.routes.draw do
 
   resources :infraction_types
 
-  resources :players
+  resources :players do
+    collection do
+      get :import_players
+      get :import_some_players
+    end
+  end
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
 

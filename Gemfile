@@ -6,12 +6,13 @@ gem 'rails', '3.0.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2', '0.2.6'
-gem "devise"#, :git => "git://github.com/plataformatec/devise.git"
+gem "devise", :git => "git://github.com/plataformatec/devise.git"
+gem "devise_ldap_authenticatable", :git => "git://github.com/cschiewek/devise_ldap_authenticatable.git"
 gem 'paperclip'
 gem 'rmagick'
 gem 'cancan'
 gem 'simple-navigation'
-
+gem 'net-ldap'
 
 # Use unicorn as the web server
 # gem 'unicorn'

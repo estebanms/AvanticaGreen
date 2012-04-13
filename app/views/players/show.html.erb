@@ -19,7 +19,7 @@
 
 <p>
   <b>Team:</b>
-  <%= link_to @player.team.name, @player.team %>
+  <%= link_to @player.team.to_s, @player.team, { :class => 'tooltipTrigger' } %>
 </p>
 
 <%= render 'players/player_details' %>

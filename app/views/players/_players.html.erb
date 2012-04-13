@@ -33,7 +33,7 @@
           <td><%= link_to player.full_name, player %></td>
           <td><%= mail_to(player.user.email) %></td>
           <% unless context == :team %>
-          <td><%= link_to player.team.name, player.team %></td>
+          <td><%= link_to player.team.to_s, player.team, { :class => 'tooltipTrigger' } %></td>
           <% end %>
           <% if can? :manage, player %>
           <td><%= player.is_admin %></td>

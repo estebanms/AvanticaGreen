@@ -3,6 +3,11 @@
 <%= render 'players' %>
 
 <br />
+<% if user_signed_in? and current_player.is_admin? %>
+<div>
+  <%= render 'toolbox' %>
+</div>
+<% end %>
 
 <% unless user_signed_in? %>
   <p><%= link_to 'New Player', new_user_registration_path %></p>

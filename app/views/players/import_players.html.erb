@@ -1,0 +1,29 @@
+<div>
+<div class="main_box">
+  <div class="main_box_topleft">
+  <div class="main_box_topright">
+      <div>
+  <% if @new_players.empty? %>
+    No new players were created
+  <% else %>
+    <h4>The following players were created:</h4>
+    <table>
+      <tr>
+        <th>Email address</th>
+      </tr>
+    <% @new_players.each do |player| %>
+      <tr>
+        <td><%= player %></td>
+      </tr>
+    <% end %>
+    </table>
+  <% end %>  
+    </div>
+  </div>
+  </div>
+  <div class="main_box_bottomleft">
+  <div class="main_box_bottomright">
+  </div>
+  </div>
+</div>
+</div>

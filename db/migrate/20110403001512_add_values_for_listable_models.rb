@@ -28,11 +28,8 @@ class AddValuesForListableModels < ActiveRecord::Migration
     { :name => 'current game', :start_date => '2011-01-01', :end_date => '2011-06-31', :active => true },
   ]
   @@teams = [
-    { :name => 'Administrator Group', :description => 'System administrators', :code => 'aaa', :active => false},
-    { :name => 'cerditos', :description => 'los cerditos del 5 piso', :code => 'xyzu', :active => true},
-    { :name => 'cucarachas', :description => 'los cucas del piso numero 2', :code => 'poiu', :active => true},
-    { :name => 'artesanos', :description => 'los camaradas del 6 piso', :code => 'tlkb', :active => true},
-    { :name => 'barracudas', :description => 'los artistas del 4 piso', :code => 'qwer', :active => true},
+    { :name => 'Administrators', :description => 'System administrators', :code => 'aaa', :active => false},
+    { :name => 'Available Players', :description => 'New players who have joined the game and have not yet been added to a team', :code => 'xyzu', :active => false},
   ]
   @@players = [
     #default administrator

@@ -23,7 +23,7 @@
   <% if can? :manage, @player %>
     <div class="field">
       <%= f.label :team_id %><br />
-      <%= teams_select(:player) %>
+      <%= admin_teams_select(:player) %>
     </div>
     <div class="field">
       <%= f.label :is_admin %><br />

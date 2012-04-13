@@ -18,7 +18,14 @@ class TeamsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @team }
+      format.xml { render :xml => @team }
+      format.js {
+        render :partial => 'shared/tooltip', :locals => {
+          :image => @team.team_logo.url(:thumb), 
+          :simple_data => { 'Team name' => @team.name, 'Score' => @team.score }, 
+          :collection => { 'Members' => @team.players.collect{ |player| player.full_name } }
+        }
+      }
     end
   end
 

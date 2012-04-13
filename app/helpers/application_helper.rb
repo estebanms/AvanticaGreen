@@ -16,7 +16,7 @@ module ApplicationHelper
   end
   
   def post_player_name(post)
-    post.anonymous? ? 'Anonymous' : link_to(post.player.full_name, post.player)
+    post.anonymous? ? 'Anonymous' : link_to(post.player.full_name, post.player, { :class => 'tooltipTrigger' })
   end
   
   def post_player_image(post, image_style = :thumb)

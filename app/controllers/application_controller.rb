@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::Base
+  rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
+    render :text => exception, :status => 500
+  end
+   
+  before_filter :authenticate_user!, :create_player
+
   protect_from_forgery
   
   helper_method :current_player
@@ -12,7 +18,16 @@ class ApplicationController < ActionController::Base
   def current_player
     user_signed_in? ? current_user.player : nil
   end
-  
+
+  def create_player
+    if user_signed_in? && current_user.player.nil?
+      player = Player.new(:name => Devise::LdapAdapter.get_ldap_param(current_user.email, "givenName"),
+        :last_names => Devise::LdapAdapter.get_ldap_param(current_user.email, "sn"), 
+        :user_id => current_user.id, :team_id => 2)
+      player.save
+    end
+  end
+
   def not_authorized
     error_message = 'You are not authorized to see this page.'
     if user_signed_in?

@@ -4,6 +4,7 @@ module InfractionsHelper
   def infraction_related_team(infraction, type, options = {})
     options[:return_as_link] = true if options[:return_as_link].nil?
     options[:link_options] ||= {}
+    options[:link_options].merge!({ :class => 'tooltipTrigger' })
     type = :team if type.to_sym.eql?(:reporter)
 
     related_team = infraction.send(type.to_s)

@@ -14,6 +14,7 @@ class Infraction < ActiveRecord::Base
   validates :team, :presence => true
   validates :offender, :presence => true
   validates :infraction_type, :presence => true
+  validate :team_active
   #validates :witnesses, :length => { :minimum => 1 }, :unless => Proc.new { |infraction| infraction.photo? }
   
   scope :active, includes(:infraction_type).where(:game_id => Game.active.first, :infraction_types => { :active => true })
@@ -32,5 +33,11 @@ class Infraction < ActiveRecord::Base
     # change status of the infraction to "pending approval" if there are no witnesses at all
     self.status = self.witnesses.accepted.any? ? Status.accepted : Status.pending
     self.save if self.changed?
+  end
+
+  def team_active
+    unless self.player.team.active?
+      errors.add(:team_inactive, ", player must belong to an active team in order to create infractions.")
+    end
   end
 end

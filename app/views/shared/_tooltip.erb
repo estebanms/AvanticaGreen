@@ -1,0 +1,24 @@
+<div id="container" style="overflow:hidden;width:250px">
+  <div id="inner" style="overflow:hidden;width: 2000px">
+    <table>
+    <% unless image.nil? %>
+      <tr><td> <%= image_tag image %> </td><td/></tr>
+    <% end %> 
+    <% unless simple_data.nil? %>
+      <% simple_data.each_pair do |key,value| %>
+        <tr><td><b><%= key %>:</b></td><td><%= (value) %></td></tr>
+      <% end %>
+    <% end %>
+    </table>
+    <table>
+      <% unless collection.nil? %>
+        <% collection.each_pair do  |key,array|%>
+          <tr><td><b><%= key %>:</b></td><td/></tr>
+          <% array.each do |element| %>
+            <tr><td></td><td><%= raw(element) %></td></tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+</div>

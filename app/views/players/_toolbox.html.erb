@@ -1,0 +1,34 @@
+<div class="detail_box">
+<div class="box">
+  <div class="topleft">
+  <div class="topright">
+    <h3>Additional Tools</h3>
+      <div>
+      <h4>Import players:</h4>
+      <ul>
+        <li>
+          <%= form_tag :action => 'import_players' do %>
+            <%= submit_tag('Import all players', :confirm => 'Are you sure you want to import all players?') %>
+          <% end %>
+        </li>
+        <br/>
+        <li> 
+          <%= form_tag :action => 'import_some_players' do %>
+            <%= label_tag('Import ') %>
+            <%= text_field_tag(:number_of_players, 10, :size => 1) %>
+            <%= label_tag(' players') %>
+            <%= submit_tag('Import', :confirm => 'Are you sure you want to import that number of players?') %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+   <br />
+   <br clear="all" />
+  </div>
+  </div>
+  <div class="bottomleft">
+  <div class="bottomright">
+  </div>
+  </div>
+</div>
+</div>

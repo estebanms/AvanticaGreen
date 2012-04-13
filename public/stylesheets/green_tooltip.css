@@ -1,0 +1,72 @@
+#tooltipContainer
+{
+    position:absolute;
+    left:0;
+    top:0;
+    display:none;
+    z-index: 20000;
+}
+
+.tooltipPopup
+{
+}
+
+#tooltipPopupContent
+{
+    background-color: #FFF;
+    min-width: 175px;
+    min-height: 50px;
+}
+
+.tooltipPopup .tooltipPopupImage
+{
+    margin: 5px;
+    margin-right: 15px;
+}
+
+.tooltipPopup .corner 
+{
+    width: 19px;
+    height: 15px;
+}
+    
+.tooltipPopup .topLeft 
+{
+    background: url(../images/tooltip/topLeft.png) no-repeat;
+}
+    
+.tooltipPopup .bottomLeft 
+{
+    background: url(../images/tooltip/bottomLeft.png) no-repeat;
+}
+    
+.tooltipPopup .left 
+{
+    background: url(../images/tooltip/left.png) repeat-y;
+}
+    
+.tooltipPopup .right 
+{
+    background: url(../images/tooltip/right.png) repeat-y;
+}
+    
+.tooltipPopup .topRight 
+{
+    background: url(../images/tooltip/topRight.png) no-repeat;
+}
+    
+.tooltipPopup .bottomRight 
+{
+    background: url(../images/tooltip/bottomRight.png) no-repeat;
+}
+    
+.tooltipPopup .top 
+{
+    background: url(../images/tooltip/top.png) repeat-x;
+}
+    
+.tooltipPopup .bottom 
+{
+    background: url(../images/tooltip/bottom.png) repeat-x;
+    text-align: center;
+}

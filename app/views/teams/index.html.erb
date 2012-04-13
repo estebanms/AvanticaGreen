@@ -8,6 +8,7 @@
     <% if can? :manage, Team %>
       <th>Code</th>
       <th>Active?</th>
+      <th>Members</th>
       <th></th>
     <% end %>
     <% if can? :update, Team %>
@@ -18,11 +19,12 @@
 <% @teams.each do |team| %>
   <tr>
     <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
-    <td><%= link_to team.name, team %></td>
+    <td><%= link_to team.to_s, team, { :class => 'tooltipTrigger' } %></td>
     <td><%= team.score %></td>
     <% if can? :manage, team %>
       <td><%= team.code %></td>
       <td><%= team.active %></td>
+      <td><%= team.players.count %></td>
     <% end %>
     <% if can? :update, team %>
       <td><%= link_to 'Edit', edit_team_path(team) %></td>
@@ -48,6 +50,7 @@
       <th>Name</th>
       <th>Code</th>
       <th>Active?</th>
+      <th>Members</th>
       <th></th>
       <th></th>
     </tr>
@@ -55,9 +58,10 @@
   <% @inactive_teams.each do |team| %>
     <tr>
       <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
-      <td><%= link_to team.name, team %></td>
+      <td><%= link_to team.to_s, team, { :class => 'tooltipTrigger' } %></td>
       <td><%= team.code %></td>
       <td><%= team.active %></td>
+      <td><%= team.players.count %></td>
       <td><%= link_to 'Edit', edit_team_path(team) %></td>
       <td><%= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
