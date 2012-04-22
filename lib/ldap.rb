@@ -1,5 +1,5 @@
 module Ldap
-  def self.find_all_ldap_users
+  def self.find_all_ldap_users(limit = 0)
     # load settings from devise_ldap config file
     ldap_settings = self.load_ldap_connection_settings
     # create ldap connection
@@ -10,7 +10,7 @@ module Ldap
     filter = Net::LDAP::Filter.eq(ldap_settings["attribute"], "*")
     attrs = ["mail", "sn", "givenName"]
     # search, according to params
-    ldap.search(:base => treebase, :filter => filter, :attributes => attrs) do |entry|
+    ldap.search(:base => treebase, :filter => filter, :attributes => attrs, :size => limit) do |entry|
       all_ldap_users.push(Hash["mail" => Ldap.ldap_object_to_string(entry[:mail]), "last_names" => Ldap.ldap_object_to_string(entry[:sn]), "name" => Ldap.ldap_object_to_string(entry[:givenName])])
     end
     all_ldap_users

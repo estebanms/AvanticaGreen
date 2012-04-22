@@ -26,8 +26,7 @@ AvanticaGreen::Application.routes.draw do
 
   resources :players do
     collection do
-      get :import_players
-      get :import_some_players
+      post :import
     end
   end
 

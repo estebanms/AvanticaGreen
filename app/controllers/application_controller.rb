@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
     render :text => exception, :status => 500
   end
    
-  before_filter :authenticate_user!, :create_player
+  before_filter :create_player
 
   protect_from_forgery
   
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     if user_signed_in? && current_user.player.nil?
       player = Player.new(:name => Devise::LdapAdapter.get_ldap_param(current_user.email, "givenName"),
         :last_names => Devise::LdapAdapter.get_ldap_param(current_user.email, "sn"), 
-        :user_id => current_user.id, :team_id => 2)
+        :user_id => current_user.id, :team_id => Team.where(:name => 'Available Players').id)
       player.save
     end
   end

@@ -28,9 +28,6 @@ class Ability
         can [:update, :accept, :reject], Witness, :player_id => player.id
         can [:read, :create], Suggestion
         can [:update, :destroy], Suggestion, :player_id => player.id
-      else
-        # don't allow logged in users to create a new player
-        can :create, Player
       end
       can :read, [Team, Player, Infraction, Comment, Witness]
     end

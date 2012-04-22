@@ -23,7 +23,7 @@
   <% if can? :manage, @player %>
     <div class="field">
       <%= f.label :team_id %><br />
-      <%= admin_teams_select(:player) %>
+      <%= teams_select(:player, :team_id, { :admin => (user_signed_in? && current_player.is_admin?) }) %>
     </div>
     <div class="field">
       <%= f.label :is_admin %><br />

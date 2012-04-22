@@ -2,7 +2,6 @@ require 'ldap'
 
 class PlayersController < ApplicationController
   include StatusesHelper
-  include Ldap
 
   load_and_authorize_resource
 
@@ -28,15 +27,17 @@ class PlayersController < ApplicationController
     @pending_witnesses = @witnesses.select { |witness| pending?(witness) }
     @accepted_witnesses = @witnesses.select { |witness| accepted?(witness) }
     @rejected_witnesses = @witnesses.select { |witness| rejected?(witness) }
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @player }
-      format.js {
-        render :partial => 'shared/tooltip', :locals => {
-          :image => @player.avatar.url(:thumb), :simple_data => {
-            'Player name' => @player.full_name, 'Team' => @player.name
-          }, :collection => nil
-        }
+
+    if params['tooltip'].nil?
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @player }
+      end
+    else # show ajax tooltip
+      render :partial => 'shared/tooltip', :locals => {
+        :image => @player.avatar.url(:thumb), :simple_data => {
+          'Player name' => @player.full_name, 'Team' => @player.name
+        }, :collection => nil
       }
     end
   end
@@ -46,10 +47,7 @@ class PlayersController < ApplicationController
   def new
     @player.user_id = params[:user_id]
     respond_to do |format|
-      format.html {
-        redirect_to(new_user_registration_path, :notice => 'You need to create a user first.') unless @player.user
-        # else new.html.erb
-      }
+      format.html # new.html.erb
       format.xml  { render :xml => @player }
     end
   end
@@ -103,30 +101,27 @@ class PlayersController < ApplicationController
     end
   end
 
-  def import_players(number_of_players = 9999999)
+  def import
+    number_of_players = params[:number_of_players].to_i
     @new_players = Array.new
-    all_ldap_users = Ldap.find_all_ldap_users 
+    all_ldap_users = Ldap.find_all_ldap_users(number_of_players)
 
     #loop through ldap users. If we find a non existent user in the User table, create it and add him to the Player table
     all_ldap_users.each do |player|
-      break if @new_players.size >= number_of_players
       email = player["mail"]
       last_names = player["last_names"]
       name = player["name"]
 
-      if User.find_by_email(email).nil?
+      unless User.where(:email => email).exists?
         user = User.new(:email => email)
         user.password = 'dummy1'
         user.save!
 
-        Player.new(:name => name, :last_names => last_names,:user_id => user.id, :team_id => 2, :is_admin => false, :active => true).save!
+        Player.new(:name => name, :last_names => last_names, :user_id => user.id, 
+          :team_id => Team.where(:name => 'Available Players').id, 
+          :is_admin => false, :active => true).save!
         @new_players.push(player)
       end
     end
-  end
-
-  def import_some_players
-    import_players(params[:number_of_players].to_i)
-    render :template => 'players/import_players.html.erb'
   end
 end
