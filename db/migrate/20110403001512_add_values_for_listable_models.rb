@@ -30,6 +30,7 @@ class AddValuesForListableModels < ActiveRecord::Migration
   @@teams = [
     { :name => 'Administrators', :description => 'System administrators', :code => 'aaa', :active => false},
     { :name => 'Available Players', :description => 'New players who have joined the game and have not yet been added to a team', :code => 'xyzu', :active => false},
+    { :name => 'Trash', :description => 'Deleted players', :code => 'abc', :active => false},
   ]
   @@players = [
     #default administrator

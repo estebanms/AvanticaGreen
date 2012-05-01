@@ -25,7 +25,7 @@
         <% else %>
           <p>
           <%= form_for("user", :url => user_session_path) do |f| %>
-            User name: <%= f.text_field :email %><br />
+            Email: <%= f.text_field :email %><br />
             Password: <%= f.password_field :password %><br />
             <%= f.check_box :remember_me %>
             <%= f.label :remember_me %><br />
