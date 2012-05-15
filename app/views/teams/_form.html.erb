@@ -30,7 +30,7 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :team_logo %><br />
+    <%= f.label :team_logo %> (supported image types: <%= Team::LOGO_CONTENT_TYPES.join(', ') %>)<br />
     <%= f.file_field :team_logo %>
   </div>
   <div class="actions">

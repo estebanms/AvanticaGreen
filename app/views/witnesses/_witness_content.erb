@@ -4,5 +4,5 @@
   <%= link_to 'Edit', edit_witness_path(witness), :remote => true %>
 <% end %>
 <% if can?(:destroy, witness) %>
-  <%= link_to 'Destroy', witness, :confirm => 'Are you sure?', :method => :delete, :remote => true %>
+  <%= link_to 'Unassign', witness, :confirm => 'Are you sure?', :method => :delete, :remote => true %>
 <% end %>

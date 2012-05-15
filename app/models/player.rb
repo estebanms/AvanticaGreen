@@ -15,6 +15,8 @@ class Player < ActiveRecord::Base
   #validates :user, :presence => true
   validates :team, :presence => true
   
+  AVATAR_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/gif']
+  
   def full_name
     "#{self.name} #{self.last_names}"
   end
@@ -24,5 +26,5 @@ class Player < ActiveRecord::Base
     :default_url => '/images/player_:style.png'
 
   validates_attachment_size :avatar, :less_than => 5.megabytes
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png']
+  validates_attachment_content_type :avatar, :content_type => AVATAR_CONTENT_TYPES
 end

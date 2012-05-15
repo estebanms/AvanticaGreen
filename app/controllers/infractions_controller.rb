@@ -41,6 +41,7 @@ class InfractionsController < ApplicationController
     @infraction.game = current_game
     @infraction.player = current_player
     @infraction.team = current_player.team rescue nil
+    @infraction.status = Status.pending
 
     respond_to do |format|
       format.html # new.html.erb

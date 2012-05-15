@@ -16,7 +16,7 @@ class Witness < ActiveRecord::Base
   scope :pending, where(:status_id => Status.pending)
   scope :rejected, where(:status_id => Status.rejected)
 
-  after_update do
+  after_save do
     # check if we need to change the status of the infraction to either accepted or "pending approval"
     infraction.check_status!
   end

@@ -36,7 +36,7 @@ class PlayersController < ApplicationController
     else # show ajax tooltip
       render :partial => 'shared/tooltip', :locals => {
         :image => @player.avatar.url(:thumb), :simple_data => {
-          'Player name' => @player.full_name, 'Team' => @player.name
+          'Player name' => @player.full_name, 'Team' => @player.team.to_s
         }, :collection => nil
       }
     end

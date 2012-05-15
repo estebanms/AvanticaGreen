@@ -23,7 +23,7 @@
   </div>
   <% end %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "#{(action_name == 'edit') ? 'Update' : 'Assign'} Witness" %>
   </div>
 <% end %>
 <% if witness.new_record? %>

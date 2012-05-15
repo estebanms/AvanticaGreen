@@ -35,7 +35,7 @@
     </div>
   <% end %>
   <div class="field">
-    <%= f.label :avatar %><br />
+    <%= f.label :avatar %> (supported image types: <%= Player::AVATAR_CONTENT_TYPES.join(', ') %>)<br />
     <%= f.file_field :avatar %>
   </div>
   <div class="actions">

@@ -16,12 +16,14 @@ class Team < ActiveRecord::Base
   scope :active, where(:active => true)
   scope :inactive, where(:active => false)
 
+  LOGO_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/gif']
+
   #paperclip_image:
   has_attached_file :team_logo, 
     :styles => { :thumb => "48x48", :medium => "128x128" }, 
     :default_url => '/images/team_:style.png'
   validates_attachment_size :team_logo, :less_than => 5.megabytes
-  validates_attachment_content_type :team_logo, :content_type => ['image/jpeg', 'image/png']
+  validates_attachment_content_type :team_logo, :content_type => LOGO_CONTENT_TYPES
 
   def self.sorted_by_score
     self.active.sort {|a, b| b.score <=> a.score }

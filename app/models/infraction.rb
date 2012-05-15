@@ -28,10 +28,20 @@ class Infraction < ActiveRecord::Base
        :small => "400x400>"
     }
   
-  def check_status!
-    # change status of the infraction to "accepted" if the number of witnesses is greater or equal than 1
+  before_save do
+    # check if we need to change the status of this infraction to either accepted or "pending approval"
+    self.check_status
+  end
+  
+  def check_status
+    # change status of the infraction to "accepted" if the number of witnesses is greater or equal than 1,
+    # or there is a photo attached as part of the infraction
     # change status of the infraction to "pending approval" if there are no witnesses at all
-    self.status = self.witnesses.accepted.any? ? Status.accepted : Status.pending
+    self.status = (self.photo? or self.witnesses.accepted.any?) ? Status.accepted : Status.pending
+  end
+  
+  def check_status!
+    self.check_status
     self.save if self.changed?
   end
 
