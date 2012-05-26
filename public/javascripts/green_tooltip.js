@@ -53,11 +53,7 @@ $(function()
           data: 'tooltip=true',
           success: function(data)
           {
-              // Verify that we're pointed to a page that returned the expected results.
-              if (data.indexOf('personPopupResult') < 0)
-              {
-                  $('#tooltipPopupContent').html(data);
-              }
+            $('#tooltipPopupContent').html(data);
           },
           error: function(xhr, status, error)
           {

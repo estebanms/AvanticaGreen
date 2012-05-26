@@ -1,7 +1,6 @@
 <div>
-<div class="main_box">
-  <div class="main_box_topleft">
-  <div class="main_box_topright">
+  <br/>
+  <div class="main_box">
     <div>
       <% if @infraction.status == Status.pending %>
       <p id="warning">
@@ -40,17 +39,11 @@
       <%= link_to 'Back', infractions_path %>  
     </div>
   </div>
+  <div>
+    <%= render 'witnesses/witnesses' %>
   </div>
-  <div class="main_box_bottomleft">
-  <div class="main_box_bottomright">
+  <br/>
+  <div>
+    <%= render 'comments/comments' %>
   </div>
-  </div>
-</div>
-<div>
-  <%= render 'witnesses/witnesses' %>
-</div>
-<br/>
-<div>
-  <%= render 'comments/comments' %>
-</div>
 </div>
