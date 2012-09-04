@@ -23,10 +23,19 @@ div.field, div.actions {
 }
 
 #notice {
-  color: green;
+  background-color: green;
+  color: white;
+  padding: 10px;
 }
 #error {
-  color: red;
+  background-color: red;
+  color: white;
+  padding: 10px;
+}
+#warning {
+  background-color: yellow;
+  color: black;
+  padding: 10px;
 }
 
 .field_with_errors {

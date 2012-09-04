@@ -17,10 +17,13 @@
 }
 
 #main_menu {
-  margin: 0 0 0 20%;
+  margin: 0;
+  padding-left: 20%;
+  width: 80%;
   clear: left;
   float: left;
   z-index: 2;
+  background-color: #CCFF99;
 }
 
 #main_menu ul {
@@ -32,7 +35,7 @@
 #main_menu ul li.selected {
   float: left;
   list-style: none;
-  padding: 5px;
+  padding: 5px 15px;
   margin: 5px;
   margin-bottom: 0;
   background-color: white;
@@ -42,12 +45,14 @@
 #main_menu ul li {
   float: left;
   list-style: none;
-  padding: 5px;
+  padding: 5px 15px;
   margin: 5px;
   margin-bottom: 0;
-  background-color: #CCFF99;
   font-weight: bold;
   cursor: pointer;
+}
+#main_menu ul li:hover {
+  background-color: white;
 }
 
 #main_page {
