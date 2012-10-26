@@ -30,6 +30,6 @@ module InfractionsHelper
   end
 
   def options_for_mail_link
-    { :only_path => false, :host => AvanticaGreen::Application::ROOT_PATH }
+    { :only_path => false }
   end
 end

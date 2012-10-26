@@ -39,5 +39,7 @@ module AvanticaGreen
     config.filter_parameters += [:password]
 
     ROOT_PATH = 'avanticagreen/greenathon'
+    
+    config.action_mailer.default_url_options = { :host => ROOT_PATH }
   end
 end

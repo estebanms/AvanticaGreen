@@ -1,6 +1,6 @@
 #header {
   background-color: #B8CB99;
-  height: 150px;
+  height: 182px;
   width: 100%;
   float: left;
 }
@@ -23,7 +23,7 @@
   clear: left;
   float: left;
   z-index: 2;
-  background-color: #CCFF99;
+  background-color: #E3EFD0;
 }
 
 #main_menu ul {
@@ -48,12 +48,16 @@
   padding: 5px 15px;
   margin: 5px;
   margin-bottom: 0;
-  background-color: #e3efd0;
+  background-color: #E3EFD0;
   font-weight: bold;
   cursor: pointer;
 }
 #main_menu ul li:hover {
   background-color: white;
+}
+#main_menu ul li a:hover {
+  background-color: white;
+  color: #666;
 }
 
 #main_page {
@@ -68,7 +72,7 @@
 
 #secondary_menu {
   float: right;
-  background-color: #e3efd0;
+  background-color: #E3EFD0;
   width: 15%;
   height: 150px;
   padding-left: 5px;
@@ -140,7 +144,7 @@
   position:absolute;
   top:200px;
   right:1%;
-  background-color: #e3efd0;
+  background-color: #E3EFD0;
   -moz-border-radius-topleft: 15px;
   -webkit-border-top-left-radius: 15px;
   -moz-border-radius-bottomright: 15px;
@@ -153,7 +157,7 @@
 
 /*main box*/
 .main_box {
-  background-color: #e3efd0;
+  background-color: #E3EFD0;
   -moz-border-radius-topleft: 15px;
   -webkit-border-top-left-radius: 15px;
   -moz-border-radius-bottomright: 15px;

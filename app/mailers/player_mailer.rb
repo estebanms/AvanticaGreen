@@ -1,5 +1,5 @@
 class PlayerMailer < ActionMailer::Base
-  default :from => "Avantica_Green@avantica.net"
+  default :from => "Avantica Green <green@avantica.net>"
 
   helper :infractions
 
