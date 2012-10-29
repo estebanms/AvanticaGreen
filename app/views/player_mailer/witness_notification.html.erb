@@ -1,4 +1,4 @@
-<p>We wanted to let you know that you have been <%= @action %> as a witness of <%= infraction_details(@infraction) %>.</p>
+<p>We wanted to let you know that you have been <%= @action %> as a witness of <%= raw(infraction_details(@infraction)) %>.</p>
 
 <% if @action == :added %>
   <p>

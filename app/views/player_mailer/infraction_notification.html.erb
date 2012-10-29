@@ -1,3 +1,3 @@
-<p>We wanted to let you know that <%= infraction_details(@infraction) %> has been recently <%= @action %>.</p>
+<p>We wanted to let you know that <%= raw(infraction_details(@infraction)) %> has been recently <%= @action %>.</p>
 
 <p>Click <%= link_to 'here', infraction_path(@infraction, options_for_mail_link) %> if you want to see more details about the infraction.</p>
