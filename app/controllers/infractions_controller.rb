@@ -78,10 +78,12 @@ class InfractionsController < ApplicationController
   # PUT /infractions/1
   # PUT /infractions/1.xml
   def update
+    # we should only send notifications when the status of the infraction changes
+    send_notification = @infraction.status_changed?
     respond_to do |format|
       if @infraction.update_attributes(params[:infraction])
         # send notification to player who created the infraction and to all players who belong to the offending team
-        PlayerMailer.infraction_notification(@infraction, :updated)
+        PlayerMailer.infraction_notification(@infraction, :updated) if send_notification
 
         format.html { redirect_to(@infraction, :notice => 'Infraction was successfully updated.') }
         format.xml  { head :ok }
