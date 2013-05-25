@@ -30,7 +30,7 @@ class Infraction < ActiveRecord::Base
   
   before_save do
     # check if we need to change the status of this infraction to either accepted or "pending approval"
-    self.check_status
+    #self.check_status unless current_user.admin?
   end
   
   def check_status

@@ -20,7 +20,8 @@
       <%= f.text_area :description %>
     </div>
   <% end %>
-  <% if action_name == 'new' || can?(:manage, @infraction) || 
+
+  <% if ['new','create'].include?(action_name) || can?(:manage, @infraction) || 
       (@infraction.status == Status.pending && action_name == 'edit') %>
     <div class="field">
       <%= f.label :offender_id %><br />

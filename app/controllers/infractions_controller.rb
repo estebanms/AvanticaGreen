@@ -28,6 +28,7 @@ class InfractionsController < ApplicationController
   def show
     @witnesses = @infraction.witnesses
     @commentable = @infraction
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @infraction }
@@ -61,7 +62,7 @@ class InfractionsController < ApplicationController
     @infraction.player = current_player
     @infraction.team = current_player.team rescue nil
     @infraction.status = Status.pending
-     
+
     respond_to do |format|
       if @infraction.save
         # send notification to player who created the infraction and to all players who belong to the offending team
@@ -78,8 +79,9 @@ class InfractionsController < ApplicationController
   # PUT /infractions/1
   # PUT /infractions/1.xml
   def update
+    @infraction.check_status unless current_user.player.is_admin?
     # we should only send notifications when the status of the infraction changes
-    send_notification = @infraction.status_changed?
+    send_notification = @infraction.status_id_changed?
     respond_to do |format|
       if @infraction.update_attributes(params[:infraction])
         # send notification to player who created the infraction and to all players who belong to the offending team

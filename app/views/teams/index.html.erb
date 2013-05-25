@@ -1,4 +1,4 @@
-<h1>Listing teams</h1>
+<h1>Standings</h1>
 
 <table>
   <tr>
@@ -16,11 +16,11 @@
     <% end %>
   </tr>
 
-<% @teams.each do |team| %>
+<% Team.sorted_by_score_desc.each do |team| %>
   <tr>
     <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
     <td><%= link_to team.to_s, team, { :class => 'tooltipTrigger' } %></td>
-    <td><%= team.score %></td>
+    <td><% if team.score > 0 %> - <%end%> <%= team.score %></td>
     <% if can? :manage, team %>
       <td><%= team.code %></td>
       <td><%= team.active %></td>
@@ -32,6 +32,7 @@
     <% if can? :destroy, team %>
       <td><%= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete %></td>
     <% end %>
+    <td><%= winning_or_losing(Team.sorted_by_score_desc,team) %></td>
   </tr>
 <% end %>
 </table>
