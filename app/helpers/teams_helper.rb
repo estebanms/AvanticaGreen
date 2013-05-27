@@ -6,7 +6,11 @@ module TeamsHelper
   end
 
   def winning_or_losing(all_teams, team)
-    (all_teams.first.score == team.score) ? image_tag("trophy.png") : (all_teams.last.score == team.score) ? image_tag("pig.png") : "                      " unless all_teams.first.score == all_teams.last.score
+    unless all_teams.first.score == all_teams.second.score
+      (all_teams.first.score == team.score) ? image_tag("trophy.png") : "                 "
+    end   
+    
+    (all_teams.last.score == team.score) ? image_tag("pig.png") : "                     "
   end
 
 end
