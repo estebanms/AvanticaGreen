@@ -104,24 +104,34 @@ class PlayersController < ApplicationController
   def import
     number_of_players = params[:number_of_players].to_i
     @new_players = Array.new
+    @rejected_players = Array.new
     all_ldap_users = Ldap.find_all_ldap_users(number_of_players)
 
     #loop through ldap users. If we find a non existent user in the User table, create it and add him to the Player table
     all_ldap_users.each do |player|
-      email = player["mail"]
-      last_names = player["last_names"]
-      name = player["name"]
-
-      unless User.where(:email => email).exists?
-        user = User.new(:email => email)
+      if valid_ldap_user?(player) && !User.where(:email => player["mail"]).exists?
+        user = User.new(:email => player["mail"])
         user.password = 'dummy1'
         user.save!
 
-        Player.new(:name => name, :last_names => last_names, :user_id => user.id, 
+        Player.new(:name => player["name"], :last_names => player["last_names"], :user_id => user.id, 
           :team_id => Team.find_by_name('Available Players').id, 
           :is_admin => false, :active => true).save!
         @new_players.push(player)
+      else
+        @rejected_players.push(player)
       end
     end
   end
+
+  private
+  
+  def valid_ldap_user?(args)
+    if(args["name"].empty? || args["last_names"].empty? || args["mail"].empty? || !args["mail"].include?('@avantica.net'))
+      false
+    else
+      true
+    end
+  end
+
 end

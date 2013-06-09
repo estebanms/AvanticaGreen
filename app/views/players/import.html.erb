@@ -1,3 +1,5 @@
+<h1>Importing players</h1>
+
 <div>
 <div class="main_box">
   <div class="main_box_topleft">
@@ -12,6 +14,23 @@
         <th>Email address</th>
       </tr>
     <% @new_players.each do |player| %>
+      <tr>
+        <td><%= player %></td>
+      </tr>
+    <% end %>
+    </table>
+  <% end %>  
+    </div>
+    <div>
+  <% if @rejected_players.empty? %>
+    No players were rejected
+  <% else %>
+    <h4>The following players were rejected because they already existed, had an invalid email address or missing name/last names:</h4>
+    <table>
+      <tr>
+        <th>Email address</th>
+      </tr>
+    <% @rejected_players.each do |player| %>
       <tr>
         <td><%= player %></td>
       </tr>

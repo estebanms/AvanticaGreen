@@ -24,7 +24,7 @@ class TeamsController < ApplicationController
     else # show ajax tooltip
       render :partial => 'shared/tooltip', :locals => {
         :image => @team.team_logo.url(:thumb), 
-        :simple_data => { 'Team name' => @team.name, 'Score' => @team.score }, 
+        :simple_data => { 'Team name' => @team.name, 'Score' => (@team.score > 0) ? "- #{@team.score}" : @team.score}, 
         :collection => { 'Members' => @team.players.collect{ |player| player.full_name } }
       }
     end
