@@ -7,6 +7,11 @@ class PlayerMailer < ActionMailer::Base
     @infraction = infraction
     @action = action
 
+    # send it to the player who created the infraction as well
+    @recipient = @infraction.player
+    mail(:to => "#{@recipient.full_name} <#{@recipient.user.email}>",
+        :subject => "Infraction has been #{@action}").deliver
+
     # send notification to all players who belong to the offending team
     players = @infraction.offender.players
    
@@ -15,10 +20,6 @@ class PlayerMailer < ActionMailer::Base
       mail(:to => "#{@recipient.full_name} <#{@recipient.user.email}>", 
         :subject => "Infraction has been #{@action}").deliver
     end
-
-    # and send it to the player who created the infraction as well
-    mail(:to => "#{@infraction.player.full_name} <#{@infraction.player.user.email}>", 
-        :subject => "Infraction has been #{@action}").deliver
 
   end
   

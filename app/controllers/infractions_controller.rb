@@ -61,8 +61,10 @@ class InfractionsController < ApplicationController
     @infraction.game = current_game
     @infraction.player = current_player
     @infraction.team = current_player.team rescue nil
-    @infraction.status = Status.pending
-
+ #   @infraction.status = Status.pending
+@infraction.status = (params[:infraction][:photo].nil?) ? Status.pending : Status.accepted
+Rails.logger.info("EDWIN#{params[:infraction].inspect}")
+Rails.logger.info("EDWIN2#{params[:infraction][:photo]}")
     respond_to do |format|
       if @infraction.save
         # send notification to player who created the infraction and to all players who belong to the offending team
