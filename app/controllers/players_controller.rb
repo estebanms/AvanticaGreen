@@ -93,7 +93,8 @@ class PlayersController < ApplicationController
   # DELETE /players/1
   # DELETE /players/1.xml
   def destroy
-    @player.destroy
+    User.find(@player.user_id).destroy
+    #@player.destroy
 
     respond_to do |format|
       format.html { redirect_to(players_url) }
