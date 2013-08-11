@@ -1,41 +1,52 @@
 <h1>Listing infractions</h1>
 
 <%= render 'filter' %>
-
-<% if @infractions.empty? %>
-  <p>There are no infractions to show.</p>
-<% else %>
-  <table>
-    <tr>
-      <th>Reporter</th>
-      <th>Offender</th>
-      <th>Infraction type</th>
-      <th>Status</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-
-  <% @infractions.each do |infraction| %>
-    <tr>
-      <td><%= infraction_related_team(infraction, :reporter) %></td>
-      <td><%= infraction_related_team(infraction, :offender) %></td>
-      <td><%= infraction.infraction_type %></td>
-      <td><%= infraction.status %></td>
-      <td><%= link_to 'Show', infraction %></td>
-      <% if can? :update, infraction %>
-        <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
-      <% end %>
-      <% if can? :destroy, infraction %>
-        <td><%= link_to 'Destroy', infraction, :confirm => 'Are you sure?', :method => :delete %></td>
-      <% end %>
-    </tr>
-  <% end %>
-  </table>
-<% end %>
-
 <br />
+<div>
+  <div class="main_box">
+    <% if @infractions.empty? %>
+      <p>There are no infractions to show.</p>
+    <% else %>
+      <div class="pagination">
+        <div class="page_info">
+          <%= page_entries_info @infractions %>
+        </div>
+       <%= will_paginate @infractions, :container => false %>
+      </div>
+      <table>
+        <tr>
+          <th>Reporter</th>
+          <th>Offender</th>
+          <th>Infraction type</th>
+          <th>Status</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
 
+      <% @infractions.each do |infraction| %>
+        <tr>
+          <td><%= infraction_related_team(infraction, :reporter) %></td>
+          <td><%= infraction_related_team(infraction, :offender) %></td>
+          <td><%= infraction.infraction_type %></td>
+          <td><%= infraction.status %></td>
+          <td><%= link_to 'Show', infraction %></td>
+          <% if can? :update, infraction %>
+            <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
+          <% end %>
+          <% if can? :destroy, infraction %>
+            <td><%= link_to 'Destroy', infraction, :confirm => 'Are you sure?', :method => :delete %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+    <br />
+    <div class="pagination">
+      <%= will_paginate @infractions, :container => false %>
+    </div>
+  </div>
+</div>
 <% if can? :create, Infraction %>
   <p><%= link_to 'New Infraction', new_infraction_path %></p>
 <% end %>

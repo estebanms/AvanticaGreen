@@ -20,7 +20,9 @@ class Infraction < ActiveRecord::Base
   scope :active, includes(:infraction_type).where(:game_id => Game.active.first, :infraction_types => { :active => true })
   scope :accepted, where(:status_id => Status.accepted)
   scope :pending, where(:status_id => Status.pending)
-  
+  # will_paginate default page size
+  self.per_page = 20
+
   #paperclip image:
   has_attached_file :photo,
     :styles => {

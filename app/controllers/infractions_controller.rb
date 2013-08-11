@@ -6,7 +6,7 @@ class InfractionsController < ApplicationController
   # GET /infractions.xml
   def index
     # the list of infractions is within the scope of a game
-    @infractions = current_game.infractions rescue Array.new
+    @infractions = current_game.infractions.paginate(:page => params[:page]) rescue Array.new
     # filter the infractions if the user limited the search to certain conditions
     if params[:infraction]
       # do some validations on the filter fields
@@ -14,7 +14,7 @@ class InfractionsController < ApplicationController
       params[:infraction].keep_if do |field, value|
         [:team_id, :offender_id, :infraction_type_id, :status_id].include?(field.to_sym) and !value.blank?
       end
-      @infractions = @infractions.where(params[:infraction]) unless params[:infraction].empty?
+      @infractions = @infractions.where(params[:infraction]).paginate(:page => params[:page]) unless params[:infraction].empty?
     end
 
     respond_to do |format|
@@ -61,10 +61,8 @@ class InfractionsController < ApplicationController
     @infraction.game = current_game
     @infraction.player = current_player
     @infraction.team = current_player.team rescue nil
- #   @infraction.status = Status.pending
-@infraction.status = (params[:infraction][:photo].nil?) ? Status.pending : Status.accepted
-Rails.logger.info("EDWIN#{params[:infraction].inspect}")
-Rails.logger.info("EDWIN2#{params[:infraction][:photo]}")
+    @infraction.status = (params[:infraction][:photo].nil?) ? Status.pending : Status.accepted
+ 
     respond_to do |format|
       if @infraction.save
         # send notification to player who created the infraction and to all players who belong to the offending team
