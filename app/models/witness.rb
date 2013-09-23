@@ -5,6 +5,8 @@ class DifferentTeamValidator < ActiveModel::EachValidator
 end
 
 class Witness < ActiveRecord::Base
+  attr_accessible :player_id
+
   belongs_to :player
   belongs_to :infraction
   belongs_to :status

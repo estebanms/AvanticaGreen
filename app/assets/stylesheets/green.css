@@ -155,6 +155,12 @@
   padding: 10px;
 }
 
+.detail_box select{
+ width: 100%;
+}
+
+
+
 
 
 /*main box*/
