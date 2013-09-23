@@ -7,6 +7,7 @@ class TeamsController < ApplicationController
   def index
     @teams = Team.sorted_by_score
     @inactive_teams = Team.inactive if can? :manage, Team
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @teams }

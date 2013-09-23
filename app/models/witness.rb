@@ -12,9 +12,9 @@ class Witness < ActiveRecord::Base
   validates :player, :presence => true, :different_team => true
   validates :infraction, :presence => true
   
-  scope :accepted, where(:status_id => Status.accepted)
-  scope :pending, where(:status_id => Status.pending)
-  scope :rejected, where(:status_id => Status.rejected)
+  scope :accepted, -> { where(:status_id => Status.accepted) }
+  scope :pending, -> { where(:status_id => Status.pending) }
+  scope :rejected, -> {where(:status_id => Status.rejected) }
 
   after_save do
     # check if we need to change the status of the infraction to either accepted or "pending approval"

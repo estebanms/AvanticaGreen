@@ -1,9 +1,10 @@
 class Game < ActiveRecord::Base
-  has_many :infractions, :dependent => :restrict
+  attr_accessible :name, :active
+  has_many :infractions, :dependent => :restrict_with_exception
   
   validates :start_date, :presence => true
-  
-  scope :active, where(:active => true).order('updated_at DESC')
+	  
+  scope :active, -> { where(:active => true).order('updated_at DESC') }
   
   before_save do
     # we only allow one active game at a time

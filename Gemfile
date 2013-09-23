@@ -6,13 +6,23 @@ gem 'rails'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-gem "devise", :git => "git://github.com/plataformatec/devise.git"
-gem "devise_ldap_authenticatable", :git => "git://github.com/cschiewek/devise_ldap_authenticatable.git"
+gem "devise"
+gem "devise_ldap_authenticatable"
 gem 'paperclip'
 gem 'rmagick'
 gem 'cancan'
 gem 'simple-navigation'
-gem 'net-ldap'
+#gem 'net-ldap'
+# estoy forzando el uso de esta version de net-ldap por esta pulga https://github.com/ruby-ldap/ruby-net-ldap/pull/44 , y porque no han generado la version 0.4 con el fix en rubygems
+gem "net-ldap", :git => "git://github.com/ruby-ldap/ruby-net-ldap.git", :branch => "master"
+gem 'will_paginate', '~> 3.0'
+
+# FOR UPGRADE
+# gem 'rails4_upgrade'    # Used for dependecy check during migration
+# gem 'strong_parameters' # TODO: This is the new ( Rails4 ) way to go for secure attributes 
+
+gem 'protected_attributes'# Required since, Rails4 took it out of its core and moved it to a gem
+
 
 # Use unicorn as the web server
 # gem 'unicorn'

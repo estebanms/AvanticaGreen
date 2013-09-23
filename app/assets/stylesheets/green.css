@@ -1,3 +1,5 @@
+/* Green.css File */
+/******************/
 #header {
   background-color: #B8CB99;
   height: 182px;
@@ -118,7 +120,7 @@
 .comment {
    width: 500px;
    min-height: 50px;
-   background-image: url(../images/comment/comment_middle.gif);
+   background-image: url(comment/comment_middle.gif);
    background-repeat: repeat-y;
    margin: 0px 0px 0px 0px;
    padding: 10px 0px 0px 0px;
@@ -130,7 +132,7 @@
 
 .comment_footer {
    width: 500px;
-   background-image: url(../images/comment/comment_finish.gif);
+   background-image: url(comment/comment_finish.gif);
    background-position: 0% 100%;
    background-repeat: no-repeat;
    margin: 0px 0px 0px 0px;

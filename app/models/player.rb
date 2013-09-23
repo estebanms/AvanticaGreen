@@ -1,6 +1,9 @@
 require 'paperclip'
 
 class Player < ActiveRecord::Base
+  # TODO: This should be reviewed since not all fields should be accessible
+  attr_accessible :avatar, :name, :active, :last_names, :user_id, :team_id, :is_admin
+
   belongs_to :user
   belongs_to :team
   # infractions reported by this player
@@ -23,7 +26,7 @@ class Player < ActiveRecord::Base
 
 	#paperclip_image:
   has_attached_file :avatar, :styles => { :thumb => "48x48", :medium => "128x128" }, 
-    :default_url => '/images/player_:style.png'
+    :default_url => 'player_:style.png'
 
   validates_attachment_size :avatar, :less_than => 5.megabytes
   validates_attachment_content_type :avatar, :content_type => AVATAR_CONTENT_TYPES

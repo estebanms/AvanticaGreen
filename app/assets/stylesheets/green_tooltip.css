@@ -1,3 +1,6 @@
+/* Green ToolTip */
+/*****************/
+
 #tooltipContainer
 {
     position:absolute;
@@ -32,41 +35,41 @@
     
 .tooltipPopup .topLeft 
 {
-    background: url(../images/tooltip/topLeft.png) no-repeat;
+    background: url(tooltip/topLeft.png) no-repeat;
 }
     
 .tooltipPopup .bottomLeft 
 {
-    background: url(../images/tooltip/bottomLeft.png) no-repeat;
+    background: url(tooltip/bottomLeft.png) no-repeat;
 }
     
 .tooltipPopup .left 
 {
-    background: url(../images/tooltip/left.png) repeat-y;
+    background: url(tooltip/left.png) repeat-y;
 }
     
 .tooltipPopup .right 
 {
-    background: url(../images/tooltip/right.png) repeat-y;
+    background: url(tooltip/right.png) repeat-y;
 }
     
 .tooltipPopup .topRight 
 {
-    background: url(../images/tooltip/topRight.png) no-repeat;
+    background: url(tooltip/topRight.png) no-repeat;
 }
     
 .tooltipPopup .bottomRight 
 {
-    background: url(../images/tooltip/bottomRight.png) no-repeat;
+    background: url(tooltip/bottomRight.png) no-repeat;
 }
     
 .tooltipPopup .top 
 {
-    background: url(../images/tooltip/top.png) repeat-x;
+    background: url(tooltip/top.png) repeat-x;
 }
     
 .tooltipPopup .bottom 
 {
-    background: url(../images/tooltip/bottom.png) repeat-x;
+    background: url(tooltip/bottom.png) repeat-x;
     text-align: center;
 }
