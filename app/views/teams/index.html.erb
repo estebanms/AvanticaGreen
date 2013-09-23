@@ -16,7 +16,7 @@
     <% end %>
   </tr>
 
-<% Team.sorted_by_score_desc.each do |team| %>
+<% @teams_sorted.each do |team| %>
   <tr>
     <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
     <td><%= link_to team.to_s, team, { :class => 'tooltipTrigger' } %></td>
@@ -32,7 +32,7 @@
     <% if can? :destroy, team %>
       <td><%= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete %></td>
     <% end %>
-    <td><%= winning_or_losing(Team.sorted_by_score_desc,team) %></td>
+    <td><%= winning_or_losing(@teams_sorted,team) %></td>
   </tr>
 <% end %>
 </table>

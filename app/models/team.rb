@@ -13,7 +13,8 @@ class Team < ActiveRecord::Base
   validates :code, :presence => true, :uniqueness => true
   
   def score
-    @score ||= self.infractions_as_offender.active.accepted.reduce(0) { |sum, infraction| sum + infraction.infraction_type.points }  end
+    @score ||= self.infractions_as_offender.active.accepted.reduce(0) { |sum, infraction| sum + infraction.infraction_type.points } 
+  end
   
   scope :active, -> { where(:active => true) }
   scope :inactive, -> { where(:active => false) }
