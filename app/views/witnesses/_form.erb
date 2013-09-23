@@ -4,7 +4,7 @@
   <div id="new_witness">
     <br />
     <b>New witness</b>
-    <%= link_to 'Cancel', '#', :onclick => "$('div#new_witness').remove(); $('div#error_explanation').remove();" %><br />
+    <%= link_to 'Cancel', '#', :onclick => "$('div#add_witness_event').show();$('div#new_witness').remove(); $('div#error_explanation').remove();" %><br />
 <% else %>
   <%= render :partial => 'witnesses/witness_header', :locals => { :witness => witness } %>
   <%= link_to 'Cancel', witness, :remote => true %><br />

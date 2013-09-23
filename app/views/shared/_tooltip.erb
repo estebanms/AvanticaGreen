@@ -1,4 +1,4 @@
-<div id="container" style="overflow:hidden;width:250px">
+<div id="container" style="overflow:hidden;width:350px">
   <div id="inner" style="overflow:hidden;width: 2000px">
     <table>
     <% unless image.nil? %>
@@ -14,9 +14,12 @@
       <% unless collection.nil? %>
         <% collection.each_pair do  |key,array|%>
           <tr><td><b><%= key %>:</b></td><td/></tr>
+<tr><td></td><td>          
+<ul class='scrollable'>
           <% array.each do |element| %>
-            <tr><td></td><td><%= raw(element) %></td></tr>
+            <li><%= raw(element) %></li>
           <% end %>
+          </ul></td></tr>
         <% end %>
       <% end %>
     </table>

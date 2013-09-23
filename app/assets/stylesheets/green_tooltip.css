@@ -12,6 +12,7 @@
 
 .tooltipPopup
 {
+  width: 400px;
 }
 
 #tooltipPopupContent
@@ -73,3 +74,10 @@
     background: url(tooltip/bottom.png) repeat-x;
     text-align: center;
 }
+
+.tooltipPopup .scrollable{
+  overflow: scroll;
+  width: 275px;
+  max-height: 300px
+}
+
