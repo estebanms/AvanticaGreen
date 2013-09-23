@@ -159,10 +159,6 @@
  width: 100%;
 }
 
-
-
-
-
 /*main box*/
 .main_box {
   background-color: #E3EFD0;
@@ -223,4 +219,10 @@
   *:first-child + html .pagination {
     overflow: hidden;
 }
+
+
+.centered{
+ text-align: center;
+}
+
 
