@@ -4,6 +4,7 @@ class SuggestionsController < ApplicationController
   # GET /suggestions
   # GET /suggestions.xml
   def index
+    @suggestions = @suggestions.paginate(:page => params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @suggestions }

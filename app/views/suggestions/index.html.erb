@@ -1,32 +1,44 @@
-<h1>Listing suggestions</h1>
+<h1>Suggestions</h1>
 
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Author</th>
-    <th>Type</th>
-    <th>Status</th>
-    <th>Suggestion</th>
-  </tr>
+<div class="main_box">
+  <div>
+    <% if @suggestions.empty? %>
+      <%= nothing_to_show('suggestions')%>
+    <% else %>
+      <div class="pagination">
+        <div class="page_info">
+          <%= page_entries_info @suggestions %>
+        </div>
+        <%= will_paginate @suggestions %>
+      </div>
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Author</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Suggestion</th>
+        </tr>
+        <% @suggestions.each do |suggestion| %>
+        <tr>
+          <td><%= type_avatar(suggestion) %></td>
+          <td><%= post_player_name(suggestion) %></td>
+          <td><%= format_date_only(suggestion.created_at) %></td>
+          <td><%= suggestion.status %></td>
+          <td><%= crop_text(suggestion.description) %></td>
+          <td><%= show_link(suggestion) %></td>
+          <% if can? :update, suggestion %>
+            <td><%= edit_link(edit_suggestion_path(suggestion)) %></td>
+          <% end %>
+          <% if can? :destroy, suggestion %>
+            <td><%= destroy_link(suggestion)%></td>
+          <% end %>
+        </tr>
+        <%end%>
+      </table> 
+    <%end%>
+  </div>
+</div>
 
-<% @suggestions.each do |suggestion| %>
-  <tr>
-    <td><%= format_date(suggestion.created_at) %></td>
-    <td><%= post_player_name(suggestion) %></td>
-    <td><%= suggestion.suggestion_type %></td>
-    <td><%= suggestion.status %></td>
-    <td><%= suggestion.description %></td>
-    <td><%= link_to 'Show', suggestion %></td>
-    <% if can? :update, suggestion %>
-      <td><%= link_to 'Edit', edit_suggestion_path(suggestion) %></td>
-    <% end %>
-    <% if can? :destroy, suggestion %>
-      <td><%= link_to 'Destroy', suggestion, :confirm => 'Are you sure?', :method => :delete %></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
-
-<br />
 
 <p><%= link_to 'New Suggestion', new_suggestion_path %></p>

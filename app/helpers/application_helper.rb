@@ -23,4 +23,44 @@ module ApplicationHelper
     image_url = post.anonymous? ? "player_#{image_style}.png" : post.player.avatar.url(image_style)
     image_tag(image_url,:style => "height:36px;vertical-align:middle")
   end
+
+  def nothing_to_show(type, ademdum='')
+   "There are no #{type} to display#{ademdum}."
+  end
+
+  def crop_text(text, length=100)
+    truncate(text, length: length)
+  end
+
+  # Common Image_Link
+  def show_image
+    alt = 'Show me more'
+    image_tag('show.png',alt: alt, title: alt )
+  end
+
+  def edit_image(default_alt='element')
+    alt = "Edit this #{default_alt}" 
+    image_tag('edit.png',alt: alt, title: alt )
+  end
+
+  def destroy_image(default_alt='element')
+    alt = "Delete this #{default_alt}"
+    image_tag('delete.png',alt: alt, title: alt )
+  end
+
+  def show_link(obj)
+    link_to show_image, obj, class: 'image_link'
+  end
+
+  def edit_link(obj, alt='element')
+    link_to edit_image(alt), obj, class: 'image_link'
+  end
+
+  def destroy_link(obj, alt='element')
+    link_to destroy_image(alt), obj, confirm: 'Are you sure?', method: :delete, class: 'image_link'
+  end
+
+
+
+
 end
