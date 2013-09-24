@@ -219,7 +219,12 @@
   *:first-child + html .pagination {
     overflow: hidden;
 }
+/*Players pages*/
 
+.players .pagination .page_info {
+  float: left;  }
+.players .pagination .pagination {
+  float: right; }
 
 .centered{
  text-align: center;

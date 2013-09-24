@@ -1,13 +1,20 @@
 <% players ||= @players %>
 <% context ||= :system %>
-
 <div>
 <div class="main_box">
     <div>
       <% if players.empty? %>
         There are no players in the <%= context.to_s %>.
       <% else %>
-      <h4>Players:</h4>
+       <%if context == :system %> 
+         <div class="pagination">
+           <div class="page_info">
+             <%= page_entries_info players %>
+           </div>
+           <%= will_paginate players %>
+         </div>
+       <%end%>
+       <h4>Players:</h4>
       <table>
         <tr>
           <th></th>

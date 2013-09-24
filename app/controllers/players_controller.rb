@@ -9,6 +9,7 @@ class PlayersController < ApplicationController
   # GET /players.xml
   def index
     @players = Player.joins(:team).where(:players => { :active => true }, :teams => { :active => true }) unless user_signed_in? && current_player.is_admin?
+    @players = @players.paginate(:page => params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @players }
