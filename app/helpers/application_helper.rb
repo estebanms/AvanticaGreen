@@ -45,7 +45,7 @@ module ApplicationHelper
 
   def destroy_image(default_alt='element')
     alt = "Delete this #{default_alt}"
-    image_tag('delete.png',alt: alt, title: alt )
+    image_tag('trash.png',alt: alt, title: alt )
   end
 
   def show_link(obj)

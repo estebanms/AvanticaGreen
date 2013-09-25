@@ -25,8 +25,7 @@
           <td><%= post_player_name(suggestion) %></td>
           <td><%= format_date_only(suggestion.created_at) %></td>
           <td><%= suggestion.status %></td>
-          <td><%= crop_text(suggestion.description) %></td>
-          <td><%= show_link(suggestion) %></td>
+          <td><%= link_to crop_text(suggestion.description, 70), suggestion, title: "Show me more", alt: 'Show me more' %></td>
           <% if can? :update, suggestion %>
             <td><%= edit_link(edit_suggestion_path(suggestion)) %></td>
           <% end %>
