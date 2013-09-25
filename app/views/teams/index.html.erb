@@ -20,7 +20,7 @@
   <tr>
     <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
     <td><%= link_to team.to_s, team, { :class => 'tooltipTrigger' } %></td>
-    <td><% if team.score > 0 %> - <%end%> <%= team.score %></td>
+    <td><%= team.score %></td>
     <% if can? :manage, team %>
       <td><%= team.code %></td>
       <td><%= team.active %></td>

@@ -14,6 +14,7 @@ class Team < ActiveRecord::Base
   
   def score
     @score ||= self.infractions_as_offender.active.accepted.reduce(0) { |sum, infraction| sum + infraction.infraction_type.points } 
+    @score * -1
   end
   
   scope :active, -> { where(:active => true) }

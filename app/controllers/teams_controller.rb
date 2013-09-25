@@ -5,7 +5,7 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.xml
   def index
-    @teams_sorted = Team.sorted_by_score_desc
+    @teams_sorted = Team.sorted_by_score
     @inactive_teams = Team.inactive if can? :manage, Team
 
     respond_to do |format|
@@ -25,7 +25,7 @@ class TeamsController < ApplicationController
     else # show ajax tooltip
       render :partial => 'shared/tooltip', :locals => {
         :image => @team.team_logo.url(:thumb), 
-        :simple_data => { 'Team name' => @team.name, 'Score' => (@team.score > 0) ? "- #{@team.score}" : @team.score}, 
+        :simple_data => { 'Team name' => @team.name, 'Score' => @team.score}, 
         :collection => { 'Members' => @team.players.collect{ |player| player.full_name } }
       }
     end
