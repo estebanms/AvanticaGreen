@@ -3,7 +3,9 @@
     <div class="topleft">
     <div class="topright">
       <div>
-        <h4><%= title %>:</h4>
+        <%unless title.blank?%>
+         <h4><%= title %>:</h4>
+        <%end%>
         <% infractions.each_index do |index| %>
           <% infraction = infractions[index] %>
           <% witness = witnesses[index] unless witnesses.blank? %>

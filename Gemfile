@@ -18,11 +18,12 @@ gem "net-ldap", :git => "git://github.com/ruby-ldap/ruby-net-ldap.git", :branch 
 gem 'will_paginate', '~> 3.0'
 
 # FOR UPGRADE
-# gem 'rails4_upgrade'    # Used for dependecy check during migration
 # gem 'strong_parameters' # TODO: This is the new ( Rails4 ) way to go for secure attributes 
-
 gem 'protected_attributes'# Required since, Rails4 took it out of its core and moved it to a gem
 
+
+gem "jquery-rails"
+gem 'jquery-ui-rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'

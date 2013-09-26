@@ -27,7 +27,7 @@ $(function()
 
   $('body').append(container);
 
-  $('.tooltipTrigger').live('mouseover', function()
+  $('.tooltipTrigger').on('mouseover', function()
   {
 
       // format of 'href' property: object, id  
@@ -63,7 +63,7 @@ $(function()
 
       container.css('display', 'block');
   });
-  $('.tooltipTrigger').live('mouseout', function()
+  $('.tooltipTrigger').on('mouseout', function()
   {
       if (hideTimer)
           clearTimeout(hideTimer);
