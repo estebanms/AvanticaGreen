@@ -12,14 +12,15 @@
     </table>
     <table>
       <% unless collection.nil? %>
-        <% collection.each_pair do  |key,array|%>
+        <% collection.each_pair do |key,array| %>
           <tr><td><b><%= key %>:</b></td><td/></tr>
-<tr><td></td><td>          
-<ul class='scrollable'>
-          <% array.each do |element| %>
-            <li><%= raw(element) %></li>
-          <% end %>
-          </ul></td></tr>
+          <tr><td></td><td>          
+            <ul class='scrollable'>
+              <% array.each do |element| %>
+                <li><%= raw(element) %></li>
+              <% end %>
+            </ul>
+          </td></tr>
         <% end %>
       <% end %>
     </table>

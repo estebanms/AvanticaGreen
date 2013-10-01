@@ -1,12 +1,11 @@
 .ui-accordion-header,
-.ui-accordion-content{
- background-color: transparent !important;
+.ui-accordion-content {
+  background-color: transparent !important;
 }
 
-.ui-accordion-content{
- background: none;
- border: none !important;
- padding: 5px 0 5px 0 !important;
-
+.ui-accordion-content {
+  background: none;
+  border: none !important;
+  padding: 5px 0 5px 0 !important;
 }
 

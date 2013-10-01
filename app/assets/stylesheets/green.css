@@ -155,8 +155,8 @@
   padding: 10px;
 }
 
-.detail_box select{
- width: 100%;
+.detail_box select {
+  width: 100%;
 }
 
 /*main box*/
@@ -226,8 +226,8 @@
 .players .pagination .pagination {
   float: right; }
 
-.centered{
- text-align: center;
+.centered {
+  text-align: center;
 }
 
 

@@ -2,13 +2,13 @@
 <html>
   <head>
     <title>Greenathon</title>
-      <link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+      <link href="http://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet" type="text/css">
       <%= javascript_include_tag 'application' %>      
-      <%= stylesheet_link_tag 'application' , :media => "all" %>
+      <%= stylesheet_link_tag 'application', :media => "all" %>
       <%= csrf_meta_tag %>
   </head>
 
-  <body class='<%= params[:controller]%>'>
+  <body class="<%= params[:controller]%>">
     <div id="header">
       <div id="logo">
         <%= image_tag('avantica_green_small.png') %>
@@ -29,7 +29,7 @@
         <br/>
         &nbsp;<%= link_to '- Calculadora huella de desechos', 'http://www.carbonfootprint.com/calculator.aspx', :target => '_blank' %>
         <br/>
-        &nbsp;<%= link_to "- Guia nacional de manejo de residuos", asset_path('guia_desechos.pdf'), :target => '_blank' %>
+        &nbsp;<%= link_to "- Guía nacional de manejo de residuos", asset_path('guia_desechos.pdf'), :target => '_blank' %>
       </div>
       <div id="login_info">
         <% if user_signed_in? && current_user.player %>
@@ -55,7 +55,7 @@
       </div>
     </div>
     <div id="main_page">
-            <div id="content">
+      <div id="content">
         <%= raw(display_flash_messages) %>
         <%= yield :layout %>
       </div>

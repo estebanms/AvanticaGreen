@@ -1,7 +1,5 @@
 class SystemData
 
-  ACCESSIBLE_FIELDS = %w(name description active) 
-
   DATA = {
     statuses: [
       { name: 'Pending revision', description: 'Pending revision' },
@@ -42,8 +40,6 @@ class SystemData
     ],
   }
 
-
-
   def load_data
     DATA.each_pair do |key, values|
       # Model
@@ -66,7 +62,6 @@ class SystemData
     end
   end
 
-
   def clear_models
     DATA.each_pair do |key, values|
       klass = key.to_s.classify.constantize
@@ -74,6 +69,4 @@ class SystemData
     end
   end
 
-
 end
-

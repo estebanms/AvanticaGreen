@@ -116,7 +116,7 @@ class PlayersController < ApplicationController
         user.password = 'dummy1'
         user.save!
         Player.new(:name => player["name"].ldap_escape!, :last_names => player["last_names"].ldap_escape!, :user_id => user.id, 
-          :team_id => Team.find_by_name('Available Players').id, 
+          :team_id => Team.where(name: 'Available Players').id, 
           :is_admin => false, :active => true).save!
         @new_players.push(player)
       else

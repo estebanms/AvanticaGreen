@@ -21,11 +21,10 @@ class ApplicationController < ActionController::Base
 
   def create_player
     if user_signed_in? && current_user.player.nil?
-      # Patch. Seems like module changed for ROR4? Wasn't working with the old code
-      player = Player.new(:name => Devise::LDAP::Adapter.get_ldap_param(current_user.email, "givenName").first.to_s)
-      player.last_names = Devise::LDAP::Adapter.get_ldap_param(current_user.email, "sn").first.to_s
+      player = Player.new(:name => Devise::LDAP::Adapter.get_ldap_param(current_user.email, 'givenName').first.to_s)
+      player.last_names = Devise::LDAP::Adapter.get_ldap_param(current_user.email, 'sn').first.to_s
       player.user_id = current_user.id
-      player.team_id = Team.find_by_name('Available Players').id
+      player.team_id = Team.where(name: 'Available Players').id
       player.save
     end
   end

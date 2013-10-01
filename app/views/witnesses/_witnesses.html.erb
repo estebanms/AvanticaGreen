@@ -11,7 +11,9 @@
       <% end %>
     </div>
     <% if can?(:create, Witness.new(:infraction => @infraction)) %>
-      <div id='add_witness_event'><br /><%= link_to 'Add Witness', new_witness_path, :remote => true %></div>
+      <div id="add_witness_event">
+        <br /><%= link_to 'Add Witness', new_witness_path, :remote => true %>
+      </div>
     <% end %>
   </div>
   </div>

@@ -6,54 +6,54 @@
       <% if players.empty? %>
         There are no players in the <%= context.to_s %>.
       <% else %>
-       <%if context == :system %> 
-         <div class="pagination">
-           <div class="page_info">
-             <%= page_entries_info players %>
-           </div>
-           <%= will_paginate players %>
-         </div>
-       <%end%>
-       <h4>Players:</h4>
-      <table>
-        <tr>
-          <th></th>
-          <th>Full name</th>
-          <th>Email address</th>
-          <% unless context == :team %>
-          <th>Team</th>
-          <% end %>
-          <% if can? :manage, Player %>
-          <th>Administrator?</th>
-          <th>Active?</th>
-          <% end %>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-
-        <% players.each do |player| %>
-        <tr>
-          <td><%= link_to image_tag(player.avatar.url(:thumb)), player %>
-          <td><%= link_to player.full_name, player %></td>
-          <td><%= mail_to(player.user.email) %></td>
-          <% unless context == :team %>
-          <td><%= link_to player.team.to_s, player.team, { :class => 'tooltipTrigger' } %></td>
-          <% end %>
-          <% if can? :manage, player %>
-          <td><%= player.is_admin %></td>
-          <td><%= player.active %></td>
-          <% end %>
-          <% if can? :update, player %>
-          <td><%= link_to 'Edit', edit_player_path(player) %></td>
-          <% end %>
-          <% if can? :destroy, player %>
-          <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>
-          <% end %>
-        </tr>
+        <% if context == :system %>
+          <div class="pagination">
+            <div class="page_info">
+              <%= page_entries_info players %>
+            </div>
+            <%= will_paginate players %>
+          </div>
         <% end %>
-      </table>
-      <% end %>  
+        <h4>Players:</h4>
+        <table>
+          <tr>
+            <th></th>
+            <th>Full name</th>
+            <th>Email address</th>
+            <% unless context == :team %>
+            <th>Team</th>
+            <% end %>
+            <% if can? :manage, Player %>
+            <th>Administrator?</th>
+            <th>Active?</th>
+            <% end %>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+
+          <% players.each do |player| %>
+          <tr>
+            <td><%= link_to image_tag(player.avatar.url(:thumb)), player %>
+            <td><%= link_to player.full_name, player %></td>
+            <td><%= mail_to(player.user.email) %></td>
+            <% unless context == :team %>
+            <td><%= link_to player.team.to_s, player.team, { :class => 'tooltipTrigger' } %></td>
+            <% end %>
+            <% if can? :manage, player %>
+            <td><%= player.is_admin %></td>
+            <td><%= player.active %></td>
+            <% end %>
+            <% if can? :update, player %>
+            <td><%= link_to 'Edit', edit_player_path(player) %></td>
+            <% end %>
+            <% if can? :destroy, player %>
+            <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>
+            <% end %>
+          </tr>
+          <% end %>
+        </table>
+      <% end %>
     </div>
 </div>
 </div>

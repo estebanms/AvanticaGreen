@@ -3,7 +3,7 @@
 <div class="main_box">
   <div>
     <% if @suggestions.empty? %>
-      <%= nothing_to_show('suggestions')%>
+      <%= nothing_to_show('suggestions') %>
     <% else %>
       <div class="pagination">
         <div class="page_info">
@@ -30,14 +30,13 @@
             <td><%= edit_link(edit_suggestion_path(suggestion)) %></td>
           <% end %>
           <% if can? :destroy, suggestion %>
-            <td><%= destroy_link(suggestion)%></td>
+            <td><%= destroy_link(suggestion) %></td>
           <% end %>
         </tr>
-        <%end%>
-      </table> 
-    <%end%>
+        <% end %>
+      </table>
+    <% end %>
   </div>
 </div>
-
 
 <p><%= link_to 'New Suggestion', new_suggestion_path %></p>

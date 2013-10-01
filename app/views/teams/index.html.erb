@@ -1,6 +1,6 @@
 <h1>Standings</h1>
 
-<table id='standings' >
+<table id="standings">
   <tr>
     <th></th>
     <th>Name</th>
@@ -32,7 +32,7 @@
     <% if can? :destroy, team %>
       <td><%= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete %></td>
     <% end %>
-    <td class='centered'><%= winning_or_losing(@teams_sorted,team) %></td>
+    <td class="centered"><%= winning_or_losing(@teams_sorted, team) %></td>
   </tr>
 <% end %>
 </table>

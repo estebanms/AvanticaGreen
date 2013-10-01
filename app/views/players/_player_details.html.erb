@@ -7,16 +7,14 @@
 %>
 
 <% if player_infractions.any? || witnesses.any? %>
-<div class = "detail_box">
-  <div id='acc'>
-
+<div class="detail_box">
+  <div id="accordion">
   <% if player_infractions.any? %>
     <h4>Infractions reported by this player</h4>
-    <div>    
+    <div>
       <%= render :partial => 'infractions/list', :locals => {
         :infractions => player_infractions[0..3],
-        :type => 'offender', 
-        :title => ''
+        :type => 'offender'
       } %>
       <p class="show_more_group">
         <%= link_to('Show me more...', infractions_path) if player_infractions.size > 3 %>
@@ -24,48 +22,43 @@
     </div>
   <% end %>
 
-  <%if pending_witnesses.any? %>
+  <% if pending_witnesses.any? %>
     <h4>This player has been requested as a witness of the following infractions</h4>
-    <div>    
-      <% pending_witnessess_infractions = pending_witnesses.map { |witness| witness.infraction } %>
+    <div>
+      <% pending_witnesses_infractions = pending_witnesses.map { |witness| witness.infraction } %>
       <%= render :partial => 'infractions/list', :locals => {
-        :infractions => pending_witnessess_infractions[0..3],
+        :infractions => pending_witnesses_infractions[0..3],
         :witnesses => pending_witnesses,
-        :type => 'offender',
-        :title => ''
+        :type => 'offender'
       } %>
       <p class="show_more_group">
-        <%= link_to('Show me more...', infractions_path) if pending_witnessess_infractions.size > 3 %>
+        <%= link_to('Show me more...', infractions_path) if pending_witnesses_infractions.size > 3 %>
       </p>
-
     </div>
   <% end %>
 
-  <%if accepted_witnesses.any? %>
+  <% if accepted_witnesses.any? %>
     <h4>This player is a witness of these infractions</h4>
     <div>
-    <% acepted_witnessess_infractions = accepted_witnesses.map { |witness| witness.infraction }%>
-    <%= render :partial => 'infractions/list', :locals => {
-      :infractions => acepted_witnessess_infractions[0..3],
-      :type => 'offender',
-      :title => ''
-    } %>
+      <% accepted_witnesses_infractions = accepted_witnesses.map { |witness| witness.infraction }%>
+      <%= render :partial => 'infractions/list', :locals => {
+        :infractions => accepted_witnesses_infractions[0..3],
+        :type => 'offender'
+      } %>
       <p class="show_more_group">
-        <%= link_to('Show me more...', infractions_path) if acepted_witnessess_infractions.size > 3 %>
+        <%= link_to('Show me more...', infractions_path) if accepted_witnesses_infractions.size > 3 %>
       </p>
-
-    </div>  
+    </div>
   <% end %>
 
   <% if rejected_witnesses.any? %>
     <h4>Player has rejected being a witness of the following infractions</h4>
     <div>
 
-    <%rejected_witnesses_infractions = rejected_witnesses.map { |witness| witness.infraction }%>
+    <% rejected_witnesses_infractions = rejected_witnesses.map { |witness| witness.infraction } %>
     <%= render :partial => 'infractions/list', :locals => {
       :infractions => rejected_witnesses_infractions[0..3],
-      :type => 'offender', 
-      :title => ''
+      :type => 'offender'
     } %>
       <p class="show_more_group">
         <%= link_to('Show me more...', infractions_path) if rejected_witnesses_infractions.size > 3 %>
@@ -78,9 +71,9 @@
 
 <% end %>
 
-  <script>
+<script>
   $(function() {
-    $( "#acc" ).accordion({ heightStyle: "content" });
+    $( "#accordion" ).accordion({ heightStyle: "content" });
   });
-  </script>
+</script>
 
