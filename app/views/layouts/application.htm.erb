@@ -6,6 +6,7 @@
       <%= stylesheet_link_tag :all %>
       <%= javascript_include_tag :defaults %>
       <%= javascript_include_tag 'green_tooltip' %>
+      <%= javascript_include_tag 'custom-form-elements' %>
       <%= stylesheet_link_tag "green" , :media => "all" %>
       <%= stylesheet_link_tag "green_tooltip" , :media => "all" %>
       <%= csrf_meta_tag %>
@@ -22,25 +23,7 @@
       </div>
     </div>
     <div id="main_page">
-            <div id="log_data"><div id="secondary_menu">
-        <b>Quick links</b>
-        <br/>
-        <% if user_signed_in? && current_user.player %>
-          &nbsp;<%= link_to('Create infraction', new_infraction_path) %>
-          <br/>
-          &nbsp;<%= link_to 'Make a suggestion', new_suggestion_path %>
-        <% else %>
-          <%= link_to 'Login', new_user_session_path %>
-        <% end %>
-        <br/>
-        <br/>
-        <b>Avantica Green</b>
-        <br/>
-        &nbsp;<%= link_to 'Article 1', root_path %>
-        <br/>
-        &nbsp;<%= link_to 'Article 2', root_path %>  
-      </div>
-      <div id="login_info">
+      <div id="log_data"><div id="login_info">
         <% if user_signed_in? && current_user.player %>
           <p>Signed in as <%= current_user.player.full_name %><%= current_player.is_admin ? ' (administrator)' : ''%></p>
           <p>
@@ -58,7 +41,26 @@
           <% end %>
           </p>
         <% end %>
-      </div></div><div id="content">
+      </div>
+      <div id="secondary_menu">
+        <b>Quick links</b>
+        <br/>
+        <% if user_signed_in? && current_user.player %>
+          &nbsp;<%= link_to('Create infraction', new_infraction_path) %>
+          <br/>
+          &nbsp;<%= link_to 'Make a suggestion', new_suggestion_path %>
+        <% else %>
+          <%= link_to 'Login', new_user_session_path %>
+        <% end %>
+        <br/>
+        <br/>
+        <b>Avantica Green  EDUARDO</b>
+        <br/>
+        &nbsp;<%= link_to 'Article 1', root_path %>
+        <br/>
+        &nbsp;<%= link_to 'Article 2', root_path %>  
+      </div>
+      </div><div id="content">
         <%= raw(display_flash_messages) %>
         <%= yield :layout %>
       </div>
