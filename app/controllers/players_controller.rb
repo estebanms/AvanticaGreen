@@ -8,6 +8,7 @@ class PlayersController < ApplicationController
   # GET /players
   # GET /players.xml
   def index
+    # If the user is an admin, it loads all players by default, not just the active ones
     @players = Player.joins(:team).where(:players => { :active => true }, :teams => { :active => true }) unless user_signed_in? && current_player.is_admin?
     @players = @players.paginate(:page => params[:page])
     respond_to do |format|

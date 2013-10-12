@@ -6,15 +6,13 @@ class InfractionsController < ApplicationController
   # GET /infractions.xml
   def index
     # the list of infractions is within the scope of a game
-    @infractions = current_game.infractions.paginate(:page => params[:page]) rescue Array.new
+    @infractions = current_game.infractions.paginate(:page => params[:page])
     # filter the infractions if the user limited the search to certain conditions
-    if params[:infraction]
-      # do some validations on the filter fields
-      # 1. restrict search fields to only: team_id, offender_id, infraction_type and status_id
-      params[:infraction].keep_if do |field, value|
-        [:team_id, :offender_id, :infraction_type_id, :status_id].include?(field.to_sym) and !value.blank?
-      end
-      @infractions = @infractions.where(params[:infraction]).paginate(:page => params[:page]) unless params[:infraction].empty?
+    @infraction_params = filter_params
+    if @infraction_params.any?
+      # Join with the witnesses table if we need to
+      @infractions = @infractions.includes(:witnesses) if @infraction_params[:witnesses].any?
+      @infractions = @infractions.where(@infraction_params)
     end
 
     respond_to do |format|
@@ -105,5 +103,19 @@ class InfractionsController < ApplicationController
       format.html { redirect_to(infractions_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  private
+  def filter_params
+    if params[:infraction]
+      # Do some validations on the filter fields:
+      # 1. restrict search fields to only a certain list
+      # 2. make sure we only take fields that have a value
+      params[:infraction].keep_if do |field, value|
+        [:team_id, :offender_id, :infraction_type_id, :status_id, :player_id, :witnesses].include?(field.to_sym) && value.present?
+      end
+    end
+
+    params[:infraction] || {}
   end
 end

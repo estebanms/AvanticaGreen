@@ -13,11 +13,13 @@
     <h4>Infractions reported by this player</h4>
     <div>
       <%= render :partial => 'infractions/list', :locals => {
-        :infractions => player_infractions[0..3],
+        :infractions => player_infractions[0..MAX_INFRACTIONS_PER_DETAILS_SECTION],
         :type => 'offender'
       } %>
       <p class="show_more_group">
-        <%= link_to('Show me more...', infractions_path) if player_infractions.size > 3 %>
+        <%= link_to('Show me more...',
+            infractions_path(:infraction => { :player_id => @player.id })
+          ) if player_infractions.size > MAX_INFRACTIONS_PER_DETAILS_SECTION %>
       </p>
     </div>
   <% end %>
@@ -27,12 +29,14 @@
     <div>
       <% pending_witnesses_infractions = pending_witnesses.map { |witness| witness.infraction } %>
       <%= render :partial => 'infractions/list', :locals => {
-        :infractions => pending_witnesses_infractions[0..3],
-        :witnesses => pending_witnesses,
+        :infractions => pending_witnesses_infractions[0..MAX_INFRACTIONS_PER_DETAILS_SECTION],
+        :witnesses => pending_witnesses[0..MAX_INFRACTIONS_PER_DETAILS_SECTION],
         :type => 'offender'
       } %>
       <p class="show_more_group">
-        <%= link_to('Show me more...', infractions_path) if pending_witnesses_infractions.size > 3 %>
+        <%= link_to('Show me more...',
+            infractions_path(:infraction => { :witnesses => { :player => @player, :status => Status.pending } })
+          ) if pending_witnesses_infractions.size > MAX_INFRACTIONS_PER_DETAILS_SECTION %>
       </p>
     </div>
   <% end %>
@@ -42,11 +46,13 @@
     <div>
       <% accepted_witnesses_infractions = accepted_witnesses.map { |witness| witness.infraction }%>
       <%= render :partial => 'infractions/list', :locals => {
-        :infractions => accepted_witnesses_infractions[0..3],
+        :infractions => accepted_witnesses_infractions[0..MAX_INFRACTIONS_PER_DETAILS_SECTION],
         :type => 'offender'
       } %>
       <p class="show_more_group">
-        <%= link_to('Show me more...', infractions_path) if accepted_witnesses_infractions.size > 3 %>
+        <%= link_to('Show me more...',
+            infractions_path(:infraction => { :witnesses => { :player => @player, :status => Status.accepted } })
+          ) if accepted_witnesses_infractions.size > MAX_INFRACTIONS_PER_DETAILS_SECTION %>
       </p>
     </div>
   <% end %>
@@ -57,11 +63,13 @@
 
     <% rejected_witnesses_infractions = rejected_witnesses.map { |witness| witness.infraction } %>
     <%= render :partial => 'infractions/list', :locals => {
-      :infractions => rejected_witnesses_infractions[0..3],
+      :infractions => rejected_witnesses_infractions[0..MAX_INFRACTIONS_PER_DETAILS_SECTION],
       :type => 'offender'
     } %>
       <p class="show_more_group">
-        <%= link_to('Show me more...', infractions_path) if rejected_witnesses_infractions.size > 3 %>
+        <%= link_to('Show me more...',
+            infractions_path(:infraction => { :witnesses => { :player => @player, :status => Status.rejected } })
+          ) if rejected_witnesses_infractions.size > MAX_INFRACTIONS_PER_DETAILS_SECTION %>
       </p>
     </div>
   <% end %>

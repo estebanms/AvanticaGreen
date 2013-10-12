@@ -43,7 +43,7 @@
   <% end %>
     <br />
     <div class="pagination">
-      <%= will_paginate @infractions, :container => false %>
+      <%= will_paginate @infractions, :container => false, :params => @infraction_params %>
     </div>
   </div>
 </div>

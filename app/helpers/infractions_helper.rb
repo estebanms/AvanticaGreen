@@ -1,6 +1,8 @@
 module InfractionsHelper
   include DatesHelper
 
+  MAX_INFRACTIONS_PER_DETAILS_SECTION = 3
+
   def infraction_related_team(infraction, type, options = {})
     options[:return_as_link] = true if options[:return_as_link].nil?
     options[:link_options] ||= {}
