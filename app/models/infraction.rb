@@ -32,12 +32,7 @@ class Infraction < ActiveRecord::Base
        :thumb => "50x50#",
        :small => "400x400>"
     }
-  
-  before_save do
-    # check if we need to change the status of this infraction to either accepted or "pending approval"
-    #self.check_status unless current_user.admin?
-  end
-  
+
   def check_status
     # change status of the infraction to "accepted" if the number of witnesses is greater or equal than 1,
     # or there is a photo attached as part of the infraction
