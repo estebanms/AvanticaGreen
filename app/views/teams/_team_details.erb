@@ -1,20 +1,36 @@
 <% infractions = @team.infractions.accepted %>
 <% infractions_as_offender = @team.infractions_as_offender.accepted %>
 <% if infractions.any? || infractions_as_offender.any? %>
-<div class = "detail_box">
+<div class="detail_box">
+  <div id="accordion">
   <% if infractions.any? %>
-    <%= render :partial => 'infractions/list', :locals => {
-      :infractions => infractions, 
-      :type => 'offender', 
-      :title => 'Infractions reported by this team'
-    } %>
+    <h4>Infractions reported by this team</h4>
+    <div>
+      <%= render :partial => 'infractions/list', :locals => {
+        :infractions => infractions[0...InfractionsHelper::MAX_INFRACTIONS_PER_DETAILS_SECTION],
+        :type => 'offender'
+      } %>
+      <p class="show_more_group">
+        <%= link_to('Show me more...',
+            infractions_path(:infraction => { :team_id => @team.id })
+          ) if infractions.size > InfractionsHelper::MAX_INFRACTIONS_PER_DETAILS_SECTION %>
+      </p>
+    </div>
   <% end %>
 
   <% if infractions_as_offender.any? %>
-    <%= render :partial => 'infractions/list', :locals => {
-      :infractions => infractions_as_offender, 
-      :type => 'reporter', 
-      :title => 'Infractions committed by this team'
-    } %>
+    <h4>Infractions committed by this team</h4>
+    <div>
+      <%= render :partial => 'infractions/list', :locals => {
+        :infractions => infractions_as_offender[0...InfractionsHelper::MAX_INFRACTIONS_PER_DETAILS_SECTION],
+        :type => 'reporter'
+      } %>
+      <p class="show_more_group">
+        <%= link_to('Show me more...',
+            infractions_path(:infraction => { :offender_id => @team.id })
+          ) if infractions_as_offender.size > InfractionsHelper::MAX_INFRACTIONS_PER_DETAILS_SECTION %>
+      </p>
+    </div>
   <% end %>
+  </div>
 <% end %>
