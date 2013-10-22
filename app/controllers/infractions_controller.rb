@@ -11,7 +11,7 @@ class InfractionsController < ApplicationController
     @infraction_params = filter_params
     if @infraction_params.any?
       # Join with the witnesses table if we need to
-      @infractions = @infractions.includes(:witnesses) if @infraction_params[:witnesses].any?
+      @infractions = @infractions.includes(:witnesses) if @infraction_params[:witnesses].present?
       @infractions = @infractions.where(@infraction_params)
     end
 

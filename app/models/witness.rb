@@ -11,7 +11,8 @@ class Witness < ActiveRecord::Base
   belongs_to :infraction
   belongs_to :status
   
-  validates :player, :presence => true, :different_team => true
+  validates :player, :presence => true, :different_team => true,
+    :uniqueness => { :scope => :infraction_id, :message => 'is already a witness of this infraction.' }
   validates :infraction, :presence => true
   
   scope :accepted, -> { where(:status_id => Status.accepted) }
