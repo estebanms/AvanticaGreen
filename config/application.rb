@@ -39,6 +39,6 @@ module AvanticaGreen
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    ROOT_PATH = 'avanticagreen/greenathon'
+    ROOT_PATH = 'avanticagreen'
   end
 end

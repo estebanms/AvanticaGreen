@@ -18,7 +18,7 @@ class Player < ActiveRecord::Base
   #validates :user, :presence => true
   validates :team, :presence => true
   
-  AVATAR_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/gif']
+  AVATAR_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/pjepg', 'image/x-png']
   
   def full_name
     "#{self.name} #{self.last_names}"

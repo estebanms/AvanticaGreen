@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
       player = Player.new(:name => Devise::LDAP::Adapter.get_ldap_param(current_user.email, 'givenName').first.to_s)
       player.last_names = Devise::LDAP::Adapter.get_ldap_param(current_user.email, 'sn').first.to_s
       player.user_id = current_user.id
-      player.team_id = Team.where(name: 'Available Players').id
+      player.team_id = Team.where(name: 'Available Players').first.id
       player.save
     end
   end
