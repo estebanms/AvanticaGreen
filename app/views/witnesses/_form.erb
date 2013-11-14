@@ -11,7 +11,7 @@
   <%= render :partial => 'witnesses/witness_header', :locals => { :witness => witness } %>
   <%= link_to 'Cancel', witness, :remote => true %><br />
 <% end %>
-<%= form_for(@witness, :remote => true) do |f| %>
+<%= form_for(@witness) do |f| %>
   <% unless action_name == 'edit' %>
   <div class="field">
     <%= f.label :player_id %><br />
