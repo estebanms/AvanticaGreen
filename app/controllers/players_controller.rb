@@ -9,8 +9,28 @@ class PlayersController < ApplicationController
   # GET /players.xml
   def index
     # If the user is an admin, it loads all players by default, not just the active ones
-    @players = Player.joins(:team).where(:players => { :active => true }, :teams => { :active => true }) unless user_signed_in? && current_player.is_admin?
+    @players = Player.joins(:team).joins(:user).where(:players => { :active => true }, :teams => { :active => true }) unless user_signed_in? && current_player.is_admin?
     @players = @players.paginate(:page => params[:page])
+
+    # filter the players if the user limited the search to certain conditions
+    @player_params = filter_params
+
+    if @player_params.any?
+      # the email field is part of the users table, so map it accordingly
+      if @player_params[:email]
+        @players = @players.where(users: { email: @player_params[:email] })
+      end
+
+      player_fields = @player_params.dup
+      # We already processed the email, so ignore it
+      player_fields.delete(:email)
+
+      # We don't want an exact match, instead we would like to do a "starts with" comparison
+      conditions = [player_fields.keys.map { |field| "players.#{field} LIKE ?" }.join(' AND ')]
+      conditions << player_fields.values.map { |value| "#{value}%" }
+      @players = @players.where(*conditions)
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @players }
@@ -117,7 +137,7 @@ class PlayersController < ApplicationController
         user.password = 'dummy1'
         user.save!
         Player.new(:name => player["name"].ldap_escape!, :last_names => player["last_names"].ldap_escape!, :user_id => user.id, 
-          :team_id => Team.where(name: 'Available Players').id, 
+          :team_id => Team.where(name: 'Available Players').first.id, 
           :is_admin => false, :active => true).save!
         @new_players.push(player)
       else
@@ -136,4 +156,17 @@ class PlayersController < ApplicationController
     end
   end
 
+  def filter_params
+    # Do some validations on the filter fields:
+    # 1. restrict search fields to only a certain list
+    # 2. make sure we only take fields that have a value
+    player_params = params.dup
+    player_params.keep_if do |field, value|
+      [:email, :name, :last_names].include?(field.to_sym) && value.present?
+    end
+
+    player_params || {}
+  end
+
 end
+
