@@ -9,7 +9,7 @@ class PlayersController < ApplicationController
   # GET /players.xml
   def index
     # If the user is an admin, it loads all players by default, not just the active ones
-    @players = Player.joins(:team).joins(:user).where(:players => { :active => true }, :teams => { :active => true }) unless user_signed_in? && current_player.is_admin?
+    @players = @players.joins(:team).where(:players => { :active => true }, :teams => { :active => true }) unless user_signed_in? && current_player.is_admin?
     @players = @players.paginate(:page => params[:page])
 
     # filter the players if the user limited the search to certain conditions
@@ -18,7 +18,7 @@ class PlayersController < ApplicationController
     if @player_params.any?
       # the email field is part of the users table, so map it accordingly
       if @player_params[:email]
-        @players = @players.where(users: { email: @player_params[:email] })
+        @players = @players.joins(:user).where(users: { email: @player_params[:email] })
       end
 
       player_fields = @player_params.dup

@@ -5,7 +5,9 @@
 <div>
   <div class="main_box">
     <% if @infractions.empty? %>
-      <p>There are no infractions to show.</p>
+      <p>
+        There are no infractions <%= @infraction_params.any? ? 'that match your search criteria' : 'to show' %>.
+      </p>
     <% else %>
       <div class="pagination">
         <div class="page_info">
