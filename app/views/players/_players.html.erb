@@ -5,7 +5,7 @@
 <div class="main_box">
     <div>
       <% if players.empty? %>
-        There are no players in the <%= context.to_s %><%= ' that match your search criteria' if player_params.any? %>.
+        There are no players in the <%= context.to_s %><%= ' that match your search criteria' if player_params.present? %>.
       <% else %>
         <% if context == :system %>
           <div class="pagination">

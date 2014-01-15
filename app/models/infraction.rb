@@ -2,7 +2,7 @@ require 'paperclip'
 
 class Infraction < ActiveRecord::Base
   # TODO: It's not recomendable to have all fields accesible. This might need refactoring in order to make it more secure.
-  attr_accessible :photo, :description, :offender_id, :infraction_type_id
+  attr_accessible :photo, :description, :offender_id, :infraction_type_id, :anonymous
 
   belongs_to :game
   belongs_to :player
