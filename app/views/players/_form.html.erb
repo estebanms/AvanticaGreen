@@ -19,7 +19,6 @@
     <%= f.label :last_names %><br />
     <%= f.text_field :last_names %>
   </div>
-  <%= f.hidden_field :user_id %>
   <% if can? :manage, @player %>
     <div class="field">
       <%= f.label :team_id %><br />

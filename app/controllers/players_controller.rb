@@ -68,7 +68,7 @@ class PlayersController < ApplicationController
   # GET /players/new
   # GET /players/new.xml
   def new
-    @player.user_id = params[:user_id]
+    @player.user = current_user
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @player }
@@ -84,7 +84,7 @@ class PlayersController < ApplicationController
   def create
     # automatically create a new team for the user if there isn't one already
     unless @player.team || @player.name.blank?
-      team = Team.find_or_initialize_by_name_and_code("#{@player.name}'s Team", @player.name.upcase)
+      team = Team.find_or_initialize_by(name: "#{@player.name}'s Team", code: @player.name.upcase)
       @player.team = team if team.save
     end
     respond_to do |format|
@@ -116,8 +116,7 @@ class PlayersController < ApplicationController
   # DELETE /players/1
   # DELETE /players/1.xml
   def destroy
-    User.find(@player.user_id).destroy
-    #@player.destroy
+    @player.user.destroy
 
     respond_to do |format|
       format.html { redirect_to(players_url) }
