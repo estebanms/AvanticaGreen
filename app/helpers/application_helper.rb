@@ -3,7 +3,8 @@ module ApplicationHelper
     :notice, 
     :message, 
     :warning, 
-    :error
+    :error,
+    :alert
   ]
 
   def display_flash_messages(type = :all)
