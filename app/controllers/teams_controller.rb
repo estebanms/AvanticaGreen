@@ -6,6 +6,7 @@ class TeamsController < ApplicationController
   # GET /teams.xml
   def index
     @teams_sorted = Team.sorted_by_score
+    @top_reporters = Team.top_reporters
     @inactive_teams = Team.inactive if can? :manage, Team
 
     respond_to do |format|

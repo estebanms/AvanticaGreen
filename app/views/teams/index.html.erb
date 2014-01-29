@@ -1,71 +1,93 @@
-<h1>Standings</h1>
+<div id="general_standings">
+  <h1>General standings</h1>
 
-<table id="standings">
-  <tr>
-    <th></th>
-    <th>Name</th>
-    <th>Score</th>
-    <% if can? :manage, Team %>
-      <th>Code</th>
-      <th>Active?</th>
-      <th>Members</th>
-      <th></th>
-    <% end %>
-    <% if can? :update, Team %>
-      <th></th>
-    <% end %>
-  </tr>
-
-<% @teams_sorted.each do |team| %>
-  <tr>
-    <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
-    <td><%= link_to team.to_s, team, { :class => 'tooltipTrigger' } %></td>
-    <td><%= team.score %></td>
-    <% if can? :manage, team %>
-      <td><%= team.code %></td>
-      <td><%= team.active %></td>
-      <td><%= team.players.count %></td>
-    <% end %>
-    <% if can? :update, team %>
-      <td><%= link_to 'Edit', edit_team_path(team) %></td>
-    <% end %>
-    <% if can? :destroy, team %>
-      <td><%= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete %></td>
-    <% end %>
-    <td class="centered"><%= winning_or_losing(@teams_sorted, team) %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<% if can? :create, Team %>
-  <%= link_to 'New Team', new_team_path %>
-<% end %>
-
-<% if can? :manage, Team %>
-  <h1>Inactive teams</h1>
-  <table>
+  <table id="standings">
     <tr>
       <th></th>
       <th>Name</th>
-      <th>Code</th>
-      <th>Active?</th>
-      <th>Members</th>
-      <th></th>
-      <th></th>
+      <th>Score</th>
+      <% if can? :manage, Team %>
+        <th>Code</th>
+        <th>Active?</th>
+        <th>Members</th>
+        <th></th>
+      <% end %>
+      <% if can? :update, Team %>
+        <th></th>
+      <% end %>
     </tr>
 
-  <% @inactive_teams.each do |team| %>
+  <% @teams_sorted.each do |team| %>
     <tr>
       <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
       <td><%= link_to team.to_s, team, { :class => 'tooltipTrigger' } %></td>
-      <td><%= team.code %></td>
-      <td><%= team.active %></td>
-      <td><%= team.players.count %></td>
-      <td><%= link_to 'Edit', edit_team_path(team) %></td>
-      <td><%= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= team.score %></td>
+      <% if can? :manage, team %>
+        <td><%= team.code %></td>
+        <td><%= team.active %></td>
+        <td><%= team.players.count %></td>
+      <% end %>
+      <% if can? :update, team %>
+        <td><%= link_to 'Edit', edit_team_path(team) %></td>
+      <% end %>
+      <% if can? :destroy, team %>
+        <td><%= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
+      <td class="centered"><%= winning_or_losing(@teams_sorted, team) %></td>
     </tr>
   <% end %>
   </table>
-<% end %>
+
+  <br />
+
+  <% if can? :create, Team %>
+    <%= link_to 'New Team', new_team_path %>
+  <% end %>
+
+  <% if can? :manage, Team %>
+    <h1>Inactive teams</h1>
+    <table>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Active?</th>
+        <th>Members</th>
+        <th></th>
+        <th></th>
+      </tr>
+
+    <% @inactive_teams.each do |team| %>
+      <tr>
+        <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
+        <td><%= link_to team.to_s, team, { :class => 'tooltipTrigger' } %></td>
+        <td><%= team.code %></td>
+        <td><%= team.active %></td>
+        <td><%= team.players.count %></td>
+        <td><%= link_to 'Edit', edit_team_path(team) %></td>
+        <td><%= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+    </table>
+  <% end %>
+</div>
+<div id="top_reporters">
+  <h1>Top reporters</h1>
+
+  <table id="standings">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Infractions reported</th>
+    </tr>
+
+  <% @top_reporters.each do |team| %>
+    <tr>
+      <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
+      <td><%= link_to team.to_s, team, { :class => 'tooltipTrigger' } %></td>
+      <td><%= team.infractions.accepted.size %></td>
+      <td class="centered"><%= winning_or_losing(@teams_sorted, team) %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
