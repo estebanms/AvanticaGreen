@@ -12,15 +12,15 @@ class Infraction < ActiveRecord::Base
   belongs_to :status
   has_many :witnesses, :dependent => :destroy
   has_many :comments, :as => :commentable, :class_name => 'Post', :dependent => :destroy
-  
+
   validates :game, :presence => true
   validates :team, :presence => true
   validates :offender, :presence => true
   validates :infraction_type, :presence => true
   validate :team_active
   #validates :witnesses, :length => { :minimum => 1 }, :unless => Proc.new { |infraction| infraction.photo? }
-  
-  scope :active, -> { includes(:infraction_type). where(:game_id => Game.active.first, :infraction_types => { :active => true }) }
+
+  scope :active, -> { includes(:infraction_type).where(:game_id => Game.active.first, :infraction_types => { :active => true }) }
   scope :accepted, -> { where(:status_id => Status.accepted) }
   scope :pending, -> { where(:status_id => Status.pending) }
   # will_paginate default page size
@@ -39,7 +39,7 @@ class Infraction < ActiveRecord::Base
     # change status of the infraction to "pending approval" if there are no witnesses at all
     self.status = (self.photo? or self.witnesses.accepted.any?) ? Status.accepted : Status.pending
   end
-  
+
   def check_status!
     self.check_status
     self.save if self.changed?
