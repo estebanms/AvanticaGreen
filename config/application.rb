@@ -40,5 +40,6 @@ module AvanticaGreen
     config.filter_parameters += [:password]
 
     ROOT_PATH = 'avanticagreen'
+    USE_LDAP = true
   end
 end

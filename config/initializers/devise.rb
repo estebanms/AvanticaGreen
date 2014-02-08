@@ -1,19 +1,21 @@
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
-  # ==> LDAP Configuration 
-  # config.ldap_logger = true
-   config.ldap_create_user = true
-  # config.ldap_update_password = true
-  # config.ldap_config = "#{Rails.root}/config/ldap.yml"
-  # config.ldap_check_group_membership = false
-  # config.ldap_check_attributes = false
-  # config.ldap_use_admin_to_bind = false
-  # config.ldap_ad_group_check = false
+  if USE_LDAP
+    # ==> LDAP Configuration 
+    # config.ldap_logger = true
+    config.ldap_create_user = true
+    # config.ldap_update_password = true
+    # config.ldap_config = "#{Rails.root}/config/ldap.yml"
+    # config.ldap_check_group_membership = false
+    # config.ldap_check_attributes = false
+    # config.ldap_use_admin_to_bind = false
+    # config.ldap_ad_group_check = false
+  end
   
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
-  config.mailer_sender = "please-change-me@config-initializers-devise.com"
+  config.mailer_sender = 'green@avantica.net'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -47,16 +49,17 @@ Devise.setup do |config|
   # ==> Configuration for :database_authenticatable
   # For bcrypt, this is the cost for hashing the password and defaults to 10. If
   # using other encryptors, it sets how many times you want the password re-encrypted.
-  config.stretches = 10
+  #config.stretches = 10
 
   # Define which will be the encryption algorithm. Devise also supports encryptors
   # from others authentication tools as :clearance_sha1, :authlogic_sha512 (then
   # you should set stretches above to 20 for default behavior) and :restful_authentication_sha1
   # (then you should set stretches to 10, and copy REST_AUTH_SITE_KEY to pepper)
-  config.encryptor = :bcrypt
+  #config.encryptor = :bcrypt
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = "df8e8777746b3f0ee36f8650b5a89475beb3e9b4d4aa1dd7e08e718d6756f1ac8a8be2e6f021cce9e47bfa00a372ff452c76b4cb3d0ebe2aac0eef642b40b731"
+  #config.pepper = "df8e8777746b3f0ee36f8650b5a89475beb3e9b4d4aa1dd7e08e718d6756f1ac8a8be2e6f021cce9e47bfa00a372ff452c76b4cb3d0ebe2aac0eef642b40b731"
+  config.secret_key = '3d5f7c5b8dbff581b973ac0414192966ba2c3b2f852371a739b8d51e2dd9d7ef284047d613508230c5ac53ccc7da01fad81c9e0a6ae4481d8c33508387b2c0a5'
 
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time

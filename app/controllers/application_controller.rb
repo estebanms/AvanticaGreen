@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
     render :text => exception, :status => 500
   end
-   
-  before_filter :create_player
+
+  before_filter :create_player, :if => :use_ldap?
 
   protect_from_forgery
   
@@ -46,5 +46,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource_or_scope)
     session[:return_to] || super
   end
-
+  
+  def use_ldap?
+    USE_LDAP
+  end
 end
