@@ -26,12 +26,15 @@ class Infraction < ActiveRecord::Base
   # will_paginate default page size
   self.per_page = 20
 
+  PHOTO_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/pjepg', 'image/x-png']
+
   #paperclip image:
   has_attached_file :photo,
     :styles => {
        :thumb => "50x50#",
        :small => "400x400>"
     }
+  validates_attachment_content_type :photo, :content_type => PHOTO_CONTENT_TYPES
 
   def check_status
     # change status of the infraction to "accepted" if the number of witnesses is greater or equal than 1,

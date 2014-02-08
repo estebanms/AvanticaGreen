@@ -69,7 +69,7 @@
 #content {
   float: left;
   padding-left: 15px;
-  width: 100%;
+  width: 75%;
 }
 
 #secondary_menu {
@@ -155,10 +155,10 @@
 /*details box*/
 
 .detail_box {
-  width: 200px;
-  position:absolute;
-  top:200px;
-  right:1%;
+  width: 20%;
+  position: absolute;
+  top: 200px;
+  right: 1%;
   background-color: #E3EFD0;
   -moz-border-radius-topleft: 15px;
   -webkit-border-top-left-radius: 15px;
