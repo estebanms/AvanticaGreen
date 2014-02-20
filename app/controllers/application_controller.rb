@@ -50,4 +50,12 @@ class ApplicationController < ActionController::Base
   def use_ldap?
     USE_LDAP
   end
+
+  def update_action?
+    %w(edit update).include?(action_name)
+  end
+
+  def create_action?
+    %w(new create).include?(action_name)
+  end
 end

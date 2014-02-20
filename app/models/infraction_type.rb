@@ -1,5 +1,4 @@
 class InfractionType < ActiveRecord::Base
-  attr_accessible :points, :name, :description, :active, :hidden
   # might be useful for statistics
   has_many :infractions, :dependent => :restrict_with_exception
 

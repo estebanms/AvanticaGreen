@@ -17,8 +17,6 @@ gem 'simple-navigation'
 gem 'net-ldap', :git => 'git://github.com/ruby-ldap/ruby-net-ldap.git', :branch => 'master'
 gem 'will_paginate', '~> 3.0'
 
-gem 'protected_attributes'# Required since, Rails4 took it out of its core and moved it to a gem
-
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 

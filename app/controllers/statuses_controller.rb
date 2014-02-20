@@ -1,5 +1,7 @@
 class StatusesController < ApplicationController
   load_and_authorize_resource
+  skip_load_resource :only => :create
+  before_filter :permitted_params, :only => [:new, :edit]
 
   # GET /statuses
   # GET /statuses.xml
@@ -35,6 +37,7 @@ class StatusesController < ApplicationController
   # POST /statuses
   # POST /statuses.xml
   def create
+    @status = Status.new(status_params)
     respond_to do |format|
       if @status.save
         format.html { redirect_to(@status, :notice => 'Status was successfully created.') }
@@ -50,7 +53,7 @@ class StatusesController < ApplicationController
   # PUT /statuses/1.xml
   def update
     respond_to do |format|
-      if @status.update_attributes(params[:status])
+      if @status.update_attributes(status_params)
         format.html { redirect_to(@status, :notice => 'Status was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -69,5 +72,15 @@ class StatusesController < ApplicationController
       format.html { redirect_to(statuses_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+
+  def permitted_params
+    @permitted_params ||= [:name, :description]
+  end
+
+  def status_params
+    params.require(:status).permit(*permitted_params)
   end
 end

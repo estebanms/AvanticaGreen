@@ -12,20 +12,20 @@
   <%= link_to 'Cancel', witness, :remote => true %><br />
 <% end %>
 <%= form_for(@witness) do |f| %>
-  <% unless action_name == 'edit' %>
-  <div class="field">
-    <%= f.label :player_id %><br />
-    <%= players_select(:witness, :player_id, :exclude_team => @witness.infraction.team) %>
-  </div>
+  <% if display_form_field?(:player_id) %>
+    <div class="field">
+      <%= f.label :player_id %><br />
+      <%= players_select(:witness, :player_id, :exclude_team => @witness.infraction.team) %>
+    </div>
   <% end %>
-  <% if action_name == 'edit' && can?(:update, @witness) %>
-  <div class="field">
-    <%= f.label :status_id %><br />
-    <%= statuses_select(:witness) %>
-  </div>
+  <% if display_form_field?(:status_id) %>
+    <div class="field">
+      <%= f.label :status_id %><br />
+      <%= statuses_select(:witness) %>
+    </div>
   <% end %>
   <div class="actions">
-    <%= f.submit "#{(action_name == 'edit') ? 'Update' : 'Assign'} Witness" %>
+    <%= f.submit "#{update_action? ? 'Update' : 'Assign'} Witness" %>
   </div>
 <% end %>
 <% if witness.new_record? %>

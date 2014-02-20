@@ -1,5 +1,7 @@
 class GamesController < ApplicationController
   load_and_authorize_resource
+  skip_load_resource :only => :create
+  before_filter :permitted_params, :only => [:new, :edit]
 
   # GET /games
   # GET /games.xml
@@ -35,6 +37,7 @@ class GamesController < ApplicationController
   # POST /games
   # POST /games.xml
   def create
+    @game = Game.new(game_params)
     respond_to do |format|
       if @game.save
         format.html { redirect_to(@game, :notice => 'Game was successfully created.') }
@@ -50,7 +53,7 @@ class GamesController < ApplicationController
   # PUT /games/1.xml
   def update
     respond_to do |format|
-      if @game.update_attributes(params[:game])
+      if @game.update_attributes(game_params)
         format.html { redirect_to(@game, :notice => 'Game was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -73,5 +76,15 @@ class GamesController < ApplicationController
       format.html { redirect_to(games_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+
+  def permitted_params
+    @permitted_params ||= [:name, :active, :start_date, :end_date]
+  end
+
+  def game_params
+    params.require(:game).permit(*permitted_params)
   end
 end

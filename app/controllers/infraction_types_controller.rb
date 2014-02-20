@@ -1,5 +1,7 @@
 class InfractionTypesController < ApplicationController
   load_and_authorize_resource
+  skip_load_resource :only => :create
+  before_filter :permitted_params, :only => [:new, :edit]
 
   # GET /infraction_types
   # GET /infraction_types.xml
@@ -35,6 +37,7 @@ class InfractionTypesController < ApplicationController
   # POST /infraction_types
   # POST /infraction_types.xml
   def create
+    @infraction_type = InfractionType.new(infraction_type_params)
     respond_to do |format|
       if @infraction_type.save
         format.html { redirect_to(@infraction_type, :notice => 'Infraction type was successfully created.') }
@@ -50,7 +53,7 @@ class InfractionTypesController < ApplicationController
   # PUT /infraction_types/1.xml
   def update
     respond_to do |format|
-      if @infraction_type.update_attributes(params[:infraction_type])
+      if @infraction_type.update_attributes(infraction_type_params)
         format.html { redirect_to(@infraction_type, :notice => 'Infraction type was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -73,5 +76,15 @@ class InfractionTypesController < ApplicationController
       format.html { redirect_to(infraction_types_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+
+  def permitted_params
+    @permitted_params ||= [:name, :description, :points, :active, :hidden]
+  end
+
+  def infraction_type_params
+    params.require(:infraction_type).permit(*permitted_params)
   end
 end

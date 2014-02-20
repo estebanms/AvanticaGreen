@@ -4,6 +4,8 @@ class PlayersController < ApplicationController
   include StatusesHelper
 
   load_and_authorize_resource
+  skip_load_resource :only => :create
+  before_filter :permitted_params, :only => [:new, :edit]
 
   # GET /players
   # GET /players.xml
@@ -82,6 +84,8 @@ class PlayersController < ApplicationController
   # POST /players
   # POST /players.xml
   def create
+    @player = Player.new(player_params)
+    @player.user = current_user
     # automatically create a new team for the user if there isn't one already
     unless @player.team || @player.name.blank?
       team = Team.find_or_initialize_by(name: "#{@player.name}'s Team", code: @player.name.upcase)
@@ -103,7 +107,7 @@ class PlayersController < ApplicationController
   # PUT /players/1.xml
   def update
     respond_to do |format|
-      if @player.update_attributes(params[:player])
+      if @player.update_attributes(player_params)
         format.html { redirect_to(@player, :notice => 'Player was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -165,6 +169,20 @@ class PlayersController < ApplicationController
     end
 
     player_params || {}
+  end
+
+  def permitted_params
+    unless @permitted_params
+      @permitted_params = [:avatar, :name, :last_names]
+      if can?(:manage, @player || Player)
+        @permitted_params += [:active, :team_id, :is_admin]
+      end
+    end
+    @permitted_params
+  end
+
+  def player_params
+    params.require(:player).permit(*permitted_params)
   end
 
 end

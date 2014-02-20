@@ -16,6 +16,10 @@ module ApplicationHelper
     return flash_messages.join('\n')
   end
 
+  def display_form_field?(field_name)
+    @permitted_params.present? && @permitted_params.include?(field_name)
+  end
+
   def post_player_name(post)
     post.anonymous? ? 'Anonymous' : link_to(post.player.full_name, post.player, { :class => 'tooltipTrigger' })
   end

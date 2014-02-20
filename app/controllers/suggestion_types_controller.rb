@@ -1,5 +1,7 @@
 class SuggestionTypesController < ApplicationController
   load_and_authorize_resource
+  skip_load_resource :only => :create
+  before_filter :permitted_params, :only => [:new, :edit]
 
   # GET /suggestion_types
   # GET /suggestion_types.xml
@@ -35,6 +37,7 @@ class SuggestionTypesController < ApplicationController
   # POST /suggestion_types
   # POST /suggestion_types.xml
   def create
+    @suggestion_type = SuggestionType.new(suggestion_type_params)
     respond_to do |format|
       if @suggestion_type.save
         format.html { redirect_to(@suggestion_type, :notice => 'Suggestion type was successfully created.') }
@@ -50,7 +53,7 @@ class SuggestionTypesController < ApplicationController
   # PUT /suggestion_types/1.xml
   def update
     respond_to do |format|
-      if @suggestion_type.update_attributes(params[:suggestion_type])
+      if @suggestion_type.update_attributes(suggestion_type_params)
         format.html { redirect_to(@suggestion_type, :notice => 'Suggestion type was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -69,5 +72,15 @@ class SuggestionTypesController < ApplicationController
       format.html { redirect_to(suggestion_types_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+
+  def permitted_params
+    @permitted_params ||= [:name, :description]
+  end
+
+  def suggestion_type_params
+    params.require(:suggestion_type).permit(*permitted_params)
   end
 end

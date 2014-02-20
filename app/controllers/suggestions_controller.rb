@@ -1,5 +1,7 @@
 class SuggestionsController < ApplicationController
   load_and_authorize_resource
+  skip_load_resource :only => :create
+  before_filter :permitted_params, :only => [:new, :edit]
 
   # GET /suggestions
   # GET /suggestions.xml
@@ -37,6 +39,7 @@ class SuggestionsController < ApplicationController
   # POST /suggestions
   # POST /suggestions.xml
   def create
+    @suggestion = Suggestion.new(suggestion_params)
     @suggestion.player = current_player
     @suggestion.status = Status.pending
 
@@ -55,7 +58,7 @@ class SuggestionsController < ApplicationController
   # PUT /suggestions/1.xml
   def update
     respond_to do |format|
-      if @suggestion.update_attributes(params[:suggestion])
+      if @suggestion.update_attributes(suggestion_params)
         format.html { redirect_to(@suggestion, :notice => 'Suggestion was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -74,5 +77,21 @@ class SuggestionsController < ApplicationController
       format.html { redirect_to(suggestions_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+
+  def permitted_params
+    unless @permitted_params
+      @permitted_params = [:description, :post_type_id, :anonymous]
+      if update_action? && can?(:manage, @suggestion || Suggestion)
+        @permitted_params += [:status_id]
+      end
+    end
+    @permitted_params
+  end
+
+  def suggestion_params
+    params.require(:suggestion).permit(*permitted_params)
   end
 end

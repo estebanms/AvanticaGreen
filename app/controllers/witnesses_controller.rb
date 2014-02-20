@@ -3,6 +3,7 @@ class WitnessesController < ApplicationController
   before_filter :get_infraction
   load_and_authorize_resource
   skip_load_resource :only => [:index, :new, :create]
+  before_filter :permitted_params, :only => [:new, :edit]
   
   # GET /witnesses
   # GET /witnesses.xml
@@ -45,10 +46,10 @@ class WitnessesController < ApplicationController
   # POST /witnesses
   # POST /witnesses.xml
   def create
-    @witness = Witness.new(params[:witness])
+    @witness = Witness.new(witness_params)
     @witness.infraction = @infraction
     @witness.status = @infraction.status = Status.pending
-    @witnesses_size = Witness.count(:conditions => "infraction_id = #{@infraction.id}")
+    @witnesses_size = Witness.where(:infraction_id => @infraction).count
 
     respond_to do |format|
       if @witness.save
@@ -70,7 +71,7 @@ class WitnessesController < ApplicationController
   # PUT /witnesses/1.xml
   def update
     respond_to do |format|
-      if @witness.update_attributes(params[:witness])
+      if @witness.update_attributes(witness_params)
         format.html { redirect_to(@infraction, :notice => 'Witness was successfully updated.') }
         format.js   { render :action => 'show' }
         format.xml  { head :ok }
@@ -93,7 +94,7 @@ class WitnessesController < ApplicationController
       @witness.errors.add(:infraction, exception.message)
     end
 
-    @witnesses_size = Witness.count(:conditions => "infraction_id = #{@infraction.id}")
+    @witnesses_size = Witness.where(:infraction_id => @infraction).count
     respond_to do |format|
       format.html { redirect_to(@infraction) }
       format.js   { render :action => @witness.errors.any? ? 'errors' : 'destroy' }
@@ -123,5 +124,20 @@ class WitnessesController < ApplicationController
 private
   def get_infraction
     @infraction = Infraction.find(params[:infraction_id])
+  end
+
+  def permitted_params
+    unless @permitted_params
+      if update_action?
+        @permitted_params = [:status_id] if can?(:update, @witness || Witness)
+      else
+        @permitted_params = [:player_id]
+      end
+    end
+    @permitted_params
+  end
+
+  def witness_params
+    params.require(:witness).permit(*permitted_params)
   end
 end

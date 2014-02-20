@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
   before_filter :get_commentable
   load_and_authorize_resource
   skip_load_resource :only => [:index, :new, :create]
+  before_filter :permitted_params, :only => [:new, :edit]
 
   # GET /comments
   # GET /comments.xml
@@ -45,20 +46,23 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.xml
   def create
-    @comment = Comment.new(params[:comment])
-    # WARNING: there is a bug in Rails that stores @commentable.class.base_class
-    # instead of @commentable.class in the commentable_type field.
-    # You can see more details here: https://github.com/rails/rails/issues/617
-    # For example, if @commentable is an instance of Suggestion, 
-    # then commentable_type will have 'Post', not 'Suggestion'.
-    # This will work for now because Suggestion is the only commentable class
-    # that inherits from Post. However, if we ever had another commentable class
-    # that inherits from Post, then we would have to manually assign the 
-    # commentable_type and commentable_id columns.
-    # The same applies for the new action of this controller.
-    @comment.commentable = @commentable
+    @comment = Comment.new(comment_params)
     @comment.player = current_player
-    @comments_size = Comment.count(:conditions => "commentable_id = #{@commentable.id}")
+
+    if @commentable
+      # WARNING: there is a bug in Rails that stores @commentable.class.base_class
+      # instead of @commentable.class in the commentable_type field.
+      # You can see more details here: https://github.com/rails/rails/issues/617
+      # For example, if @commentable is an instance of Suggestion, 
+      # then commentable_type will have 'Post', not 'Suggestion'.
+      # This will work for now because Suggestion is the only commentable class
+      # that inherits from Post. However, if we ever had another commentable class
+      # that inherits from Post, then we would have to manually assign the 
+      # commentable_type and commentable_id columns.
+      # The same applies for the new action of this controller.
+      @comment.commentable = @commentable
+      @comments_size = Comment.where(:commentable_id => @commentable).count
+    end
 
     respond_to do |format|
       if @comment.save
@@ -77,7 +81,7 @@ class CommentsController < ApplicationController
   # PUT /comments/1.xml
   def update
     respond_to do |format|
-      if @comment.update_attributes(params[:comment])
+      if @comment.update_attributes(comment_params)
         format.html { redirect_to(@comment, :notice => 'Comment was successfully updated.') }
         format.js   { render :action => 'show' }
         format.xml  { head :ok }
@@ -115,5 +119,13 @@ private
       @commentable = commentable_class.find(params[id_column]) if params[id_column]
       break if @commentable
     end
+  end
+
+  def permitted_params
+    @permitted_params ||= [:description, :post_type_id, :anonymous]
+  end
+
+  def comment_params
+    params.require(:comment).permit(*permitted_params)
   end
 end

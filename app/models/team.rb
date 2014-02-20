@@ -1,7 +1,4 @@
 class Team < ActiveRecord::Base
-  # TODO: It's not recomendable to have all fields accesible. This might need refactoring in order to make it more secure.
-  attr_accessible :code, :team_logo, :name, :description, :active
-
   has_many :players, :dependent => :restrict_with_exception
   # infractions reported by this team
   has_many :infractions, :dependent => :restrict_with_exception

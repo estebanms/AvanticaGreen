@@ -1,11 +1,11 @@
 class Game < ActiveRecord::Base
-  attr_accessible :name, :active
   has_many :infractions, :dependent => :restrict_with_exception
-  
+
+  validates :name, :presence => true
   validates :start_date, :presence => true
-	  
+
   scope :active, -> { where(:active => true).order('updated_at DESC') }
-  
+
   before_save do
     # we only allow one active game at a time
     if self.active && Game.active.any?

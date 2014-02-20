@@ -11,32 +11,40 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_names %><br />
-    <%= f.text_field :last_names %>
-  </div>
-  <% if can? :manage, @player %>
+  <% if display_form_field?(:name) %>
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+  <% end %>
+  <% if display_form_field?(:last_names) %>
+    <div class="field">
+      <%= f.label :last_names %><br />
+      <%= f.text_field :last_names %>
+    </div>
+  <% end %>
+  <% if display_form_field?(:team_id) %>
     <div class="field">
       <%= f.label :team_id %><br />
       <%= teams_select(:player, :team_id, { :admin => (user_signed_in? && current_player.is_admin?) }) %>
     </div>
+  <% end %>
+  <% if display_form_field?(:is_admin) %>
     <div class="field">
-      <%= f.label :is_admin %><br />
-      <%= f.check_box :is_admin %>
-    </div>
-    <div class="field">
-      <%= f.label :active %><br />
-      <%= f.check_box :active %>
+      <%= f.check_box :is_admin %> <%= f.label :is_admin %>
     </div>
   <% end %>
-  <div class="field">
-    <%= f.label :avatar %> (supported image types: <%= Player::AVATAR_CONTENT_TYPES.join(', ') %>)<br />
-    <%= f.file_field :avatar %>
-  </div>
+  <% if display_form_field?(:active) %>
+    <div class="field">
+      <%= f.check_box :active %> <%= f.label :active %>
+    </div>
+  <% end %>
+  <% if display_form_field?(:avatar) %>
+    <div class="field">
+      <%= f.label :avatar %> (supported image types: <%= Player::AVATAR_CONTENT_TYPES.join(', ') %>)<br />
+      <%= f.file_field :avatar %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -1,6 +1,7 @@
 class InfractionsController < ApplicationController
   load_and_authorize_resource
   skip_load_resource :only => [:index, :new, :create]
+  before_filter :permitted_params, :only => [:new, :edit]
 
   # GET /infractions
   # GET /infractions.xml
@@ -55,11 +56,12 @@ class InfractionsController < ApplicationController
   # POST /infractions
   # POST /infractions.xml
   def create
-    @infraction = Infraction.new(params[:infraction])
+    post_params = infraction_params
+    @infraction = Infraction.new(post_params)
     @infraction.game = current_game
     @infraction.player = current_player
     @infraction.team = current_player.team rescue nil
-    @infraction.status = (params[:infraction][:photo].nil?) ? Status.pending : Status.accepted
+    @infraction.status = post_params[:photo] ? Status.accepted : Status.pending
  
     respond_to do |format|
       if @infraction.save
@@ -78,7 +80,7 @@ class InfractionsController < ApplicationController
   # PUT /infractions/1.xml
   def update
     respond_to do |format|
-      if @infraction.update_attributes(params[:infraction])
+      if @infraction.update_attributes(infraction_params)
         @infraction.check_status! unless current_user.player.is_admin?
         # send notification to player who created the infraction and to all players who belong to the offending team
         # we should only send notifications when the status of the infraction changes
@@ -103,9 +105,11 @@ class InfractionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
   private
+
   def filter_params
+    # These are GET params, no need to apply strong params logic on them
     if params[:infraction]
       # Do some validations on the filter fields:
       # 1. restrict search fields to only a certain list
@@ -116,5 +120,25 @@ class InfractionsController < ApplicationController
     end
 
     params[:infraction] || {}
+  end
+
+  def permitted_params
+    unless @permitted_params
+      @permitted_params = [:anonymous]
+      can_manage_infraction = can?(:manage, @infraction || Infraction)
+      if can_manage_infraction || @infraction && @infraction.status == Status.pending
+        @permitted_params += [:offender_id, :infraction_type_id, :photo, :description]
+      elsif create_action?
+        @permitted_params += [:offender_id, :infraction_type_id, :photo]
+      end
+      if update_action? && can_manage_infraction
+        @permitted_params += [:status_id]
+      end
+    end
+    @permitted_params
+  end
+
+  def infraction_params
+    params.require(:infraction).permit(*permitted_params)
   end
 end

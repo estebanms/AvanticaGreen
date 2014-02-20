@@ -11,28 +11,35 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <% if can? :manage, @team %>
+  <% if display_form_field?(:name) %>
     <div class="field">
-      <%= f.label :active %><br />
-      <%= f.check_box :active %>
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
     </div>
+  <% end %>
+  <% if display_form_field?(:active) %>
+    <div class="field">
+      <%= f.check_box :active %> <%= f.label :active %>
+    </div>
+  <% end %>
+  <% if display_form_field?(:code) %>
     <div class="field">
       <%= f.label :code %><br />
       <%= f.text_field :code %>
     </div>
   <% end %>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :team_logo %> (supported image types: <%= Team::LOGO_CONTENT_TYPES.join(', ') %>)<br />
-    <%= f.file_field :team_logo %>
-  </div>
+  <% if display_form_field?(:description) %>
+    <div class="field">
+      <%= f.label :description %><br />
+      <%= f.text_area :description %>
+    </div>
+  <% end %>
+  <% if display_form_field?(:team_logo) %>
+    <div class="field">
+      <%= f.label :team_logo %> (supported image types: <%= Team::LOGO_CONTENT_TYPES.join(', ') %>)<br />
+      <%= f.file_field :team_logo %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

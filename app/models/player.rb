@@ -1,9 +1,6 @@
 require 'paperclip'
 
 class Player < ActiveRecord::Base
-  # TODO: This should be reviewed since not all fields should be accessible
-  attr_accessible :avatar, :name, :active, :last_names, :user_id, :team_id, :is_admin
-
   belongs_to :user
   belongs_to :team
   # infractions reported by this player
