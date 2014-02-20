@@ -16,10 +16,11 @@
       <div id="secondary_menu">
         <b>Quick links</b>
         <br/>
+        <%= link_to 'Game rules', rules_path %><br/>
         <% if user_signed_in? && current_user.player %>
-          &nbsp;<%= link_to('Create infraction', new_infraction_path) %>
+          <%= link_to('Create infraction', new_infraction_path) %>
           <br/>
-          &nbsp;<%= link_to 'Make a suggestion', new_suggestion_path %>
+          <%= link_to 'Make a suggestion', new_suggestion_path %>
         <% else %>
           <%= link_to 'Login', new_user_session_path %>
         <% end %>
@@ -27,9 +28,9 @@
         <br/>
         <b>Avantica Green</b>
         <br/>
-        &nbsp;<%= link_to '- Calculadora huella de desechos', 'http://www.carbonfootprint.com/calculator.aspx', :target => '_blank' %>
+        <%= link_to '- Calculadora huella de desechos', 'http://www.carbonfootprint.com/calculator.aspx', :target => '_blank' %>
         <br/>
-        &nbsp;<%= link_to "- Guía nacional de manejo de residuos", asset_path('guia_desechos.pdf'), :target => '_blank' %>
+        <%= link_to "- Guía nacional de manejo de residuos", asset_path('guia_desechos.pdf'), :target => '_blank' %>
       </div>
       <div id="login_info">
         <% if user_signed_in? && current_user.player %>

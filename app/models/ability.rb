@@ -30,6 +30,7 @@ class Ability
         can [:update, :destroy], Suggestion, :player_id => player.id
       end
       can :read, [Team, Player, Infraction, Comment, Witness]
+      can :rules, Game
     end
   end
 end

@@ -243,4 +243,7 @@
   text-align: center;
 }
 
-
+#game_rules img {
+  width: 95%;
+  padding: 15px;
+}

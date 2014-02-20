@@ -64,6 +64,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :games, 'Games', games_path, :if => Proc.new { can?(:read, Game) }
     primary.item :infraction_types, 'Infraction Types', infraction_types_path, :if => Proc.new { can?(:read, InfractionType) }
     primary.item :suggestions, 'Suggestions', suggestions_path, :if => Proc.new { can?(:read, Suggestion) }
+    primary.item :game_rules, 'Game Rules', rules_path
 
     # you can also specify a css id or class to attach to this particular level
     # works for all levels of the menu
