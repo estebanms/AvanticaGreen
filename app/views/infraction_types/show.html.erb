@@ -8,7 +8,6 @@
   <%= @infraction_type.active %>
 </p>
 
-
 <p>
   <b>Points:</b>
   <%= @infraction_type.points %>
@@ -19,6 +18,10 @@
   <%= @infraction_type.description %>
 </p>
 
+<p>
+  <b>Hidden:</b>
+  <%= @infraction_type.hidden %>
+</p>
 
 <%= link_to 'Edit', edit_infraction_type_path(@infraction_type) %> |
 <%= link_to 'Back', infraction_types_path %>

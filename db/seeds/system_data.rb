@@ -22,12 +22,18 @@ class SystemData
       { name: 'current game', start_date: '2011-01-01', end_date: '2011-06-31', active: true },
     ],
     infraction_types: [
-      { name: 'Unsorted trash', description: 'Unsorted trash', points: 20, active: true },
-      { name: 'Monitor on',     description: 'Monitor on',     points: 15, active: true },
-      { name: 'Lights on',      description: 'Lights on',      points: 10, active: true },
-      { name: 'Messy desk',     description: 'Messy desk',     points: 5,  active: true },
-      { name: 'Other',          description: 'Other',          points: 1,  active: true },
-      { name: 'Inactive',       description: 'Intactive',      points: 1,  active: false },
+      { name: 'Unsorted trash', description: 'Unsorted trash', points: 20 },
+      { name: 'Monitor on',     description: 'Monitor on',     points: 15 },
+      { name: 'Lights on',      description: 'Lights on',      points: 10 },
+      { name: 'Messy desk',     description: 'Messy desk',     points: 5  },
+      { name: 'Other',          description: 'Other',          points: 1  },
+      { name: 'Inactive',       description: 'Inactive',       points: 1, hidden: true, active: false },
+      {
+        name: 'Punishment',
+        description: 'Infraction type to punish the teams that use the app in a wrong way',
+        points: 3,
+        hidden: true
+      },
     ],
     teams: [
       { name: 'Administrators', description: 'System administrators', code: 'aaa', active: false },
