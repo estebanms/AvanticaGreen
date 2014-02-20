@@ -31,7 +31,7 @@ class SystemData
       {
         name: 'Punishment',
         description: 'Infraction type to punish the teams that use the app in a wrong way',
-        points: 3,
+        points: 20,
         hidden: true
       },
     ],
