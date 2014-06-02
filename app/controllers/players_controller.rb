@@ -29,7 +29,7 @@ class PlayersController < ApplicationController
 
       # We don't want an exact match, instead we would like to do a "starts with" comparison
       conditions = [player_fields.keys.map { |field| "players.#{field} LIKE ?" }.join(' AND ')]
-      conditions << player_fields.values.map { |value| "#{value}%" }
+      conditions += player_fields.values.map { |value| "#{value}%" }
       @players = @players.where(*conditions)
     end
 
