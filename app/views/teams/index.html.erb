@@ -86,7 +86,6 @@
       <td><%= link_to image_tag(team.team_logo.url(:thumb)), team %></td>
       <td><%= link_to team.to_s, team, { :class => 'tooltipTrigger' } %></td>
       <td><%= team.infractions.accepted.size %></td>
-      <td class="centered"><%= winning_or_losing(@teams_sorted, team) %></td>
     </tr>
   <% end %>
   </table>
