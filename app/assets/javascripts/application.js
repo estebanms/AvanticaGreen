@@ -6,7 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
 //= require base
 //= require green_tooltip
 

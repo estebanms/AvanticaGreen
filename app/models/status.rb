@@ -8,8 +8,8 @@ class Status < ActiveRecord::Base
   # overwriting method_missing to dinamically get statuses from the DB as methods
   def self.method_missing(method_id, *arguments, &block)
     status = Status.all.find {
-      |status| status.name.underscore.start_with?(method_id.to_s)
-    } rescue nil
+      |status| status.name.to_s.underscore.start_with?(method_id.to_s)
+    }
     status.nil? ? super : status
   end
 end

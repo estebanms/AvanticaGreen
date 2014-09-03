@@ -14,4 +14,3 @@ public/system/*
 config/database.yml
 nbproject
 *~
-Gemfile.lock

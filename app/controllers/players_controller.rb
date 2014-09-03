@@ -45,7 +45,9 @@ class PlayersController < ApplicationController
     # show all the accepted infractions created by this player
     @player_infractions = @player.infractions.accepted
     # but hide the anonymous infractions when seeing by any person other than the creator
-    @player_infractions.reject! { |infraction| infraction.anonymous? } unless @player.user == current_user
+    unless @player.user == current_user
+      @player_infractions = @player_infractions.where('anonymous != ?', true)
+    end
 
     # also show all the information regarding this player being a witness
     @witnesses = @player.witnesses

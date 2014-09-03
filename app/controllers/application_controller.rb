@@ -6,11 +6,11 @@ class ApplicationController < ActionController::Base
   before_filter :create_player, :if => :use_ldap?
 
   protect_from_forgery
-  
+
   helper_method :current_player
-  
+
   rescue_from CanCan::AccessDenied, :with => :not_authorized
-  
+
   def current_game
     Game.active.first
   end
@@ -41,12 +41,12 @@ class ApplicationController < ActionController::Base
       redirect_to new_user_session_path
     end
   end
-  
+
   # overwrite redirection after successful sign in
   def after_sign_in_path_for(resource_or_scope)
     session[:return_to] || super
   end
-  
+
   def use_ldap?
     USE_LDAP
   end

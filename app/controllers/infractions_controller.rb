@@ -109,17 +109,13 @@ class InfractionsController < ApplicationController
   private
 
   def filter_params
-    # These are GET params, no need to apply strong params logic on them
-    if params[:infraction]
-      # Do some validations on the filter fields:
-      # 1. restrict search fields to only a certain list
-      # 2. make sure we only take fields that have a value
-      params[:infraction].keep_if do |field, value|
-        [:team_id, :offender_id, :infraction_type_id, :status_id, :player_id, :witnesses].include?(field.to_sym) && value.present?
-      end
-    end
-
-    params[:infraction] || {}
+    # Do some validations on the filter fields:
+    # 1. restrict search fields to only a certain list
+    #    (this is done in the infraction_search_params method)
+    # 2. make sure we only take fields that have a value
+    search_params = infraction_search_params
+    search_params.keep_if { |field, value| value.present? }
+    search_params
   end
 
   def permitted_params
@@ -140,5 +136,9 @@ class InfractionsController < ApplicationController
 
   def infraction_params
     params.require(:infraction).permit(*permitted_params)
+  end
+
+  def infraction_search_params
+    params.fetch(:infraction, {}).permit(:team_id, :offender_id, :infraction_type_id, :status_id, :player_id, :witnesses)
   end
 end
