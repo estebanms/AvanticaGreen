@@ -7,14 +7,15 @@ gem 'rails', '~> 4.0'
 
 gem 'mysql2'
 gem 'devise'
-gem 'devise_ldap_authenticatable'
+gem 'devise_ldap_authenticatable', '~> 0.8.1'
 gem 'paperclip'
 gem 'rmagick'
 gem 'cancan', '>= 1.5'
 gem 'simple-navigation'
 # estoy forzando el uso de esta version de net-ldap por esta pulga https://github.com/ruby-ldap/ruby-net-ldap/pull/44
 # y porque no han generado la version 0.4 con el fix en rubygems
-gem 'net-ldap', :git => 'git://github.com/ruby-ldap/ruby-net-ldap.git', :branch => 'master'
+#gem 'net-ldap', :git => 'git://github.com/ruby-ldap/ruby-net-ldap.git', :branch => 'master'
+gem 'net-ldap', '< 0.6.0'
 gem 'will_paginate', '~> 3.0'
 
 gem 'jquery-rails'

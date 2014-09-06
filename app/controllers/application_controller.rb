@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  helper_method :current_player
+  helper_method :current_player, :create_action?, :update_action?
 
   rescue_from CanCan::AccessDenied, :with => :not_authorized
 
