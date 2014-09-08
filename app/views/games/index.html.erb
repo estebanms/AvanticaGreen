@@ -17,9 +17,9 @@
     <td><%= format_date(game.start_date) %></td>
     <td><%= format_date(game.end_date) %></td>
     <td><%= game.active %></td>
-    <td><%= link_to 'Show', game %></td>
-    <td><%= link_to 'Edit', edit_game_path(game) %></td>
-    <td><%= link_to 'Destroy', game, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= show_link game %></td>
+    <td><%= edit_link edit_game_path(game) %></td>
+    <td><%= destroy_link game %></td>
   </tr>
 <% end %>
 </table>

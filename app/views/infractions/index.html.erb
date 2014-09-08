@@ -32,12 +32,12 @@
           <td><%= infraction_related_team(infraction, :offender) %></td>
           <td><%= infraction.infraction_type %></td>
           <td><%= infraction.status %></td>
-          <td><%= link_to 'Show', infraction %></td>
+          <td><%= show_link infraction %></td>
           <% if can? :update, infraction %>
-            <td><%= link_to 'Edit', edit_infraction_path(infraction) %></td>
+            <td><%= edit_link edit_infraction_path(infraction) %></td>
           <% end %>
           <% if can? :destroy, infraction %>
-            <td><%= link_to 'Destroy', infraction, :confirm => 'Are you sure?', :method => :delete %></td>
+            <td><%= destroy_link infraction %></td>
           <% end %>
         </tr>
       <% end %>

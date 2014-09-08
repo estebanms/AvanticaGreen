@@ -52,16 +52,19 @@ module ApplicationHelper
     image_tag('trash.png', alt: alt, title: alt)
   end
 
-  def show_link(obj)
-    link_to show_image, obj, class: 'image_link'
+  def show_link(obj, options = {})
+    options[:alt] ||= 'Show me more'
+    link_to show_image(options[:alt]), obj, { class: 'image_link' }.merge(options)
   end
 
-  def edit_link(obj, alt = 'element')
-    link_to edit_image(alt), obj, class: 'image_link'
+  def edit_link(obj, options = {})
+    options[:alt] ||= 'element'
+    link_to edit_image(options[:alt]), obj, { class: 'image_link' }.merge(options)
   end
 
-  def destroy_link(obj, alt = 'element')
-    link_to destroy_image(alt), obj, confirm: 'Are you sure?', method: :delete, class: 'image_link'
+  def destroy_link(obj, options = {})
+    options[:alt] ||= 'element'
+    link_to destroy_image(options[:alt]), obj, { data: { confirm: 'Are you sure?' }, method: :delete, class: 'image_link' }.merge(options)
   end
 
 end

@@ -9,9 +9,9 @@
 
 <% @comment_types.each do |comment_type| %>
   <tr>
-    <td><%= link_to 'Show', comment_type %></td>
-    <td><%= link_to 'Edit', edit_comment_type_path(comment_type) %></td>
-    <td><%= link_to 'Destroy', comment_type, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= show_link comment_type %></td>
+    <td><%= edit_link edit_comment_type_path(comment_type) %></td>
+    <td><%= destroy_link comment_type %></td>
   </tr>
 <% end %>
 </table>

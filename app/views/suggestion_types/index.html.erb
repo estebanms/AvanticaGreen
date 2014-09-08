@@ -9,9 +9,9 @@
 
 <% @suggestion_types.each do |suggestion_type| %>
   <tr>
-    <td><%= link_to 'Show', suggestion_type %></td>
-    <td><%= link_to 'Edit', edit_suggestion_type_path(suggestion_type) %></td>
-    <td><%= link_to 'Destroy', suggestion_type, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= show_link suggestion_type %></td>
+    <td><%= edit_link edit_suggestion_type_path(suggestion_type) %></td>
+    <td><%= destroy_link suggestion_type %></td>
   </tr>
 <% end %>
 </table>

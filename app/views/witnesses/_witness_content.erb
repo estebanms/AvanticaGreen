@@ -1,8 +1,12 @@
 <% witness ||= @witness %>
-<%= render :partial => 'witnesses/witness_header', :locals => { :witness => witness } %> (<%= witness.status %>)<br />
-<% if can?(:update, witness) %>
-  <%= link_to 'Edit', edit_witness_path(witness), :remote => true %>
-<% end %>
-<% if can?(:destroy, witness) %>
-  <%= link_to 'Unassign', witness, :confirm => 'Are you sure?', :method => :delete, :remote => true %>
+<%= render partial: 'witnesses/witness_header', locals: { witness: witness } %> (<%= witness.status %>)<br />
+<% if can?(:update, witness) || can?(:destroy, witness) %>
+  <div class="witness_content">
+    <% if can?(:update, witness) %>
+      <%= link_to 'Edit', edit_witness_path(witness), remote: true %>
+    <% end %>
+    <% if can?(:destroy, witness) %>
+      <%= link_to 'Unassign', witness, data: { confirm: 'Are you sure?' }, method: :delete, remote: true %>
+    <% end %>
+  </div>
 <% end %>

@@ -13,9 +13,9 @@
   <tr>
     <td><%= status.name %></td>
     <td><%= status.description %></td>
-    <td><%= link_to 'Show', status %></td>
-    <td><%= link_to 'Edit', edit_status_path(status) %></td>
-    <td><%= link_to 'Destroy', status, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= show_link status %></td>
+    <td><%= edit_link edit_status_path(status) %></td>
+    <td><%= destroy_link status %></td>
   </tr>
 <% end %>
 </table>

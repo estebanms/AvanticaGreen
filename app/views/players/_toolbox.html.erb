@@ -5,7 +5,7 @@
       <ul>
         <li>
           <%= form_tag(import_players_path) do %>
-            <%= submit_tag('Import all players', :confirm => 'Are you sure you want to import all players?') %>
+            <%= submit_tag('Import all players', data: { confirm: 'Are you sure you want to import all players?' }) %>
           <% end %>
         </li>
         <br/>
@@ -14,7 +14,7 @@
             <%= label_tag('Import ') %>
             <%= text_field_tag(:number_of_players, 10, :size => 1) %>
             <%= label_tag(' players') %>
-            <%= submit_tag('Import', :confirm => 'Are you sure you want to import that number of players?') %>
+            <%= submit_tag('Import', data: { confirm: 'Are you sure you want to import that number of players?' }) %>
           <% end %>
         </li>
       </ul>

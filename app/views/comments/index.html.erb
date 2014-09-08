@@ -14,12 +14,12 @@
     <td><%= post_player_name(comment) %></td>
     <td><%= comment.comment_type %></td>
     <td><%= comment.description %></td>
-    <td><%= link_to 'Show', comment %></td>
+    <td><%= show_link comment %></td>
     <% if can?(:update, comment) %>
-      <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
+      <td><%= edit_link edit_comment_path(comment) %></td>
     <% end %>
     <% if can?(:destroy, comment) %>
-      <td><%= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= destroy_link comment %></td>
     <% end %>
   </tr>
 <% end %>

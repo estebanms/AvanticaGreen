@@ -46,10 +46,10 @@
             <td><%= player.active %></td>
             <% end %>
             <% if can? :update, player %>
-            <td><%= link_to 'Edit', edit_player_path(player) %></td>
+            <td><%= edit_link edit_player_path(player) %></td>
             <% end %>
             <% if can? :destroy, player %>
-            <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>
+            <td><%= destroy_link player %></td>
             <% end %>
           </tr>
           <% end %>

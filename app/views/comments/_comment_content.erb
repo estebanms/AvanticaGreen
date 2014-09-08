@@ -1,10 +1,10 @@
 <% comment ||= @comment %>
 <%= render :partial => 'comments/comment_header', :locals => { :comment => comment } %>
 <% if can?(:update, comment) %>
-  <%= link_to 'Edit', edit_comment_path(comment), :remote => true %>
+  <%= edit_link(edit_comment_path(comment), remote: true) %>
 <% end %>
 <% if can?(:destroy, comment) %>
-  <%= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete, :remote => true %>
+  <%= destroy_link(comment, remote: true) %>
 <% end %>
 <br/><b>(<%= comment.comment_type %>)</b>
 <%= comment.description %>

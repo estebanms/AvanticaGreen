@@ -61,7 +61,10 @@ class CommentsController < ApplicationController
       # commentable_type and commentable_id columns.
       # The same applies for the new action of this controller.
       @comment.commentable = @commentable
-      @comments_size = Comment.where(:commentable_id => @commentable).count
+      @comments_size = Comment.where(
+        commentable_type: @commentable.class.name,
+        commentable_id: @commentable.id
+      ).count
     end
 
     respond_to do |format|
@@ -102,7 +105,11 @@ class CommentsController < ApplicationController
       @comment.errors.add(:commentable, exception.message)
     end
 
-    @comments_size = Comment.count(:conditions => "commentable_id = #{@commentable.id}")
+    @comments_size = Comment.where(
+      commentable_type: @commentable.class.name,
+      commentable_id: @commentable.id
+    ).count
+
     respond_to do |format|
       format.html { redirect_to(comments_url) }
       format.js   { render :action => @comment.errors.any? ? 'errors' : 'destroy' }

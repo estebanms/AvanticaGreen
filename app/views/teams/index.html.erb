@@ -10,11 +10,10 @@
         <th>Code</th>
         <th>Active?</th>
         <th>Members</th>
-        <th></th>
       <% end %>
-      <% if can? :update, Team %>
-        <th></th>
-      <% end %>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
 
   <% @teams_sorted.each do |team| %>
@@ -27,12 +26,8 @@
         <td><%= team.active %></td>
         <td><%= team.players.count %></td>
       <% end %>
-      <% if can? :update, team %>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-      <% end %>
-      <% if can? :destroy, team %>
-        <td><%= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete %></td>
-      <% end %>
+      <td><%= edit_link edit_team_path(team) if can? :update, team %></td>
+      <td><%= destroy_link team if can? :destroy, team %></td>
       <td class="centered"><%= winning_or_losing(@teams_sorted, team) %></td>
     </tr>
   <% end %>
@@ -64,8 +59,8 @@
         <td><%= team.code %></td>
         <td><%= team.active %></td>
         <td><%= team.players.count %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete %></td>
+        <td><%= edit_link edit_team_path(team) %></td>
+        <td><%= destroy_link team %></td>
       </tr>
     <% end %>
     </table>

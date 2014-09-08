@@ -18,11 +18,11 @@
               <br />
               <% if pending?(witness) && can?(:update, @player) %>
                 <%= link_to 'Accept', accept_infraction_witness_path(infraction, witness), 
-                  :confirm => 'You are about to accept your role as a witness for this infraction', 
-                  :class => 'witness_button' %> | 
+                  data: { confirm: 'You are about to accept your role as a witness for this infraction' }, 
+                  class: 'witness_button' %> | 
                 <%= link_to 'Reject', reject_infraction_witness_path(infraction, witness), 
-                  :confirm => 'You are about to reject your role as a witness for this infraction', 
-                  :class => 'witness_button' %>
+                  data: { confirm: 'You are about to reject your role as a witness for this infraction' }, 
+                  class: 'witness_button' %>
               <% else %>
                 <b>Status:</b> <%= witness.status %>
               <% end %>
