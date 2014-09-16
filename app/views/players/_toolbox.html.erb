@@ -2,6 +2,7 @@
     <h3>Additional Tools</h3>
       <div>
       <h4>Import players:</h4>
+      <h5>LDAP:</h5>
       <ul>
         <li>
           <%= form_tag(import_players_path) do %>
@@ -15,6 +16,16 @@
             <%= text_field_tag(:number_of_players, 10, :size => 1) %>
             <%= label_tag(' players') %>
             <%= submit_tag('Import', data: { confirm: 'Are you sure you want to import that number of players?' }) %>
+          <% end %>
+        </li>
+      </ul>
+      <h5>CSV file:</h5>
+      <ul>
+        <li> 
+          <%= form_tag(import_players_path, multipart: true) do %>
+            <%= label_tag('Import all players from CSV file:') %>
+            <%= file_field_tag(:csv_file) %>
+            <%= submit_tag('Import', data: { confirm: 'Are you sure you want to import players from the CSV file?' }) %>
           <% end %>
         </li>
       </ul>
