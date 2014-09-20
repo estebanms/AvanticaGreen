@@ -143,8 +143,16 @@ class PlayersController < ApplicationController
         user = User.new(:email => player["mail"].ldap_escape!)
         user.password = 'dummy1'
         user.save!
+	
+        unless player["team"].blank?
+          team = Team.where(name: player["team"]).first
+          team ||= Team.create(:name => player["team"], :description => player["team"], :code => player["team"])
+        else
+          team = Team.where(name: 'Available Players').first
+        end
+
         Player.new(:name => player["name"].ldap_escape!, :last_names => player["last_names"].ldap_escape!, :user_id => user.id, 
-          :team_id => Team.where(name: 'Available Players').first.id, 
+          :team_id => team.id, 
           :is_admin => false, :active => true).save!
         @new_players.push(player)
       else
