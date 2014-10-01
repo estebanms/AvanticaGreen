@@ -45,6 +45,27 @@
       <%= f.file_field :avatar %>
     </div>
   <% end %>
+  <h2>Notification settings</h2>
+  <% if display_form_field?(:notify_witness_add) %>
+    <div class="field">
+      <%= f.check_box :notify_witness_add %> Notify me when I'm added as a witness of an infraction
+    </div>
+  <% end %>
+  <% if display_form_field?(:notify_witness_remove) %>
+    <div class="field">
+      <%= f.check_box :notify_witness_remove %> Notify me when I'm removed as a witness of an infraction
+    </div>
+  <% end %>
+  <% if display_form_field?(:notify_infraction_add) %>
+    <div class="field">
+      <%= f.check_box :notify_infraction_add %> Notify me when an infraction is reported against my team
+    </div>
+  <% end %>
+  <% if display_form_field?(:notify_infraction_update) %>
+    <div class="field">
+      <%= f.check_box :notify_infraction_update %> Notify me when an infraction against my team is updated
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

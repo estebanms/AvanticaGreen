@@ -144,7 +144,7 @@ class PlayersController < ApplicationController
         user.password = 'dummy1'
         user.save!
 	
-        unless player["team"].blank?
+        if player["team"].present?
           team = Team.where(name: player["team"]).first
           team ||= Team.create(:name => player["team"], :description => player["team"], :code => player["team"])
         else
@@ -185,7 +185,11 @@ class PlayersController < ApplicationController
 
   def permitted_params
     unless @permitted_params
-      @permitted_params = [:avatar, :name, :last_names]
+      @permitted_params = [
+        :avatar, :name, :last_names,
+        :notify_witness_add, :notify_witness_remove,
+        :notify_infraction_add, :notify_infraction_update
+      ]
       if can?(:manage, @player || Player)
         @permitted_params += [:active, :team_id, :is_admin]
       end

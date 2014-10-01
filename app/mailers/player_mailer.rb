@@ -7,18 +7,13 @@ class PlayerMailer < ActionMailer::Base
     @infraction = infraction
     @action = action
 
-    # send it to the player who created the infraction as well
-    @recipient = @infraction.player
-    mail(:to => "#{@recipient.full_name} <#{@recipient.user.email}>",
-        :subject => "Infraction has been #{@action}").deliver
-
     # send notification to all players who belong to the offending team
-    players = @infraction.offender.players
-   
-    players.each do |player|
-      @recipient = player
-      mail(:to => "#{@recipient.full_name} <#{@recipient.user.email}>", 
-        :subject => "Infraction has been #{@action}").deliver
+    @infraction.offender.players.each do |player|
+      if notify?(player, :infraction)
+        @recipient = player
+        mail(:to => "#{@recipient.full_name} <#{@recipient.user.email}>", 
+          :subject => "Infraction has been #{@action}").deliver
+      end
     end
 
   end
@@ -28,8 +23,30 @@ class PlayerMailer < ActionMailer::Base
     @recipient = @witness.player
     @infraction = @witness.infraction
     @action = action
-    mail(:to => "#{@recipient.full_name} <#{@recipient.user.email}>", 
-      :subject => "You have been #{@action} as a witness of an infraction").deliver
+
+    if notify?(@recipient, :witness)
+      mail(:to => "#{@recipient.full_name} <#{@recipient.user.email}>", 
+        :subject => "You have been #{@action} as a witness of an infraction").deliver
+    end
   end
-  
+
+  private
+
+  def notify?(player, notification_type, action = @action)
+    full_type = "#{notification_type}_#{action}".to_sym
+
+    case full_type
+    when :infraction_created
+      player.notify_infraction_add?
+    when :infraction_updated
+      player.notify_infraction_update?
+    when :witness_added
+      player.notify_witness_add?
+    when :witness_removed
+      player.notify_witness_remove?
+    else
+      false
+    end
+  end
+
 end
