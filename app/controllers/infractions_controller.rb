@@ -84,7 +84,7 @@ class InfractionsController < ApplicationController
         @infraction.check_status! unless current_user.player.is_admin?
         # send notification to player who created the infraction and to all players who belong to the offending team
         # we should only send notifications when the status of the infraction changes
-        PlayerMailer.infraction_notification(@infraction, :updated) if @infraction.status_id_changed?
+        PlayerMailer.infraction_notification(@infraction, :updated) if @infraction.previous_changes.has_key?(:status_id)
 
         format.html { redirect_to(@infraction, :notice => 'Infraction was successfully updated.') }
         format.xml  { head :ok }
