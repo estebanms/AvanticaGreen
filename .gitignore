@@ -12,5 +12,6 @@ vendor/rails
 **/*.tmp*
 public/system/*
 config/database.yml
+config/ldap.yml
 nbproject
 *~
